@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { LOAD_GAMES } from "../modules/GamesModule";
+import { LOAD_GAMES } from "../../modules/GamesModule";
 
 export default {
   props: {
