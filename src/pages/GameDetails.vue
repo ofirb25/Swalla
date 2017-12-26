@@ -61,7 +61,7 @@
       <v-card>
         <v-card-title class="headline">Choose game style:</v-card-title>
         <v-card-text class="modal-content">
-          <router-link tag="div" :to="'/'">
+          <router-link tag="div" :to="'/game/'+ game._id+'/play'">
           <div>
             <img src="../assets/single-player.png">
             <h4>Single player</h4>

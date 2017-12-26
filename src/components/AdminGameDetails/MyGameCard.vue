@@ -8,10 +8,13 @@
                     <h5>TODO: Add category</h5>
                     <div>
                         <v-card-actions class="card-actions">
-                            <v-btn color="teal" value="play" dark>
-                                <span>play</span>
-                                <v-icon>play_circle_outline</v-icon>
-                            </v-btn>
+                            <router-link :to="'/game/'+game._id+'/play'">
+                                <v-btn color="teal" value="play" dark>
+                                    <span>play</span>
+                                    <v-icon>play_circle_outline</v-icon>
+                                </v-btn>
+                            </router-link>
+
                             <v-btn color="teal" value="challenge" dark>
                                 <span>challenge</span>
                                 <v-icon>people</v-icon>
