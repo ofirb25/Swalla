@@ -32,15 +32,6 @@
 <script>
 import { LOAD_GAMES } from "../modules/GamesModule";
 
-<<<<<<< HEAD
-    export default {
-        props : {
-            game : Object
-        }
-        
-    }
-</script>
-=======
 export default {
   props: {
     game: Object
@@ -66,4 +57,3 @@ export default {
     transition: all 0.3s;
   }  
 </style>
->>>>>>> 5ab1cb2cfe6b5739627e8d41261297b400014a22
