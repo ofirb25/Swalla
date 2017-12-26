@@ -4,6 +4,8 @@ import HomePage from '../pages/HomePage';
 import GameDetails from '../pages/GameDetails';
 import MyGamesPage from '../pages/MyGamesPage';
 import MyGamesDetails from '../pages/MyGameDetails';
+import PlayPage from '../pages/PlayPage';
+import EditGamePage from '../pages/EditGamePage';
 
 Vue.use(Router)
 
@@ -14,6 +16,11 @@ export default new Router({
       path: '/',
       name: 'Home-Page',
       component: HomePage
+    },
+    {
+      path: '/game/:gameId/play',
+      name: 'play game',
+      component: PlayPage,
     },
     {
       path: '/game/:gameId',
@@ -29,6 +36,16 @@ export default new Router({
       path: '/my-game/:gameId',
       name: 'My-Game-details',
       component: MyGamesDetails
+    },
+    {
+      path: '/edit-game/:gameId',
+      name: 'Edit-Game-Page',
+      component: EditGamePage
+    },
+    {
+      path: '/add-game',
+      name: 'add-Game-Page',
+      component: EditGamePage
     }
   ]
 })
