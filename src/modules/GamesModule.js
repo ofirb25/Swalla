@@ -1,7 +1,6 @@
 import GameService from '../services/GamesService'
 export const LOAD_GAMES = 'games/loadGames';
 export const DELETE_GAME = 'games/deleteGame';
-
 export const GET_GAME_TO_EDIT = 'games/getGameToEdit';
 export const CLEAR_GAME_TO_EDIT = 'games/clearGameToEdit';//mutation
 
