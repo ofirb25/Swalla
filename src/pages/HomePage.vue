@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import GameList from '../components/GameList'
+import GameList from '../components/HomeComps/GameList'
 export default {
     components : {
         GameList
