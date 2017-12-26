@@ -4,6 +4,8 @@ import HomePage from '../pages/HomePage';
 import GameDetails from '../pages/GameDetails';
 import MyGamesPage from '../pages/MyGamesPage';
 import PlayPage from '../pages/PlayPage';
+import EditGamePage from '../pages/EditGamePage';
+
 Vue.use(Router)
 
 export default new Router({
@@ -29,5 +31,15 @@ export default new Router({
       name: 'My-Games-Page',
       component: MyGamesPage
     },
+    {
+      path: '/edit-game/:gameId',
+      name: 'Edit-Game-Page',
+      component: EditGamePage
+    },
+    {
+      path: '/add-game',
+      name: 'add-Game-Page',
+      component: EditGamePage
+    }
   ]
 })
