@@ -4,7 +4,7 @@
             <img :src="game.img" class="my-game-img"/>
             <v-list-tile-content>
                 <div>
-                    <p class="game-prev-control">Delete</p>
+                    <p @click.prevent="deleteGame(game._id)" class="game-prev-control">Delete</p>
                     <p class="game-prev-control">Edit</p>
                 </div>
                 <v-list-tile-title v-html="game.name"></v-list-tile-title>
@@ -27,11 +27,16 @@
     </v-list>
 </template>
 <script>
-import { LOAD_GAMES } from "../../modules/GamesModule";
+import { LOAD_GAMES, DELETE_GAME } from "../../modules/GamesModule";
 
 export default {
   props: {
     game: Object
+  },
+  methods: {
+    deleteGame(gameId) {
+      this.$store.dispatch({ type: DELETE_GAME, gameId })
+    }
   }
 };
 </script>
@@ -41,22 +46,21 @@ export default {
   margin-right: 1em;
 }
 .game-prev-control {
-    margin: 0;
-    font-size: 12px;
-    display: inline-block;
-    visibility: hidden;
+  margin: 0;
+  font-size: 12px;
+  display: inline-block;
+  visibility: hidden;
 }
 .list__tile__sub-title {
-    font-size: .8em;
+  font-size: 0.8em;
 }
 
 .my-game-prev:hover {
-    background-color: rgb(240, 240, 240);
-    cursor: pointer;
-    .game-prev-control{
-        visibility: visible;
-        font-weight: bold;
-    }
-
+  background-color: rgb(240, 240, 240);
+  cursor: pointer;
+  .game-prev-control {
+    visibility: visible;
+    font-weight: bold;
+  }
 }
 </style>
