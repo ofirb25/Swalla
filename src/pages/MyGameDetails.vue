@@ -1,26 +1,50 @@
 <template>
-  <v-layout>
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card>
-        <v-card-media src="/static/doc-images/cards/desert.jpg" height="200px">
-        </v-card-media>
-        <v-card-title primary-title>
-          <div>
-            <h3 class="headline mb-0">Kangaroo Valley Safari</h3>
-            <div>Located two hours south of Sydney in the <br>Southern Highlands of New South Wales, ...</div>
-          </div>
-        </v-card-title>
-        <v-card-actions>
-          <v-btn flat color="orange">Share</v-btn>
-          <v-btn flat color="orange">Explore</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
-  
+  <section class="my-game-section">
+    <div class="game-card">
+      <my-game-card :game="game" ></my-game-card>
+    </div>
+    <div class="game-quests">
+      <my-quests :game="game" ></my-quests>
+    </div>
+  </section>
 </template>
 <script>
+import GameService from "../services/GamesService";
+import MyGameCard from '../components/AdminGameDetails/MyGameCard';
+import MyQuests from '../components/AdminGameDetails/MyQuests'
 export default {
-    
-}
+  data() {
+    return {
+      game: null
+    };
+  },
+  created() {
+    var gameId = this.$route.params.gameId;
+    GameService.getGameById(gameId).then(game => {
+      this.game = game;
+    });
+  },
+  components: {
+    MyGameCard,
+    MyQuests
+  }
+};
 </script>
+<style lang="scss" scoped>
+  .my-game-section{
+    display: flex;
+    height: 100%;
+    div {
+      height: 100% !important;
+    };
+    .game-card {
+      width: 35%;
+    }
+    .game-quests {
+      width: 65%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+</style>

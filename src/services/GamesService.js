@@ -19,7 +19,12 @@ function getGameById(id) {
     .catch(err=>err)
 }
 
+function deleteGame(gameId) {
+    return axios.delete(`${gameUrl}/${gameId}`)
+}
+
 export default {
     getGames,
-    getGameById
+    getGameById,
+    deleteGame
 }
