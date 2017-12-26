@@ -1,7 +1,5 @@
 import GameService from '../services/GamesService'
-
 export const LOAD_GAMES = 'games/loadGames';
-
 
 const SET_GAMES = 'games/setGames';
 
