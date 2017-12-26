@@ -45,7 +45,7 @@ export default {
       this.selectedAns = id;
       console.log($event);
       console.log(this.$refs);
-      
+
     },
     isSelected(id) {
       return { 'selected-ans': id === this.selectedAns };
