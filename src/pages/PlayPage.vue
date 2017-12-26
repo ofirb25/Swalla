@@ -8,45 +8,48 @@
 </template>
 
 <script>
-import LoadingGame from '../components/GameComps/LoadingGame';
-import QuestionPrev from '../components/GameComps/QuestionPrev';
-import GameService from '../services/GamesService';
-import QuestComp from '../components/GameComps/QuestComp'
-import {LOAD_GAME, PLAY_NEXT} from '../modules/CurrGameModule'
+import LoadingGame from "../components/GameComps/LoadingGame";
+import QuestionPrev from "../components/GameComps/QuestionPrev";
+import GameService from "../services/GamesService";
+import QuestComp from "../components/GameComps/QuestComp";
+import { LOAD_GAME, PLAY_NEXT } from "../modules/CurrGameModule";
 
 export default {
   data() {
-      return {
-          ready : true,
-          questPrev: false,
-          isQuestionOn: false,
-          isGameOn : true
-      }
+    return {
+      ready: true,
+      questPrev: false,
+      isQuestionOn: false,
+      isGameOn: true
+    };
   },
   methods: {
-      showPrev(){
-          this.ready = true;
-          this.questPrev = true;
-      },
-      startGame() {
-          this.questPrev = false;
-          this.isQuestionOn = true;
-      },
-      playNext(){
-          this.isQuestionOn = false;
-          this.$store.dispatch({type: PLAY_NEXT})
-          if(this.$store.getters.currQuestion)  this.questPrev = true
-          else this.isGameOn = false;
-      }
+    showPrev() {
+      this.ready = true;
+      this.questPrev = true;
+    },
+    startGame() {
+      this.questPrev = false;
+      this.isQuestionOn = true;
+    },
+    playNext() {
+
+      this.isQuestionOn = false;
+      this.$store.dispatch({ type: PLAY_NEXT }).then(_ => {
+        if (this.$store.getters.currQuestion) this.questPrev = true;
+        else this.isGameOn = false;
+      });
+    }
   },
-  created () {
-      this.$store.dispatch({type: LOAD_GAME, gameId:this.$route.params.gameId})
-      .then(_=>{
-          this.ready = false;
-          //remove to fix
-          this.isQuestionOn = true;
-      })
-  },  
+  created() {
+    this.$store
+      .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
+      .then(_ => {
+        this.ready = false;
+        //remove to fix
+        // this.isQuestionOn = true;
+      });
+  },
   components: {
     LoadingGame,
     QuestionPrev,

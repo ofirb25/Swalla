@@ -2,7 +2,8 @@
   <section class="quest-container">
         <div v-if="isAnswer" class="cover"></div>
         <div class="quest-details">
-        <time-bar :timeLimit="parseInt(question.time)" @done="playNext"></time-bar>
+        <!-- <time-bar :timeLimit="parseInt(question.time)" @done="playNext"></time-bar> -->
+        <time-bar :timeLimit="3000" @done="playNext"></time-bar>
             <h1 class="display-1">{{question.title}}</h1>
             <div class="content">
                 <div>
@@ -43,8 +44,6 @@ export default {
       if (this.isAnswer) return;
       else this.isAnswer = true;
       this.selectedAns = id;
-      console.log($event);
-      console.log(this.$refs);
 
     },
     isSelected(id) {
@@ -98,7 +97,7 @@ export default {
       display: flex;
       align-items: center;
       img {
-        max-width: 200px;
+        max-width: 180px;
         height: auto;
         margin-right: 20px;
       }
