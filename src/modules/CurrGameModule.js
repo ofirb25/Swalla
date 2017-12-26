@@ -1,7 +1,7 @@
 import GameService from '../services/GamesService'
 export const LOAD_GAME = 'currGame/loadGame';
 export const PLAY_NEXT = 'currGame/playNext';
-export const ADD_POINTS = 'currGame/playNext';
+export const ADD_POINTS = 'currGame/addPoints';
 
 const SET_GAME = 'currGame/setGame';
 
@@ -21,7 +21,7 @@ export default {
         },
         [ADD_POINTS](state,{points}) {
             state.TotalPoints+= points;
-            LastScore = points
+            state.LastScore = points
         }
     },
     getters: {
