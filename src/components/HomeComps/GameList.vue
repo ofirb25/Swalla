@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import { LOAD_GAMES } from "../modules/GamesModule";
+
+import { LOAD_GAMES } from "../../modules/GamesModule";
 import GamePreview from './GamePreview'
 export default {
   created() {
