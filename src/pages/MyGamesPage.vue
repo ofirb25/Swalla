@@ -2,13 +2,9 @@
     <section>
         <h1>My Games Page</h1>
         <div class="container">
-            
-
             <div class="controlsContainer">
                 <v-text-field label="Search">
                 </v-text-field>
-
-
                 <div :absolute="true" :value="true" :active.sync="e1" color="transparent">
                     <v-btn flat color="teal" value="recent">
                         <span>Recent</span>
@@ -24,18 +20,16 @@
                     </v-btn>
                 </div>
             </div>
+            <my-game-list></my-game-list>
             <v-btn fab dark color="indigo">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                </v-btn>
-
-
-
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </v-btn>
         </div>
     </section>
 </template>
 
 <script>
-    // import GameList from '../components/GameList'
+    import MyGameList from '../components/AdminCmps/MyGameList'
     export default {
         data() {
             return {
@@ -46,6 +40,8 @@
         methods: {
 
         },
-        components: {}
+        components: {
+            MyGameList
+        }
     };
 </script>
