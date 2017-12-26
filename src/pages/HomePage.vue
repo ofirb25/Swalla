@@ -1,6 +1,5 @@
 <template>
-    <section>
-        <h1>Home</h1>
+    <section class="games-section">
         <div class="container">
         <game-list></game-list>
         </div>
@@ -15,4 +14,11 @@ export default {
     }
 }
 </script>
+
+<style>
+.games-section{
+    display:flex;
+    justify-content: center;
+}
+</style>
 

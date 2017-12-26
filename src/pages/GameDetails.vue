@@ -1,12 +1,18 @@
 <template>
   <section v-if="game">
       <div class="game-details">
-          <h1>{{game.name}}</h1>
-      <img :src="game.img">
-      <p>{{game.description}}</p>
-      </div>
 
-      <div class="rank">
+      <v-card class="game-details-top">
+        <v-card-media :src="game.img" height="200px">
+        </v-card-media>
+        <v-card-title class="game-description" primary-title>
+          <div>
+            <h3 class="headline mb-0">{{game.name}}</h3>
+            <div>{{game.description}}</div>
+          </div>
+        </v-card-title>
+        <v-card-actions class="game-stats">
+         <div class="rank">
           <div>
             <span class="fa fa-trophy"></span><span>{{game.highscore}}</span>
           </div>
@@ -17,7 +23,10 @@
             <span>{{game.createdAt}}</span><span class="fa fa-clock-o"></span>
            </div>
       </div>
-        <v-list subheader>
+        </v-card-actions>
+      </v-card>
+     
+        <v-list class="sample-questions" subheader>
           <v-subheader>Sample Questions</v-subheader>
                    <!-- <v-list-tile v-for="question in game.questions" v-bind:key="question._id">
               <v-list-tile-content>
@@ -34,6 +43,23 @@
             <v-divider></v-divider>
           </div>
         </v-list>
+        </div>
+
+      <v-fab-transition>
+        <v-btn
+        :color="activeFab.color"
+        :key="activeFab.icon"
+        dark
+        fab
+        fixed
+        bottom
+        right
+        v-model="fab"
+      >
+        <v-icon>{{ activeFab.icon }}</v-icon>
+        <v-icon>close</v-icon>
+      </v-btn>
+      </v-fab-transition>
   </section>
 </template>
 <script>
@@ -41,7 +67,10 @@ import GameService from "../services/GamesService";
 export default {
   data() {
     return {
-      game: null
+      game: null,
+       fab: false,
+      hidden: false,
+      tabs: null
     };
   },
   created() {
@@ -49,8 +78,19 @@ export default {
     GameService.getGameById(gameId).then(game => {
       this.game = game;
     });
+  },
+   computed: {
+      activeFab () {
+        switch (this.tabs) {
+          case 'one': return { 'color': 'indigo', icon: 'share' }
+          case 'two': return { 'color': 'red', icon: 'edit' }
+          case 'three': return { 'color': 'green', icon: 'keyboard_arrow_up' }
+          default: return {}
+        }
+      }
+    }
   }
-};
+
 </script>
 
 <style lang="scss">
@@ -60,6 +100,16 @@ export default {
   align-items: center;
 }
 
+.game-details-top{
+  width: 100%;
+}
+
+.game-description{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
 .sample-question-item {
     transition: all 0.3s;
     &:hover{
@@ -67,10 +117,19 @@ export default {
     }
 }
 
+.sample-questions{
+  width: 100%;
+}
+
+.game-stats{
+  display: flex;
+  justify-content: center;
+}
+
 .rank {
   display: flex;
   justify-content: center;
-  font-size: 2em;
+  font-size: 1.2em;
   div {
     padding: 15px;
 

@@ -32,15 +32,14 @@ export default {
 .games-container {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: wrap;  
 
     .game-item {
-      width:300px;
+      width:250px;
+      // height: 100px;
       margin:1em;
       border-radius: 5px;
       cursor: pointer;
-     
-
     }
 
      @media (max-width:700px){

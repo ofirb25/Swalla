@@ -11,7 +11,10 @@
 import MainNav from './components/MainNav'
 
 export default {
-  name: 'app'
+  name: 'app',
+   components : {
+    MainNav
+  }
 }
 </script>
 

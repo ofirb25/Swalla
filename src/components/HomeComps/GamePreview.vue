@@ -15,7 +15,7 @@
         </v-card-media>
         <v-card-title>
           <div>
-            <span class="grey--text">{{game.description}}</span><br>
+            <span class="grey--text">{{game.description | strLength}}</span><br>
           </div>
         </v-card-title>
         <v-card-actions class="game-stats">
@@ -35,7 +35,15 @@ import { LOAD_GAMES } from "../../modules/GamesModule";
 export default {
   props: {
     game: Object
+  },
+  filters: {
+  strLength: function (value) {
+    if (!value) return ''
+    value = value.toString()
+    if (value.length > 90) return value.substring(0,90)+'...';
+    else return value;
   }
+}
 };
 </script>
 <style lang="scss" scoped>
