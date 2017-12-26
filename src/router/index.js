@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HomePage from '../pages/HomePage'
-import GameDetails from '../pages/GameDetails'
+import HomePage from '../pages/HomePage';
+import GameDetails from '../pages/GameDetails';
+import MyGamesPage from '../pages/MyGamesPage';
+
 Vue.use(Router)
 
 export default new Router({
@@ -16,6 +18,11 @@ export default new Router({
       path: '/game/:gameId',
       name: 'game-details',
       component: GameDetails
+    },
+    {
+      path: '/my-games',
+      name: 'My-Games-Page',
+      component: MyGamesPage
     }
   ]
 })
