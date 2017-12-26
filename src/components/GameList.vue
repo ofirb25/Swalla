@@ -1,7 +1,9 @@
 <template>
   <section>
     <div class="games-container">
-      <game-preview v-for="game in games" :game="game" :key="game._id" class="game-item"></game-preview>
+      <router-link v-for="game in games" :to="'/game/'+game._id" :key="game._id">
+      <game-preview :game="game"  class="game-item"></game-preview>
+      </router-link>
       </div>
   </section>
 </template>
@@ -29,14 +31,22 @@ export default {
 .games-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
-  
-  .game-item {
-    align-self: center;
-    min-width: 250px;
-    margin-bottom: 10px;
-  }
+
+    .game-item {
+      width:300px;
+      margin:1em;
+      border-radius: 5px;
+      cursor: pointer;
+     
+
+    }
+
+     @media (max-width:700px){
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+      }
 }
 
 </style>
