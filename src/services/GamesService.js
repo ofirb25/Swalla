@@ -9,10 +9,17 @@ function getGames() {
     });
 }
 
-function saveCar(){
-
+function getGameById(id) {
+    return axios
+    .get(`${gameUrl}/${id}`)
+    .then(({data})=>{
+        console.log(data)
+        return data
+    })
+    .catch(err=>err)
 }
 
 export default {
-    getGames
+    getGames,
+    getGameById
 }
