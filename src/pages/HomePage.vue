@@ -1,7 +1,7 @@
 <template>
     <section class="games-section">
         <div class="container">
-            <h1>READY TO DO PIGUIM?</h1>
+            <h1>SWALLA</h1>
         <div class="input-container">
         <input style="text" placeholder="⌕ Search game"/>
         <input style="text" placeholder="Enter your pin here"/>
