@@ -15,7 +15,6 @@ import GamePreview from './GamePreview'
 export default {
   created() {
     this.$store.dispatch({ type: LOAD_GAMES }).then(games => {
-      console.log(games);
     });
   },
   computed: {
