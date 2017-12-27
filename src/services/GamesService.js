@@ -27,7 +27,7 @@ const getObjToEdit = (id) => {
             var emptyObj = _getEmptyGame()
             // console.log('emptyObj FROM SERVICE: ', emptyObj);
             resolve(_getEmptyGame())
-        }else {
+        } else {
             getGameById(id)
                 .then(game => resolve(game))
                 .catch(err => reject(err))
@@ -42,6 +42,8 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
         description: '',
         img: '',
         highscore: 0,
+        audience: '',
+        isPublic: true,
         createdAt: null,
         playersCount: 0,
         questions: [
@@ -62,6 +64,11 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
 
 function deleteGame(gameId) {
     return axios.delete(`${gameUrl}/${gameId}`)
+}
+
+function searchGame(query) {
+    var results = []
+        
 }
 
 export default {
