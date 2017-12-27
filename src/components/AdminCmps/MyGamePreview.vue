@@ -63,6 +63,9 @@ export default {
   .game-prev-control {
     visibility: visible;
     font-weight: bold;
+    text-decoration: none;
+    color: rgb(41, 41, 41);
+
   }
 }
 </style>
