@@ -1,26 +1,34 @@
 <template>
   <section>
-        <time-bar :timeLimit="parseInt(question.time)" @done="playNext"></time-bar>
-        <div class="quest-container">
-        <div v-if="isAnswer" class="cover"></div>
-        <div class="quest-details">
-        <!-- <time-bar :timeLimit="3000" @done="playNext"></time-bar> -->
-            <h1>{{question.title}}</h1>
-            <div class="content">
-                <div>
-                    <img :src="question.img" alt="">
-                </div>
-            </div>
-            <div class="answersCount">Answers:<br/>{{answerCount}}</div>
+      <time-bar :timeLimit="parseInt(question.time)" @done="playNext"></time-bar>
+      <div class="quest-container">
+          <div v-if="isCover" class="cover"></div>
+          <div class="quest-details">
+              <!-- <time-bar :timeLimit="3000" @done="playNext"></time-bar> -->
+              <h1>{{question.title}}</h1>
+              <div class="content">
+                  <div>
+                      <img :src="question.img" alt="">
+                  </div>
+              </div>
+              <div class="answersCount">Answers:
+                  <br/>{{answerCount}}</div>
 
-        </div>
-           <div class="answers">
-                    <v-btn v-for="(answer,idx) in question.answers" :class="isSelected(idx)"
-                    :key="idx" :color="answerColors[idx]" @click="checkAns($event,idx)" :ref="'ans'+idx">
-                        {{answer.text}}
-                    </v-btn>
-                </div>
-        </div>
+          </div>
+          <div v-if="!showCorrect" class="answers">
+              <v-btn v-for="(answer,idx) in question.answers" :class="isSelected(idx)" :key="idx" :color="answerColors[idx]" @click="checkAns($event,idx)"
+                  :ref="'ans'+idx">
+                  {{answer.text}}
+              </v-btn>
+          </div>
+          <div v-else class="answers">
+              <v-btn v-for="(answer,idx) in question.answers" :class="isSelected(idx)" 
+              :key="idx" :color="answer.isCorrect ? 'green' : 'red'"
+                  :ref="'ans'+idx">
+                  {{answer.text}}
+              </v-btn>
+          </div>
+      </div>
   </section>
 </template>
 <script>
@@ -30,6 +38,8 @@ export default {
   data() {
     return {
       selectedAns: null,
+      showCorrect:false,
+      isCover: false,
       startTime: null,
       isAnswer: false,
       question: this.$store.getters.currQuestion,
@@ -43,16 +53,26 @@ export default {
   },
   methods: {
     checkAns($event, id) {
+      var time = Date.now() - this.startTime
+      console.log(time)
+      var points = parseInt(((this.question.time - time) / this.question.time)  * 100 )
+      console.log(points)
       if (this.isAnswer) return;
-      else this.isAnswer = true;
-      this.selectedAns = id;
-
+      else {
+        this.isAnswer = true;
+        this.isCover= true;
+        this.selectedAns = id;
+      }
     },
     isSelected(id) {
-      return { 'selected-ans': id === this.selectedAns };
+      return { "selected-ans": id === this.selectedAns };
     },
-    playNext(){
-        this.$emit('playNext')
+    playNext() {
+      //this.isCover = false;
+      this.showCorrect = true;
+      setTimeout(()=>{
+        this.$emit("playNext");
+      },3500)
     }
   },
   computed: {
@@ -60,8 +80,8 @@ export default {
       return 2;
     }
   },
-  created(){
-    this.startTime = Date.now()
+  mounted() {
+    this.startTime = Date.now();
   },
   components: {
     TimeBar
@@ -83,7 +103,7 @@ export default {
 }
 .quest-container {
   display: flex;
-  height: 95vh;
+  height: 85vh;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -94,8 +114,8 @@ export default {
     justify-content: center;
     .answersCount {
       text-align: center;
-      h1{
-        font-size:1.2em;
+      h1 {
+        font-size: 1.2em;
       }
     }
     .content {
