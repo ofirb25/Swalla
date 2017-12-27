@@ -8,6 +8,7 @@ import PlayPage from '../pages/PlayPage';
 import PlayMulti from '../pages/PlayMulti';
 import EditGamePage from '../pages/EditGamePage';
 import LoginPage from '../pages/LoginPage'
+import SignupPage from '../pages/SignupPage'
 
 Vue.use(Router)
 
@@ -27,7 +28,12 @@ export default new Router({
     {
       path: '/game/:gameId/play-multi',
       name: 'play multi',
-      component: PlayMulti,
+      component: PlayMulti
+    },
+    {
+      path: '/signup-page',
+      name : 'signup-page',
+      component: SignupPage
     },
     {
       path: '/game/:gameId/play',

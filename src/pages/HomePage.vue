@@ -1,9 +1,9 @@
 <template>
     <section class="games-section">
         <div class="container">
-            <h1>READY TO DO PIGUIM?</h1>
+            <h1>SWALLA</h1>
         <div class="input-container">
-        <input style="text" placeholder="⌕ Search game"/>
+        <input style="text" placeholder="⌕ Search game" @input="setFilter" v-model="filterBy"/>
         <input style="text" placeholder="Enter your pin here"/>
         </div>
         <game-list></game-list>
@@ -13,9 +13,20 @@
 
 <script>
 import GameList from "../components/HomeComps/GameList";
+import { SET_FILTER } from "../modules/GamesModule";
 export default {
+  data() {
+    return {
+      filterBy: ''
+    }
+  },
   components: {
     GameList
+  },
+  methods: {
+    setFilter() {
+      this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
+    }
   }
 };
 </script>
@@ -31,17 +42,17 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    h1{
-         margin-bottom: 10px;
-         font-size: 70px;
-         color: rgba(176, 132, 226, 0.699);
+    h1 {
+      margin-bottom: 10px;
+      font-size: 70px;
+      color: rgba(176, 132, 226, 0.699);
     }
 
     .input-container {
-        width: 50%;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
+      width: 50%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
       input {
         border: 2px solid rgba(0, 0, 0, 0.452);
         border-radius: 3px;
