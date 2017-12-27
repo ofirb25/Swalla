@@ -136,17 +136,6 @@
     }
   }
 
-  .modal-content{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    div{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
-  }
+ 
 
 </style>
