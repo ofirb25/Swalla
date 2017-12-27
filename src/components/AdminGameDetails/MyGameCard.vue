@@ -12,6 +12,11 @@
                                     <span>play</span>
                                     <v-icon>play_circle_outline</v-icon>
                                 </v-btn>
+                                <v-btn color="teal" value="play" dark>
+                                    <span>Edit</span>
+                                    <v-icon>edit</v-icon>
+                                </v-btn>
+
                         </v-card-actions>
                     </div>
                     <div>{{game.description}}</div>
@@ -39,6 +44,8 @@
         </v-card>
 </template>
 <script>
+import StartgameModal from "../EditCmps/StartGameModal.vue";
+
 export default {
   props: {
     game: Object
@@ -48,6 +55,9 @@ export default {
       dialog: false
     };
   },
+  components: {
+    StartgameModal
+  }
 };
 </script>
 <style lang="scss" scoped>

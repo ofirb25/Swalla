@@ -64,6 +64,11 @@ function deleteGame(gameId) {
     return axios.delete(`${gameUrl}/${gameId}`)
 }
 
+function searchGame(query) {
+    var results = []
+        
+}
+
 export default {
     getGames,
     getGameById,
