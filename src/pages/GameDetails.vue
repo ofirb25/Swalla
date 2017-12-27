@@ -31,7 +31,7 @@
 
       <v-list v-if="game" class="sample-questions" subheader>
         <v-subheader>Sample Questions</v-subheader>
-        <div v-for="question in game.questions" v-bind:key="question.title" class="sample-question-item">
+        <div v-for="question in game.questions" v-bind:key="question._id" class="sample-question-item">
           <v-list-tile>
             <v-list-tile-content>
               <v-list-tile-title v-html="question.title"></v-list-tile-title>
