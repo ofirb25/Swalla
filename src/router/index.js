@@ -26,14 +26,14 @@ export default new Router({
       component: LoginPage
     },
     {
-      path: '/game/:gameId/play-multi',
-      name: 'play multi',
-      component: PlayMulti
-    },
-    {
       path: '/signup-page',
       name : 'signup-page',
       component: SignupPage
+    },
+    {
+      path: '/game/:gameId/play-multi',
+      name: 'play multi',
+      component: PlayMulti
     },
     {
       path: '/game/:gameId/play',
