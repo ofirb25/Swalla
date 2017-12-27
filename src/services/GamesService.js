@@ -13,7 +13,8 @@ function getGameById(id) {
     return axios
         .get(`${gameUrl}/${id}`)
         .then(({ data }) => {
-            console.log(data)
+            console.log(id)
+            console.log('from gameservice',data)
             return data
         })
         .catch(err => err)

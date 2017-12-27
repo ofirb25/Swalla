@@ -34,16 +34,17 @@ export default {
 
     },
     actions: {
-        [LOAD_GAME]({ commit, gameId }) {
+        [LOAD_GAME]({ commit },{gameId}) {
             return GameService.getGameById(gameId)
                 .then(game => {
+
                     commit({ type: SET_GAME, game })
                 })
         },
         [PLAY_NEXT]({ commit }) {
             commit({ type: PLAY_NEXT })
         },
-        [ADD_POINTS]({ commit, points }) {
+        [ADD_POINTS]({ commit}, {points}) {
             commit({type: ADD_POINTS, points})
         }
     }

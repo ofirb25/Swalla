@@ -29,15 +29,9 @@
         </v-card-actions>
       </v-card>
 
-      <v-list class="sample-questions" subheader>
+      <v-list v-if="game" class="sample-questions" subheader>
         <v-subheader>Sample Questions</v-subheader>
-        <!-- <v-list-tile v-for="question in game.questions" v-bind:key="question._id">
-              <v-list-tile-content>
-                <v-list-tile-title v-html="question.title" ></v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-divider></v-divider> -->
-        <div v-for="question in game.questions" v-bind:key="question._id" class="sample-question-item">
+        <div v-for="question in game.questions" v-bind:key="question.title" class="sample-question-item">
           <v-list-tile>
             <v-list-tile-content>
               <v-list-tile-title v-html="question.title"></v-list-tile-title>

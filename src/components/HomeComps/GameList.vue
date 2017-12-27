@@ -1,8 +1,8 @@
 <template>
-  <section>
+  <section v-if="games">
     <div class="games-container">
       <router-link v-for="game in games" :to="'/game/'+game._id" :key="game._id">
-      <game-preview :game="game"  class="game-item"></game-preview>
+      <game-preview :game="game" class="game-item"></game-preview>
       </router-link>
       </div>
   </section>
