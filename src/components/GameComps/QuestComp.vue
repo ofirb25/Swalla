@@ -1,10 +1,11 @@
 <template>
-  <section class="quest-container">
+  <section>
+        <time-bar :timeLimit="parseInt(question.time)" @done="playNext"></time-bar>
+        <div class="quest-container">
         <div v-if="isAnswer" class="cover"></div>
         <div class="quest-details">
-        <!-- <time-bar :timeLimit="parseInt(question.time)" @done="playNext"></time-bar> -->
-        <time-bar :timeLimit="3000" @done="playNext"></time-bar>
-            <h1 class="display-1">{{question.title}}</h1>
+        <!-- <time-bar :timeLimit="3000" @done="playNext"></time-bar> -->
+            <h1>{{question.title}}</h1>
             <div class="content">
                 <div>
                     <img :src="question.img" alt="">
@@ -19,6 +20,7 @@
                         {{answer.text}}
                     </v-btn>
                 </div>
+        </div>
   </section>
 </template>
 <script>
@@ -92,6 +94,9 @@ export default {
     justify-content: center;
     .answersCount {
       text-align: center;
+      h1{
+        font-size:1.2em;
+      }
     }
     .content {
       display: flex;
