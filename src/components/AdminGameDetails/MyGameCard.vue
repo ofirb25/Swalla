@@ -14,11 +14,6 @@
                                     <v-icon>play_circle_outline</v-icon>
                                 </v-btn>
                             </router-link>
-
-                            <v-btn color="teal" value="challenge" dark>
-                                <span>challenge</span>
-                                <v-icon>people</v-icon>
-                            </v-btn>
                         </v-card-actions>
                     </div>
                     <div>{{game.description}}</div>
