@@ -9,8 +9,14 @@
     </v-tabs-bar>
     <v-tabs-items>
       <v-tabs-content v-for="i in tabs" :key="i" :id="'tab-' + i">
-          <game-details v-if="isOnDetails"  @switchComp="changeComps" @cancleEdition="cancleAndReroute" :gameToEdit="gameToEdit"></game-details>
-          <enter-questions v-if="!isOnDetails"   @cancleEdition="cancleAndReroute"  ></enter-questions>
+          <game-details v-if="gameToEdit && isOnDetails " 
+                        :gameToEditDetails="gameToEdit" 
+                        @onDetailschange="changeDetails" 
+                        @cancleEdition="cancleAndReroute"></game-details>
+
+          <enter-questions v-if="!isOnDetails" 
+                            :gameToEditEnterQuestions="gameToEdit"  
+                            @cancleEdition="cancleAndReroute"       ></enter-questions>
       </v-tabs-content>
     </v-tabs-items>
   </v-tabs>
@@ -27,9 +33,9 @@ export default {
   data() {
     return {
       tabs: ["Game Details", "Enter Questions"],
-      gameToEdit: null,
       gameId: null,
-      isOnDetails: true
+      isOnDetails: true,
+      game: null
     };
   },
   components: {
@@ -40,9 +46,22 @@ export default {
     cancleAndReroute() {
       this.$store.commit({ type: CLEAR_GAME_TO_EDIT });
     },
-    changeComps(){
-        console.log('HERE');
-        this.isOnDetails = !this.isOnDetails;
+    changeDetails(updatedDetails) {
+      console.log("game before change", this.game);
+      this.isOnDetails = !this.isOnDetails;
+      this.game.name = updatedDetails.name;
+      this.game.description = updatedDetails.description;
+      this.game.img = updatedDetails.img;
+      this.game.isPublic = updatedDetails.isPublic;
+      this.game.audience = updatedDetails.audience;
+      console.log("GAME AFTER CHANGE: ", this.game); //finish the details - update all the fields
+    }
+  },
+  computed: {
+    gameToEdit() {
+      this.game = this.$store.getters.gameToEdit;
+      return this.$store.getters.gameToEdit;
+      console.log("this.game:", this.game);
     }
   },
   created() {
@@ -50,7 +69,7 @@ export default {
     this.$store
       .dispatch({ type: GET_GAME_TO_EDIT, gameId: this.gameId })
       .then(_ => {
-        this.gameToEdit = this.$store.getters.gameToEdit;
+        // this.gameToEdit = this.$store.getters.gameToEdit;
         console.log("gameToEdit ", this.gameToEdit);
       });
   }

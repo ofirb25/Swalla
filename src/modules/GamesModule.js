@@ -22,18 +22,12 @@ export default {
             state.games = state.games.filter(game => game._id !== gameId)
         },
         [SET_GAME_TO_EDIT](state, {gameToEdit}){
+            console.log('IN THE COMMIT');
             state.gameToEdit =  JSON.parse(JSON.stringify(gameToEdit));
         },
         [CLEAR_GAME_TO_EDIT](state){
             state.gameToEdit = null;
         }
-    },
-    getters: {
-        gamesToDisplay(context) {
-            var { games, filterBy } = context;
-            console.log(games)
-        }, 
-        
     },
     getters: {
         gamesToDisplay(context) {
