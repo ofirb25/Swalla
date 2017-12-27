@@ -1,13 +1,17 @@
 <template>
   <section>
-      <v-form v-if="!isNameSaved" @submit.prevent="saveName">
+    <div class="nick" v-if="!isNameSaved">
+    <v-form  @submit.prevent="saveName">
      <v-text-field
       label="Your Nickname??"
       v-model="name"
       :counter="10">
       </v-text-field>
-     <v-btn @click="saveName" color="green">Start Playing!</v-btn>
+        <v-btn @click="saveName" color="green">Start Playing!</v-btn>
       </v-form>
+    </div>
+  
+   
       <loading-game @done="showPrev" v-if="!ready"></loading-game>
       <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
       <quest-comp @playNext="playNext" v-if="isQuestionOn"></quest-comp>
@@ -73,5 +77,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.nick {
+  height:90vh;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 </style>
