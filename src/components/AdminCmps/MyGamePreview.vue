@@ -12,12 +12,10 @@
                 <v-list-tile-sub-title v-html="'questions:' + game.questions.length"></v-list-tile-sub-title>
             </v-list-tile-content>
                 <div>
-                  <router-link :to="'/game/'+game._id+'/play'">
-                    <v-btn flat color="teal" value="play">
+                    <v-btn flat color="teal" value="play" @click.native.stop.prevent="dialog = true">
                         <span>play</span>
                         <v-icon>play_circle_outline</v-icon>
                     </v-btn>
-                  </router-link>
                 </div>
                 <div>
                     <v-btn flat color="teal" value="share">
@@ -26,10 +24,13 @@
                     </v-btn>
                 </div>
        </v-list-tile>
+       <startgame-modal :dialog="dialog" :game="game"></startgame-modal>
+
     </v-list>
 </template>
 <script>
 import { LOAD_GAMES, DELETE_GAME } from "../../modules/GamesModule";
+import StartgameModal from "../EditCmps/StartGameModal.vue";
 
 export default {
   props: {
@@ -39,6 +40,14 @@ export default {
     deleteGame(gameId) {
       this.$store.dispatch({ type: DELETE_GAME, gameId });
     }
+  },
+  data() {
+    return {
+      dialog: false
+    };
+  },
+  components: {
+    StartgameModal
   }
 };
 </script>
@@ -65,7 +74,6 @@ export default {
     font-weight: bold;
     text-decoration: none;
     color: rgb(41, 41, 41);
-
   }
 }
 </style>

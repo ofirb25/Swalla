@@ -1,6 +1,6 @@
 <template >
-    <section class="quest-container" @click="showAnswer = !showAnswer">
-        <v-list two-line v-if="quest">
+    <section  @click="showAnswer = !showAnswer">
+        <v-list two-line v-if="quest" class="quest-container">
             <v-list-tile :key="quest._id">
                 <v-list-tile-content>
                     <v-list-tile-title v-html="quest.title"></v-list-tile-title>
@@ -30,9 +30,9 @@ export default {
     quest: Object
   },
   data() {
-      return {
-          showAnswer: false
-      }
+    return {
+      showAnswer: false
+    };
   }
 };
 </script>
@@ -60,25 +60,30 @@ export default {
   bottom: 0px;
 }
 .quest-answers {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    border-top: 1.2px solid rgb(238, 237, 237);
-    padding: 10px 16px;
-    p,div {
-        display: inline-block;
-        margin: 0px;
-    }
-    .notCorrect {
-        color: red;
-        font-size: 1.2em
-    }
-    .isCorrect {
-        color: green;
-        font-size: 1.2em
-    }
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-top: 1.2px solid rgb(238, 237, 237);
+  padding: 10px 16px;
+  p,
+  div {
+    display: inline-block;
+    margin: 0px;
+  }
+  .notCorrect {
+    color: red;
+    font-size: 1.2em;
+  }
+  .isCorrect {
+    color: green;
+    font-size: 1.2em;
+  }
 }
 .quest-container {
-    cursor: pointer;
+  cursor: pointer;
+  margin: 1em;
+  &:hover {
+    background-color: rgb(240, 240, 240);
+  }
 }
 </style>

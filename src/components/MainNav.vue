@@ -1,6 +1,6 @@
 <template>
   <v-toolbar>
-    <router-link tag="div" :to="'/'"><v-toolbar-title><img class="logo" src="../assets/swalla2.png"></v-toolbar-title></v-toolbar-title></router-link> 
+    <router-link class="logo-router" tag="div" :to="'/'"><v-toolbar-title><img class="logo" src="../assets/swalla2.png"></v-toolbar-title></v-toolbar-title></router-link> 
     <v-spacer></v-spacer>
     <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
     <v-toolbar-items class="hidden-sm-and-down">
@@ -49,5 +49,8 @@ export default {
 .navBtn{
     height: 100%;
     margin: 0;
+}
+.logo-router {
+  background-color: rgba(255, 255, 255, 0)
 }
 </style>

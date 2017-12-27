@@ -16,7 +16,7 @@
       <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
       <quest-comp @playNext="playNext" v-if="isQuestionOn"></quest-comp>
       <p v-if="!isGameOn">game over</p>
-  </section>
+  </section>  
 </template>
 
 <script>

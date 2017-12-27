@@ -13,7 +13,8 @@ function getGameById(id) {
     return axios
         .get(`${gameUrl}/${id}`)
         .then(({ data }) => {
-            console.log(data)
+            console.log(id)
+            console.log('from gameservice',data)
             return data
         })
         .catch(err => err)
@@ -63,6 +64,11 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
 
 function deleteGame(gameId) {
     return axios.delete(`${gameUrl}/${gameId}`)
+}
+
+function searchGame(query) {
+    var results = []
+        
 }
 
 export default {
