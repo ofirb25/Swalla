@@ -72,7 +72,7 @@ export default {
       this.showCorrect = true;
       setTimeout(()=>{
         this.$emit("playNext");
-      },3500)
+      },2500)
     }
   },
   computed: {
