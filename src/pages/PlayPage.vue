@@ -56,6 +56,7 @@ export default {
       this.$store.dispatch({ type: PLAY_NEXT }).then(_ => {
         if (this.$store.getters.currQuestion) this.questPrev = true;
         else this.isGameOn = false;
+        
       });
     }
   },

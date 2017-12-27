@@ -15,7 +15,7 @@ import TimeBar from "./TimeBar";
 export default {
   data() {
     return {
-      question: this.$store.getters.currQuestion
+    
     };
   },
   methods: {
@@ -25,6 +25,11 @@ export default {
   },
   components: {
     TimeBar
+  },
+  computed : {
+      question(){
+       return this.$store.getters.currQuestion
+      }
   }
 };
 </script>
