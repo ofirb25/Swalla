@@ -13,6 +13,7 @@
       :rules="emailRules"
       required
     ></v-text-field>
+    <v-btn class="login-btn">Login</v-btn>
     <h2>or</h2>
     <img src="../assets/fblogin.png">
     <span>sign up</span>
@@ -47,14 +48,19 @@ export default {
 
 .login-section{
     width: 20%;
+    // height: 70vh;
     align-self: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     img {
-        width: 260px;
+        width: 100%;
         height: 40px;
     }    
+
+    .login-btn{
+      width: 100%;
+    }
 }
 </style>
