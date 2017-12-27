@@ -8,12 +8,10 @@
                     <h5>TODO: Add category</h5>
                     <div>
                         <v-card-actions class="card-actions">
-                            <router-link :to="'/game/'+game._id+'/play'">
-                                <v-btn color="teal" value="play" dark>
+                                <v-btn color="teal" value="play" dark @click.native.stop="dialog = true">
                                     <span>play</span>
                                     <v-icon>play_circle_outline</v-icon>
                                 </v-btn>
-                            </router-link>
                         </v-card-actions>
                     </div>
                     <div>{{game.description}}</div>
@@ -36,13 +34,20 @@
 
                 </div>
             </v-card-title>
+            <startgame-modal :dialog="dialog" :game="game"></startgame-modal>
+
         </v-card>
 </template>
 <script>
 export default {
   props: {
     game: Object
-  }
+  },
+  data() {
+    return {
+      dialog: false
+    };
+  },
 };
 </script>
 <style lang="scss" scoped>
