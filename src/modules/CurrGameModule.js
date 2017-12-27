@@ -29,7 +29,9 @@ export default {
             return context.game
         },
         currQuestion(context) {
-            return context.game.questions[context.currQuestion] || null
+            if (context.game) {
+                return context.game.questions[context.currQuestion] || null                
+            }
         },
 
     },
@@ -37,7 +39,6 @@ export default {
         [LOAD_GAME]({ commit },{gameId}) {
             return GameService.getGameById(gameId)
                 .then(game => {
-
                     commit({ type: SET_GAME, game })
                 })
         },
