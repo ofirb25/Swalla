@@ -23,14 +23,8 @@ export default {
         [DELETE_GAME](state, { gameId }) {
             state.games = state.games.filter(game => game._id !== gameId)
         },
-<<<<<<< HEAD
-        [SET_GAME_TO_EDIT](state, {gameToEdit}){
-            console.log('IN THE COMMIT');
-            state.gameToEdit =  JSON.parse(JSON.stringify(gameToEdit));
-=======
         [SET_GAME_TO_EDIT](state, { gameToEdit }) {
             state.gameToEdit = JSON.parse(JSON.stringify(gameToEdit));
->>>>>>> a04f8edd2e0d5a1e79cb1406e99abfc2ab1da23d
         },
         [CLEAR_GAME_TO_EDIT](state) {
             state.gameToEdit = null;
@@ -42,11 +36,7 @@ export default {
     },
     getters: {
         gamesToDisplay(context) {
-<<<<<<< HEAD
-            var {games, filterBy} = context;
-=======
             var { games, filterBy } = context;
->>>>>>> a04f8edd2e0d5a1e79cb1406e99abfc2ab1da23d
             // console.log('games From Games Moudle Getter'.games)
             if (!filterBy) return games
             return games.filter(game => {
