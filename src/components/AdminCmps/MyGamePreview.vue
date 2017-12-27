@@ -12,10 +12,12 @@
                 <v-list-tile-sub-title v-html="'questions:' + game.questions.length"></v-list-tile-sub-title>
             </v-list-tile-content>
                 <div>
+                  <router-link :to="'/game/'+game._id+'/play'">
                     <v-btn flat color="teal" value="play">
                         <span>play</span>
                         <v-icon>play_circle_outline</v-icon>
                     </v-btn>
+                  </router-link>
                 </div>
                 <div>
                     <v-btn flat color="teal" value="share">
@@ -35,7 +37,7 @@ export default {
   },
   methods: {
     deleteGame(gameId) {
-      this.$store.dispatch({ type: DELETE_GAME, gameId })
+      this.$store.dispatch({ type: DELETE_GAME, gameId });
     }
   }
 };
