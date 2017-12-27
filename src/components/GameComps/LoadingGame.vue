@@ -1,10 +1,11 @@
 <template>
-  <section>
-      <h1 v-if="phraseToShow===1" class="display-4">Starting Game!</h1>
-      <h1 v-if="phraseToShow===2" class="display-4">Ready</h1>
-      <h1 v-if="phraseToShow===3" class="display-4">SET</h1>
-      <h1 v-if="phraseToShow===4" class="display-4">Go!</h1>
+  <section class="content">
+      <h1 v-if="phraseToShow===1" class="display-4" key="start">Starting Game!</h1>
+      <h1 v-else-if="phraseToShow===2" class="display-4" key="ready">Ready</h1>
+      <h1 v-else-if="phraseToShow===3" class="display-4" key="set">SET</h1>
+      <h1 v-else-if="phraseToShow===4" class="display-4" key="go">Go!</h1>
   </section>
+  
 </template>
 
 <script>
@@ -24,12 +25,19 @@ export default {
         clearInterval(interval);
         this.$emit('done');
       }
-    }, 750);
+    }, 680);
   },
 
 };
 </script>
 
 <style lang="scss" scoped>
+.content {
+    height:85vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
 
 </style>

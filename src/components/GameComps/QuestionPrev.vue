@@ -1,9 +1,12 @@
 <template>
     <section>
         <time-bar :timeLimit="2500" @done="prevDone"></time-bar>
-        <h1 class="display-2">
-            {{question.title}}
-        </h1>
+        <div class="content">
+             <h1 class="display-2">
+                {{question.title}}
+             </h1>
+        </div>
+   
     </section>
 </template>
 
@@ -13,12 +16,12 @@ export default {
   data() {
     return {
       question: this.$store.getters.currQuestion
-    }
+    };
   },
-  methods : {
-      prevDone(){
-          this.$emit('prevDone')
-      }
+  methods: {
+    prevDone() {
+      this.$emit("prevDone");
+    }
   },
   components: {
     TimeBar
@@ -27,5 +30,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.content {
+    height:90vh;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
 </style>
