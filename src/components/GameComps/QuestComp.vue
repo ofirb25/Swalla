@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="question">
       <time-bar :timeLimit="parseInt(question.time)" @done="playNext"></time-bar>
       <div class="quest-container">
           <div v-if="isCover" class="cover"></div>
@@ -33,16 +33,18 @@
 </template>
 <script>
 import TimeBar from "./TimeBar";
-
 export default {
+  props : {
+    question: Object
+  },
   data() {
     return {
-      selectedAns: null,
+      selectedAnsId: null,
       showCorrect:false,
+      showScoreBoard: false,
       isCover: false,
       startTime: null,
       isAnswer: false,
-      question: this.$store.getters.currQuestion,
       answerColors: [
         "light-green accent-3",
         "deep-orange darken-2",
@@ -53,26 +55,23 @@ export default {
   },
   methods: {
     checkAns($event, id) {
-      var time = Date.now() - this.startTime
-      console.log(time)
-      var points = parseInt(((this.question.time - time) / this.question.time)  * 100 )
-      console.log(points)
+      this.$emit('checkAns',id,this.startTime)
       if (this.isAnswer) return;
       else {
         this.isAnswer = true;
         this.isCover= true;
-        this.selectedAns = id;
+        this.selectedAnsId = id;
       }
     },
     isSelected(id) {
-      return { "selected-ans": id === this.selectedAns };
+      return { "selected-ans": id === this.selectedAnsId };
     },
     playNext() {
-      //this.isCover = false;
+      this.isCover = true;
       this.showCorrect = true;
       setTimeout(()=>{
         this.$emit("playNext");
-      },3500)
+      },2500)
     }
   },
   computed: {

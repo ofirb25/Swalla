@@ -19,7 +19,10 @@ function getGameById(id) {
         })
         .catch(err => err)
 }
-
+//checks an answer and if correct updates the score
+function checkAns(question,selectedAnswer,points){
+    
+}
 
 const getObjToEdit = (id) => {
     return new Promise((resolve, reject) => {
