@@ -9,7 +9,7 @@ var STORAGE_KEY = 'loggedinUser';
 
 export default {
     state: {
-        loggedinUser: null
+        loggedinUser: getUserFromStorage()
     },
     getters: {
         isUser(state) {
@@ -30,6 +30,8 @@ export default {
                 .signup(signupDetails)
                 .then(res => {
                     commit({ type: SET_USER, user: res.user })
+                    saveToLocalStorage(res.user)
+
                 })
                 .catch(err => {
                     console.log(err)
@@ -40,9 +42,8 @@ export default {
             UserService
                 .login(loginDetails)
                 .then(res => {
-                    console.log(res.user)
-                    
                     commit({ type: SET_USER, user: res.user });
+                    saveToLocalStorage(res.user)
                 })
                 .catch(err => {
                     console.log(err)
@@ -54,7 +55,20 @@ export default {
                 .logout()
                 .then(_ => {
                     commit({ type: SIGNOUT })
+                    saveToLocalStorage(null);
+
                 })
         },
     }
+}
+
+
+function getUserFromStorage() {
+    var loggedinUser = JSON.parse(localStorage.getItem(STORAGE_KEY)) || null;
+    console.log('GETTING FROM STORAGE', loggedinUser);
+    return loggedinUser;
+}
+
+function saveToLocalStorage(user) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
 }

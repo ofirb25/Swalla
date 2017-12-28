@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { SIGNUP, LOGIN } from '../modules/UserModule';
+import { LOGIN } from '../modules/UserModule';
 
 export default {
   data() {
