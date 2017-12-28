@@ -7,6 +7,25 @@
                 <v-btn @click="saveName" color="green">Start Playing!</v-btn>
             </v-form>
         </div>
+        <div class="invite-details">
+          <h2>Invite your friends to this match!</h2>
+          <div v-if="gameUrl">
+            Send them this link : 
+            <input type="text" readonly :value="gameUrl" @click="copyUrl('gameUrl')" ref="gameUrl">
+            <p>Or tell them to go to: {{url}} And insert this pin: 
+              <input type="text" readonly :value="pin" @click="copyUrl('gamePin')" ref="gamePin">
+            </p>
+            <p>Or share on whatsapp</p>
+            <!-- show this only on mobile phone -->
+            <a :href="`whatsapp://send?text=${gameUrl}`" class="mobile">Share on whatsapp</a>
+
+            <span v-if="isCopied">Copied to clipboard!</span>            
+          </div>
+        </div>
+        <ul>
+          <li v-for="player in players" :key="player.userId">{{player.nickname}}</li>
+        </ul>
+        <button v-if="isHosting">START PLAYING</button>
         <!-- <loading-game @done="showPrev" v-if="!ready"></loading-game>
         <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
         <quest-comp :question="question" @playNext="playNext" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
@@ -31,6 +50,9 @@ import {
 export default {
   data() {
     return {
+      gameUrl: "",
+      isCopied: false,
+      isJoining: false,
       isNameSaved: false,
       ready: true,
       questPrev: false,
@@ -42,10 +64,17 @@ export default {
   methods: {
     saveName() {
       // {gameId:this.$route.params.gameId,playerName:this.playerName}
-      this.$socket.emit("SET_MULTI_GAME", {
-        gameId: this.$route.params.gameId,
-        playerName: this.playerName
-      });
+      if (!this.isJoining) {
+        this.$socket.emit("SET_MULTI_GAME", {
+          gameId: this.$route.params.gameId,
+          playerName: this.playerName
+        });
+      } else {
+        this.$socket.emit("JOIN_MATCH", {
+          pin: this.$route.params.pinCode,
+          playerName: this.playerName
+        });
+      }
       this.ready = false;
       this.isNameSaved = true;
       console.log(this.playerName);
@@ -77,14 +106,38 @@ export default {
         );
       }
       this.$store.dispatch({ type: ADD_POINTS, points });
+    },
+    copyUrl(el) {
+      this.$refs[el].select();
+      document.execCommand("Copy"), (this.isCopied = true);
+      setTimeout(() => {
+        this.isCopied = false;
+      }, 1000);
     }
   },
   computed: {
     question() {
       return this.$store.getters.currMultiQuestion;
+    },
+    players() {
+      return this.$store.getters.players;
+    },
+    isHosting() {
+      return true;
+    },
+    pin() {
+      return this.$store.getters.pin;
+    },
+    url(){
+      return window.location.host
     }
   },
   created() {
+    console.log(this.$socket);
+    if (this.$route.params.pinCode) {
+      console.log(this.$route.params.pinCode);
+      this.isJoining = true;
+    }
     this.$store.dispatch({ type: RESET_STATE }).then(_ => {
       this.$store
         .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
@@ -99,9 +152,21 @@ export default {
       this.$store.dispatch({ type: SOCKET_CONNECT });
     },
     GAME_CREATED(match) {
+      GameService.getShortUrl(match.pin).then(url => (this.gameUrl = url));
       console.log("workingggggg", match);
-      this.$store.dispatch({ type: SET_MULTI_MATCH, match });
-
+      this.$store.dispatch({
+        type: SET_MULTI_MATCH,
+        match,
+        socketId: this.$socket.id
+      });
+    },
+    PLAYER_JOINED(match) {
+      console.log("joined!!", match);
+      this.$store.dispatch({
+        type: SET_MULTI_MATCH,
+        match,
+        socketId: this.$socket.id
+      });
     }
   },
   components: {
