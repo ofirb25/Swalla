@@ -5,9 +5,7 @@
         <v-card-media :src="gameToEdit.img" height="200px">
         </v-card-media>
         <v-text-field label="Image Url" v-model="gameToEdit.img" required></v-text-field>
-
         <v-checkbox label="Public ?" v-model="gameToEdit.isPublic" required></v-checkbox>
-
         <v-container fluid>
             <v-layout row wrap>
                 <v-flex xs6>

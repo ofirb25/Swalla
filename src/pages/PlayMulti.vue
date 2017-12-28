@@ -1,14 +1,13 @@
 <template>
-    <section>
+    <section class="wrapper">
         <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
         <div class="waiting-comps">
-     <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match"></invite-details>
-        <players-list :players="players"></players-list>
+     <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting"></invite-details>
+        <players-list v-if="match" :players="players"></players-list>
+           
         </div>
-   
-        <v-btn v-if="isHosting && gameUrl" flat color="teal" value="Begin Game">
+           <v-btn @click="startGame" block v-if="isHosting && gameUrl"  color="white" value="Begin Game" class="start-game">
             <span>Begin Game</span>
-            <v-icon>play arrow</v-icon>
         </v-btn>
         <!-- <loading-game @done="showPrev" v-if="!ready"></loading-game>
         <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
@@ -71,8 +70,7 @@ export default {
       this.questPrev = true;
     },
     startGame() {
-      this.questPrev = false;
-      this.isQuestionOn = true;
+      this.$socket.emit('GAME_STARTED',{pin: this.pin})
     },
     playNext() {
       this.isQuestionOn = false;
@@ -105,7 +103,7 @@ export default {
       return this.$store.getters.players;
     },
     isHosting() {
-      return true;
+      return this.$store.getters.isHosting;
     },
     pin() {
       return this.$store.getters.pin;
@@ -164,9 +162,51 @@ export default {
 
 <style lang="scss" scoped>
 .waiting-comps {
-  height:90vh;
+  height: 85vh;
   display: flex;
   align-items: center;
-  justify-content: space-around
+  justify-content: space-around;
+}
+.wrapper {
+  color: #fff;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 </style>

@@ -55,10 +55,9 @@ export default {
       // console.log("GAME AFTER CHANGE: ", this.game); //finish the details - update all the fields
     },
     saveUpdated(updatedGame) {
-      //finish save
       GamesService.updateGame(updatedGame).then(_ => {
-        //no
         this.$store.commit(CLEAR_GAME_TO_EDIT);
+        this.$router.push('/my-game/' + this.game._id)
       });
     }
   },
@@ -66,7 +65,6 @@ export default {
     gameToEdit() {
       this.game = this.$store.getters.gameToEdit;
       return this.$store.getters.gameToEdit;
-      // console.log("this.game:", this.game);
     }
   },
   created() {
@@ -74,9 +72,6 @@ export default {
     this.$store
       .dispatch({ type: GET_GAME_TO_EDIT, gameId: this.gameId })
       .then(_ => {
-        // console.log("GAME ID: ", this.gameId);
-        // this.gameToEdit = this.$store.getters.gameToEdit;
-        // console.log("gameToEdit ", this.gameToEdit);
       });
   }
 };
@@ -84,7 +79,7 @@ export default {
 
 <style lang="scss">
   .edit-game-container {
-    width: 90%;
+    width: 40%;
     margin: auto;
   }
 
