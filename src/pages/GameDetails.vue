@@ -49,6 +49,15 @@
     <!-- <v-btn  fixed dark bottom right color="indigo">play</v-btn> -->
 
     <div class="playBtn">
+      <router-link :to="'/'">
+      <v-btn fixed bottom left dark color="indigo" value="back">
+        <v-icon>arrow_back</v-icon>
+        <span>Back</span>
+      </v-btn>
+      </router-link>
+    </div>
+
+     <div class="backBtn">
       <v-btn fixed bottom right dark color="indigo" value="play" @click.native.stop="dialog = true">
         <span>play</span>
         <v-icon>play_circle_outline</v-icon>
@@ -118,7 +127,6 @@
       border-radius: 100px;
       display: flex;
       justify-content: space-between;
-      
 
       icon{
          margin: 10px; 
