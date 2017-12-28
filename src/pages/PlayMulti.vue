@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     saveName(playerName) {
-      debugger;
       // {gameId:this.$route.params.gameId,playerName:this.playerName}
       if (!this.isJoining) {
         this.$socket.emit("SET_MULTI_GAME", {
