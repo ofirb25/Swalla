@@ -1,3 +1,4 @@
+import vue from 'vue'
 import GameService from '../services/GamesService'
 export const LOAD_GAMES = 'games/loadGames';
 export const DELETE_GAME = 'games/deleteGame';
@@ -78,13 +79,14 @@ export default {
                 })
         },
 
-        [GET_GAME_TO_EDIT]({ commit }, { gameId }) {
+        [GET_GAME_TO_EDIT]({ commit, rootState }, { gameId }) {
+            var loggedinUser = rootState.UserModule.loggedinUser
             return GameService.getObjToEdit(gameId)
                 .then(gameToEdit => {
+                    vue.set(gameToEdit, 'ownerId', loggedinUser._id)
                     // console.log('GAME FROM SERVICE IN MOUDLE : ', gameToEdit);
                     commit({ type: SET_GAME_TO_EDIT, gameToEdit })
                 })
         }
-
     }
 }
