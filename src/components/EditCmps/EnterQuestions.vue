@@ -25,88 +25,76 @@
                         <i class="fa fa-check" aria-hidden="true"></i>
                     </div>
                 </div>
-
             </v-list-tile>
-
-
-
         </v-list>
-        <v-btn @click="CL">
+        <v-btn>
             <v-icon>add</v-icon>
         </v-btn>
-
-
-
-        <v-btn @click="CL">LOG</v-btn>
         <v-btn @click="cancleClicked">Cancle</v-btn>
         <v-btn @click="saveClicked">Save</v-btn>
-        
     </section>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                showAnswer: false,
-                gameToEdit: null
-            };
-        },
-        methods: {
-            cancleClicked() {
-                this.$router.push("/my-games");
-                this.$emit("cancleEdition");
-            },
-            CL() {
-                console.log("gameToEdit  - ENTER QUESTIONS: ", this.gameToEdit);
-            },
-            saveClicked(){
-                this.$emit('save', this.gameToEdit);
-            }
-        },
-        created() {
-            this.gameToEdit = JSON.parse(JSON.stringify(this.gameQuestions));
-        },
-        props: ["gameQuestions"]
+export default {
+  data() {
+    return {
+      showAnswer: false,
+      gameToEdit: null
     };
+  },
+  methods: {
+    cancleClicked() {
+      this.$router.push("/my-games");
+      this.$emit("cancleEdition");
+    },
+
+    saveClicked() {
+      this.$emit("save", this.gameToEdit);
+    }
+  },
+  created() {
+    this.gameToEdit = JSON.parse(JSON.stringify(this.gameQuestions));
+  },
+  props: ["gameQuestions"]
+};
 </script>
 
 <style lang="scss" scoped>
 .my-game-img {
-    width: 100px;
-    margin-right: 1em;
+  width: 100px;
+  margin-right: 1em;
 }
 
 .list__tile__sub-title {
-    font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 .my-game-prev:hover {
-    background-color: rgb(240, 240, 240);
-    cursor: pointer;
-
+  background-color: rgb(240, 240, 240);
+  cursor: pointer;
 }
 
 .quest-answers {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    border-top: 1.2px solid rgb(238, 237, 237);
-    padding: 10px 16px;
-    /* display: none; */
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-top: 1.2px solid rgb(238, 237, 237);
+  padding: 10px 16px;
+  /* display: none; */
 
-    p, div {
-        display: inline-block;
-        margin: 0px;
-    }
-    
-    .notCorrect {
-        color: red;
-        font-size: 1.2em;
-    }
-    .isCorrect {
-        color: green;
-        font-size: 1.2em;
-    }
+  p,
+  div {
+    display: inline-block;
+    margin: 0px;
+  }
+
+  .notCorrect {
+    color: red;
+    font-size: 1.2em;
+  }
+  .isCorrect {
+    color: green;
+    font-size: 1.2em;
+  }
 }
-
 </style>
