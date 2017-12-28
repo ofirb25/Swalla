@@ -5,6 +5,8 @@ export const LOGIN = 'user/login';
 export const SET_USER = 'user/setUser';
 export const SIGNOUT = 'user/signout';
 
+var STORAGE_KEY = 'loggedinUser';
+
 export default {
     state: {
         loggedinUser: null
@@ -38,6 +40,8 @@ export default {
             UserService
                 .login(loginDetails)
                 .then(res => {
+                    console.log(res.user)
+                    
                     commit({ type: SET_USER, user: res.user });
                 })
                 .catch(err => {
