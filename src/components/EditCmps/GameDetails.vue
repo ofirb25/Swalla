@@ -1,8 +1,8 @@
 <template>
-    <section v-if="gameToEditDetails">
+    <section >
         <v-text-field label="Game Title" v-model="gameToEdit.name" :rules="titleRules" required></v-text-field>
         <v-text-field label="Game Description" v-model="gameToEdit.description" :rules="descriptionRules" required></v-text-field>
-        <v-card-media src="gameToEdit.img" height="200px">
+        <v-card-media :src="gameToEdit.img" height="200px">
         </v-card-media>
         <v-text-field label="Image Url" v-model="gameToEdit.img" required></v-text-field>
 
@@ -52,16 +52,16 @@
                     description: this.gameToEdit.description,
                     img: this.gameToEdit.img,
                     isPublic: this.gameToEdit.isPublic,       
-                    audience: this.gameToEdit.audience,                    
+                    audience: this.gameToEdit.audience,                       
                 }
                 console.log('NEXT CLICKED');
                 this.$emit('onDetailschange', updated);
             }
         },
         created(){
-            this.gameToEdit = JSON.parse(JSON.stringify(this.gameToEditDetails))
+            this.gameToEdit = JSON.parse(JSON.stringify(this.gameDetails))
         },
-        props: ['gameToEditDetails'],
+        props: ['gameDetails'],
         
     };
 </script>
