@@ -64,7 +64,12 @@ export default {
   width: 100px;
   margin-right: 1em;
 }
-
+.game-prev-control {
+  margin: 0;
+  font-size: 12px;
+  display: inline-block;
+  visibility: hidden;
+}
 .list__tile__sub-title {
   font-size: 0.8em;
 }
@@ -72,29 +77,11 @@ export default {
 .my-game-prev:hover {
   background-color: rgb(240, 240, 240);
   cursor: pointer;
-}
-
-.quest-answers {
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-  border-top: 1.2px solid rgb(238, 237, 237);
-  padding: 10px 16px;
-  /* display: none; */
-
-  p,
-  div {
-    display: inline-block;
-    margin: 0px;
-  }
-
-  .notCorrect {
-    color: red;
-    font-size: 1.2em;
-  }
-  .isCorrect {
-    color: green;
-    font-size: 1.2em;
+  .game-prev-control {
+    visibility: visible;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(41, 41, 41);
   }
 }
 </style>
