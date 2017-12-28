@@ -1,12 +1,15 @@
 <template>
     <section>
-        <div class="nick" v-if="!isNameSaved">
-            <v-form @submit.prevent="saveName">
-                <v-text-field label="Your Nickname??" v-model="playerName" :counter="10">
-                </v-text-field>
-                <v-btn @click="saveName" color="green">Start Playing!</v-btn>
-            </v-form>
+        <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
+        <div class="waiting-comps">
+     <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match"></invite-details>
+        <players-list :players="players"></players-list>
         </div>
+   
+        <v-btn v-if="isHosting && gameUrl" flat color="teal" value="Begin Game">
+            <span>Begin Game</span>
+            <v-icon>play arrow</v-icon>
+        </v-btn>
         <!-- <loading-game @done="showPrev" v-if="!ready"></loading-game>
         <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
         <quest-comp :question="question" @playNext="playNext" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
@@ -18,6 +21,9 @@ import LoadingGame from "../components/GameComps/LoadingGame";
 import QuestionPrev from "../components/GameComps/QuestionPrev";
 import GameService from "../services/GamesService";
 import QuestComp from "../components/GameComps/QuestComp";
+import PlayersList from "../components/GameComps/PlayersList";
+import InviteDetails from "../components/GameComps/InviteDetails";
+import SubmitName from "../components/GameComps/SubmitName";
 import {
   LOAD_GAME,
   PLAY_NEXT,
@@ -31,6 +37,8 @@ import {
 export default {
   data() {
     return {
+      gameUrl: "",
+      isJoining: false,
       isNameSaved: false,
       ready: true,
       questPrev: false,
@@ -40,15 +48,23 @@ export default {
     };
   },
   methods: {
-    saveName() {
+    saveName(playerName) {
+      debugger;
       // {gameId:this.$route.params.gameId,playerName:this.playerName}
-      this.$socket.emit("SET_MULTI_GAME", {
-        gameId: this.$route.params.gameId,
-        playerName: this.playerName
-      });
+      if (!this.isJoining) {
+        this.$socket.emit("SET_MULTI_GAME", {
+          gameId: this.$route.params.gameId,
+          playerName: playerName
+        });
+      } else {
+        this.$socket.emit("JOIN_MATCH", {
+          pin: this.$route.params.pinCode,
+          playerName: playerName
+        });
+      }
       this.ready = false;
       this.isNameSaved = true;
-      console.log(this.playerName);
+      console.log(playerName);
       // this.$store.dispatch({ type: ADD_PLAYER, playerName: this.playerName });
     },
     showPrev() {
@@ -80,11 +96,31 @@ export default {
     }
   },
   computed: {
+    match() {
+      return this.$store.getters.match;
+    },
     question() {
       return this.$store.getters.currMultiQuestion;
+    },
+    players() {
+      return this.$store.getters.players;
+    },
+    isHosting() {
+      return true;
+    },
+    pin() {
+      return this.$store.getters.pin;
+    },
+    url() {
+      return window.location.host;
     }
   },
   created() {
+    console.log(this.$socket);
+    if (this.$route.params.pinCode) {
+      console.log(this.$route.params.pinCode);
+      this.isJoining = true;
+    }
     this.$store.dispatch({ type: RESET_STATE }).then(_ => {
       this.$store
         .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
@@ -99,30 +135,39 @@ export default {
       this.$store.dispatch({ type: SOCKET_CONNECT });
     },
     GAME_CREATED(match) {
+      GameService.getShortUrl(match.pin).then(url => (this.gameUrl = url));
       console.log("workingggggg", match);
-      this.$store.dispatch({ type: SET_MULTI_MATCH, match });
-
+      this.$store.dispatch({
+        type: SET_MULTI_MATCH,
+        match,
+        socketId: this.$socket.id
+      });
+    },
+    PLAYER_JOINED(match) {
+      console.log("joined!!", match);
+      this.$store.dispatch({
+        type: SET_MULTI_MATCH,
+        match,
+        socketId: this.$socket.id
+      });
     }
   },
   components: {
     LoadingGame,
     QuestionPrev,
-    QuestComp
+    QuestComp,
+    PlayersList,
+    InviteDetails,
+    SubmitName
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.nick {
-  height: 90vh;
+.waiting-comps {
+  height:90vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+  justify-content: space-around
 }
 </style>

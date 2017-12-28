@@ -1,6 +1,6 @@
 import axios from 'axios'
 var gameUrl = 'http://localhost:3003/data/game'
-
+var shourtApiKey = 'AIzaSyCk11zMjOfcCn9LYnm1jpZx4aQp60k0AvE';
 function getGames() {
     return axios
         .get(gameUrl)
@@ -13,8 +13,6 @@ function getGameById(id) {
     return axios
         .get(`${gameUrl}/${id}`)
         .then(({ data }) => {
-            console.log(id)
-            console.log('from gameservice', data)
             return data
         })
         .catch(err => err)
@@ -81,10 +79,20 @@ function searchGame(query) {
 
 }
 
+function getShortUrl(pinCode){
+    return axios.post(`https://www.googleapis.com/urlshortener/v1/url?key=${shourtApiKey}`,
+    {"longUrl": `${window.location.href}/${pinCode}`})
+    .then(({data})=>{
+        //gets an object where id is the shorten url
+        return data.id
+    })
+}
+
 export default {
     getGames,
     getGameById,
     deleteGame,
     getObjToEdit,
+    getShortUrl,
     updateGame
 }
