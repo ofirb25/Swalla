@@ -35,6 +35,7 @@ export default {
             state.players.push(player)
         },
         [RESET_STATE](state) {
+            state.match = null
             state.game = null
             state.players=  []
             state.currQuestion= 0
@@ -50,6 +51,9 @@ export default {
         }
     },
     getters: {
+        match(context){
+            return !!context.match
+        },
         currMultiGame(context) {
             return context.game
         },

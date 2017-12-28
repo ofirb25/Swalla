@@ -1,31 +1,15 @@
 <template>
     <section>
-        <div class="nick" v-if="!isNameSaved">
-            <v-form @submit.prevent="saveName">
-                <v-text-field label="Your Nickname??" v-model="playerName" :counter="10">
-                </v-text-field>
-                <v-btn @click="saveName" color="green">Start Playing!</v-btn>
-            </v-form>
+        <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
+        <div class="waiting-comps">
+     <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match"></invite-details>
+        <players-list :players="players"></players-list>
         </div>
-        <div class="invite-details">
-          <h2>Invite your friends to this match!</h2>
-          <div v-if="gameUrl">
-            Send them this link : 
-            <input type="text" readonly :value="gameUrl" @click="copyUrl('gameUrl')" ref="gameUrl">
-            <p>Or tell them to go to: {{url}} And insert this pin: 
-              <input type="text" readonly :value="pin" @click="copyUrl('gamePin')" ref="gamePin">
-            </p>
-            <p>Or share on whatsapp</p>
-            <!-- show this only on mobile phone -->
-            <a :href="`whatsapp://send?text=${gameUrl}`" class="mobile">Share on whatsapp</a>
-
-            <span v-if="isCopied">Copied to clipboard!</span>            
-          </div>
-        </div>
-        <ul>
-          <li v-for="player in players" :key="player.userId">{{player.nickname}}</li>
-        </ul>
-        <button v-if="isHosting">START PLAYING</button>
+   
+        <v-btn v-if="isHosting && gameUrl" flat color="teal" value="Begin Game">
+            <span>Begin Game</span>
+            <v-icon>play arrow</v-icon>
+        </v-btn>
         <!-- <loading-game @done="showPrev" v-if="!ready"></loading-game>
         <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
         <quest-comp :question="question" @playNext="playNext" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
@@ -37,6 +21,9 @@ import LoadingGame from "../components/GameComps/LoadingGame";
 import QuestionPrev from "../components/GameComps/QuestionPrev";
 import GameService from "../services/GamesService";
 import QuestComp from "../components/GameComps/QuestComp";
+import PlayersList from "../components/GameComps/PlayersList";
+import InviteDetails from "../components/GameComps/InviteDetails";
+import SubmitName from "../components/GameComps/SubmitName";
 import {
   LOAD_GAME,
   PLAY_NEXT,
@@ -51,7 +38,6 @@ export default {
   data() {
     return {
       gameUrl: "",
-      isCopied: false,
       isJoining: false,
       isNameSaved: false,
       ready: true,
@@ -62,22 +48,23 @@ export default {
     };
   },
   methods: {
-    saveName() {
+    saveName(playerName) {
+      debugger;
       // {gameId:this.$route.params.gameId,playerName:this.playerName}
       if (!this.isJoining) {
         this.$socket.emit("SET_MULTI_GAME", {
           gameId: this.$route.params.gameId,
-          playerName: this.playerName
+          playerName: playerName
         });
       } else {
         this.$socket.emit("JOIN_MATCH", {
           pin: this.$route.params.pinCode,
-          playerName: this.playerName
+          playerName: playerName
         });
       }
       this.ready = false;
       this.isNameSaved = true;
-      console.log(this.playerName);
+      console.log(playerName);
       // this.$store.dispatch({ type: ADD_PLAYER, playerName: this.playerName });
     },
     showPrev() {
@@ -106,16 +93,12 @@ export default {
         );
       }
       this.$store.dispatch({ type: ADD_POINTS, points });
-    },
-    copyUrl(el) {
-      this.$refs[el].select();
-      document.execCommand("Copy"), (this.isCopied = true);
-      setTimeout(() => {
-        this.isCopied = false;
-      }, 1000);
     }
   },
   computed: {
+    match() {
+      return this.$store.getters.match;
+    },
     question() {
       return this.$store.getters.currMultiQuestion;
     },
@@ -128,8 +111,8 @@ export default {
     pin() {
       return this.$store.getters.pin;
     },
-    url(){
-      return window.location.host
+    url() {
+      return window.location.host;
     }
   },
   created() {
@@ -172,22 +155,19 @@ export default {
   components: {
     LoadingGame,
     QuestionPrev,
-    QuestComp
+    QuestComp,
+    PlayersList,
+    InviteDetails,
+    SubmitName
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.nick {
-  height: 90vh;
+.waiting-comps {
+  height:90vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+  justify-content: space-around
 }
 </style>

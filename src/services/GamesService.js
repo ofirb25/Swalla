@@ -13,8 +13,6 @@ function getGameById(id) {
     return axios
         .get(`${gameUrl}/${id}`)
         .then(({ data }) => {
-            console.log(id)
-            console.log('from gameservice', data)
             return data
         })
         .catch(err => err)
@@ -84,7 +82,6 @@ function getShortUrl(pinCode){
     return axios.post(`https://www.googleapis.com/urlshortener/v1/url?key=${shourtApiKey}`,
     {"longUrl": `${window.location.href}/${pinCode}`})
     .then(({data})=>{
-        console.log(data)
         //gets an object where id is the shorten url
         return data.id
     })
