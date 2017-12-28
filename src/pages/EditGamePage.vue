@@ -79,7 +79,7 @@ export default {
 
 <style lang="scss">
   .edit-game-container {
-    width: 90%;
+    width: 40%;
     margin: auto;
   }
 
