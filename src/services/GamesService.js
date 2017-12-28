@@ -14,12 +14,15 @@ function getGameById(id) {
         .get(`${gameUrl}/${id}`)
         .then(({ data }) => {
             console.log(id)
-            console.log('from gameservice',data)
+            console.log('from gameservice', data)
             return data
         })
         .catch(err => err)
 }
-
+//checks an answer and if correct updates the score
+function checkAns(question,selectedAnswer,points){
+    
+}
 
 const getObjToEdit = (id) => {
     return new Promise((resolve, reject) => {
@@ -62,18 +65,25 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
     }
 }
 
+const updateGame = (updatedGame) => {
+    console.log('ID FROM UPDATEDB: ', updatedGame._id);
+    if (updatedGame._id) return axios.put(`${gameUrl}/${updatedGame._id}`, updatedGame)
+    else return axios.post(gameUrl, updatedGame)
+}
+
 function deleteGame(gameId) {
     return axios.delete(`${gameUrl}/${gameId}`)
 }
 
 function searchGame(query) {
     var results = []
-        
+
 }
 
 export default {
     getGames,
     getGameById,
     deleteGame,
-    getObjToEdit
+    getObjToEdit,
+    updateGame
 }

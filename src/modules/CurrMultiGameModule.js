@@ -1,19 +1,23 @@
 import GameService from '../services/GamesService'
-export const LOAD_GAME = 'currGame/loadGame';
-export const PLAY_NEXT = 'currGame/playNext';
-export const ADD_POINTS = 'currGame/addPoints';
-export const ADD_PLAYER = 'currGame/addPlayer';
-export const RESET_STATE = 'currGame/resetState';
+export const LOAD_GAME = 'currMultiGame/loadGame';
+export const PLAY_NEXT = 'currMultiGame/playNext';
+export const ADD_POINTS = 'currMultiGame/addPoints';
+export const ADD_PLAYER = 'currMultiGame/addPlayer';
+export const RESET_STATE = 'currMultiGame/resetState';
+export const SOCKET_CONNECT = 'currMultiGame/socketConnect';
+export const SET_MULTI_MATCH = 'currMultiGame/setMultiGame';
+export const SET_MATCH = 'currMultiGame/setMatch';
 
-const SET_GAME = 'currGame/setGame';
+const SET_GAME = 'currMultiGame/setGame';
 
 export default {
     state: {
+        socketIsConnected: false,
         game: null,
-        currPlayerId: 1,
+        currPlayerId: null,
+        match: null,
         players: [],
         currQuestion: 0,
-        TotalPoints: 0,
     },
     mutations: {
         [SET_GAME](state, { game }) {
@@ -36,18 +40,23 @@ export default {
             state.currQuestion= 0
             state.TotalPoints= 0
         },
-
+        [SOCKET_CONNECT](state){
+            state.socketIsConnected = true;
+        },
+        [SET_MULTI_MATCH](state,{match}) {
+            state.match = match
+        }
     },
     getters: {
-        currGame(context) {
+        currMultiGame(context) {
             return context.game
         },
-        currQuestion(context) {
+        currMultiQuestion(context) {
             if (context.game) {
                 return context.game.questions[context.currQuestion] || null
             }
         },
-        currGameScores(context){
+        currMultiGameScores(context){
             if(context.players.length) {
                 return context.players
             }
@@ -79,6 +88,12 @@ export default {
         [RESET_STATE]({commit}){
             commit({type:RESET_STATE})
         },
-
+        [SOCKET_CONNECT]({commit}) {
+            commit({type: SOCKET_CONNECT})
+        },
+        [SET_MULTI_MATCH]({commit},{match}) {
+            debugger            
+            commit ({type:SET_MULTI_MATCH,match})
+        }
     }
 }

@@ -41,7 +41,7 @@ export default {
             if (!filterBy) return games
             return games.filter(game => {
                 return game.name.toLowerCase().includes(filterBy.toLowerCase()) ||
-                game.description.toLowerCase().includes(filterBy.toLowerCase())
+                    game.description.toLowerCase().includes(filterBy.toLowerCase())
             })
             return games
         },
@@ -51,7 +51,7 @@ export default {
 
     },
     actions: {
-        [LOAD_GAMES]({ commit, rootState }) {
+        [LOAD_GAMES]({ commit}, {rootState }) {
             return GameService.getGames()
                 .then(games => {
                     commit({ type: SET_GAMES, games })
@@ -64,12 +64,13 @@ export default {
                 })
         },
 
-        [GET_GAME_TO_EDIT]({ commit, gameId }) {
+        [GET_GAME_TO_EDIT]({ commit }, { gameId }) {        
             return GameService.getObjToEdit(gameId)
                 .then(gameToEdit => {
                     // console.log('GAME FROM SERVICE IN MOUDLE : ', gameToEdit);
                     commit({ type: SET_GAME_TO_EDIT, gameToEdit })
                 })
         }
+        
     }
 }

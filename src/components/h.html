@@ -1,0 +1,15 @@
+<template>
+    <section>
+        <div class="nick" v-if="!isNameSaved">
+            <v-form @submit.prevent="saveName">
+                <v-text-field label="Your Nickname??" v-model="playerName" :counter="10">
+                </v-text-field>
+                <v-btn @click="saveName" color="green">Start Playing!</v-btn>
+            </v-form>
+        </div>
+        <loading-game @done="showPrev" v-if="!ready"></loading-game>
+        <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
+        <quest-comp :question="question" @playNext="playNext" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
+        <p v-if="!isGameOn">game over</p>
+    </section>
+</template>

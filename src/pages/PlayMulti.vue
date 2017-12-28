@@ -1,24 +1,18 @@
 <template>
-  <section>
-    <div class="nick" v-if="!isNameSaved">
-    <v-form  @submit.prevent="saveName">
-     <v-text-field
-      label="Your Nickname??"
-      v-model="playerName"
-      :counter="10">
-      </v-text-field>
-        <v-btn @click="saveName" color="green">Start Playing!</v-btn>
-      </v-form>
-    </div>
-  
-   
-      <loading-game @done="showPrev" v-if="!ready"></loading-game>
-      <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
-      <quest-comp :question="question" @playNext="playNext" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
-      <p v-if="!isGameOn">game over</p>
-  </section>  
+    <section>
+        <div class="nick" v-if="!isNameSaved">
+            <v-form @submit.prevent="saveName">
+                <v-text-field label="Your Nickname??" v-model="playerName" :counter="10">
+                </v-text-field>
+                <v-btn @click="saveName" color="green">Start Playing!</v-btn>
+            </v-form>
+        </div>
+        <!-- <loading-game @done="showPrev" v-if="!ready"></loading-game>
+        <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
+        <quest-comp :question="question" @playNext="playNext" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
+        <p v-if="!isGameOn">game over</p> -->
+    </section>
 </template>
-
 <script>
 import LoadingGame from "../components/GameComps/LoadingGame";
 import QuestionPrev from "../components/GameComps/QuestionPrev";
@@ -29,8 +23,10 @@ import {
   PLAY_NEXT,
   ADD_PLAYER,
   ADD_POINTS,
-  RESET_STATE
-} from "../modules/CurrGameModule";
+  RESET_STATE,
+  SOCKET_CONNECT,
+  SET_MULTI_MATCH
+} from "../modules/CurrMultiGameModule";
 
 export default {
   data() {
@@ -45,10 +41,15 @@ export default {
   },
   methods: {
     saveName() {
+      // {gameId:this.$route.params.gameId,playerName:this.playerName}
+      this.$socket.emit("SET_MULTI_GAME", {
+        gameId: this.$route.params.gameId,
+        playerName: this.playerName
+      });
       this.ready = false;
       this.isNameSaved = true;
       console.log(this.playerName);
-      this.$store.dispatch({ type: ADD_PLAYER, playerName: this.playerName });
+      // this.$store.dispatch({ type: ADD_PLAYER, playerName: this.playerName });
     },
     showPrev() {
       this.ready = true;
@@ -80,7 +81,7 @@ export default {
   },
   computed: {
     question() {
-      return this.$store.getters.currQuestion;
+      return this.$store.getters.currMultiQuestion;
     }
   },
   created() {
@@ -91,6 +92,17 @@ export default {
           console.log(this.question, "from page");
         });
     });
+  },
+  sockets: {
+    connect() {
+      console.log("socket connected");
+      this.$store.dispatch({ type: SOCKET_CONNECT });
+    },
+    GAME_CREATED(match) {
+      console.log("workingggggg", match);
+      this.$store.dispatch({ type: SET_MULTI_MATCH, match });
+
+    }
   },
   components: {
     LoadingGame,

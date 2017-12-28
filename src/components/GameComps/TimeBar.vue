@@ -18,12 +18,12 @@ export default {
   },
   created() {
     var interval = setInterval(() => {
-      this.val--;
+      this.val-=2;
       if (this.val === 0) {
         clearInterval(interval);
         this.$emit("done");
       }
-    }, this.timeLimit / 100);
+    }, this.timeLimit / 50);
   }
 };
 </script>
