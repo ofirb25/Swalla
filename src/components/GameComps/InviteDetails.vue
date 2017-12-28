@@ -9,11 +9,14 @@
                     <h4 class="subtitle">Invite your friends to this match!</h4>
                     <div>
                         Send them this link : <br/>
-                        <input type="text" readonly :value="gameUrl" @click="copyUrl('gameUrl')" ref="gameUrl">
+                        <input type="text" readonly :value="gameUrl" ref="gameUrl">
+                        <v-btn @click="copyUrl('gameUrl')" color="teal">Copy</v-btn>
                         <p><strong>Or</strong> tell them to go to: <br/>{{url}} And insert this pin:
                             <input type="text" readonly :value="pin" @click="copyUrl('gamePin')" ref="gamePin">
                         </p>
-                        <p v-if="isCopied">Copied to clipboard!</p>
+                        <div class="copied">
+                        <p v-show="isCopied">Copied to clipboard!</p>
+                        </div>
                         <a :href="`whatsapp://send?text=${gameUrl}`" class="mobile">Share on whatsapp</a>
                     </div>
                 </div>
@@ -71,3 +74,9 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.copied {
+    
+  height:2em
+}
+</style>
