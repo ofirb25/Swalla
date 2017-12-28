@@ -22,13 +22,18 @@ export default new Router({
     },
     {
       path: '/login-page',
-      name : 'login-page',
+      name: 'login-page',
       component: LoginPage
     },
     {
       path: '/signup-page',
-      name : 'signup-page',
+      name: 'signup-page',
       component: SignupPage
+    },
+    {
+      path: '/game/:gameId/play-multi/:pinCode',
+      name: 'join multi',
+      component: PlayMulti
     },
     {
       path: '/game/:gameId/play-multi',

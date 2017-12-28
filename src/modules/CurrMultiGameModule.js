@@ -35,6 +35,7 @@ export default {
             state.players.push(player)
         },
         [RESET_STATE](state) {
+            state.match = null
             state.game = null
             state.players=  []
             state.currQuestion= 0
@@ -43,11 +44,16 @@ export default {
         [SOCKET_CONNECT](state){
             state.socketIsConnected = true;
         },
-        [SET_MULTI_MATCH](state,{match}) {
+        [SET_MULTI_MATCH](state,{match,socketId}) {
+            
+            state.currPlayerId = socketId
             state.match = match
         }
     },
     getters: {
+        match(context){
+            return !!context.match
+        },
         currMultiGame(context) {
             return context.game
         },
@@ -59,6 +65,20 @@ export default {
         currMultiGameScores(context){
             if(context.players.length) {
                 return context.players
+            }
+        },
+        players(context) {
+            if(context.match) return context.match.players
+
+        },
+        isHosting(context) {
+            if(context.match){
+                return context.currPlayerId === context.match.hostId
+            }
+        },
+        pin(context){
+            if(context.match){
+                return context.match.pin
             }
         }
 
@@ -91,9 +111,8 @@ export default {
         [SOCKET_CONNECT]({commit}) {
             commit({type: SOCKET_CONNECT})
         },
-        [SET_MULTI_MATCH]({commit},{match}) {
-            debugger            
-            commit ({type:SET_MULTI_MATCH,match})
+        [SET_MULTI_MATCH]({commit},{match,socketId}) {
+            commit ({type:SET_MULTI_MATCH,match,socketId})
         }
     }
 }
