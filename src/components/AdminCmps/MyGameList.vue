@@ -27,21 +27,24 @@
     </section>
 </template>
 <script>
-import { LOAD_GAMES, SET_FILTER } from "../../modules/GamesModule";
+import { LOAD_GAMES, SET_FILTER , SET_TEMP_USER_ID} from "../../modules/GamesModule";
 import MyGamePreview from "./MyGamePreview";
 export default {
   data() {
     return {
       e1: "recent",
-      filterBy: ""
+      filterBy: "",
+      currUserId: null
     };
   },
   created() {
+    this.currUserId = this.$route.params.userId
     this.$store.dispatch({ type: LOAD_GAMES }).then(games => {});
+    this.$store.commit({ type: SET_TEMP_USER_ID, ownerId: this.currUserId });
   },
   computed: {
     games() {
-      return this.$store.getters.gamesToDisplay;
+      return this.$store.getters.userGamesToDisplay;
     }
   },
   components: {

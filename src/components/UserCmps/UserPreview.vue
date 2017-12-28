@@ -10,6 +10,7 @@
 <script>
   import UserService from "../../services/UserService";
   import GamesService from "../../services/GamesService";
+  
 
   export default {
     data() {
@@ -27,6 +28,7 @@
         .then(user => {
           this.userToDisplay = user;
           console.log("Got User To Display: ", user);
+          
         })
         .catch(err => console.log("Error getting UserById: ", err));
     }
