@@ -23,7 +23,7 @@
                 </router-link>
 
                 <router-link tag="div" :to="'/my-games'">
-                    <v-btn class="navBtn" flat v-if="loggedInUser">{{loggedInUser.name}}</v-btn>
+                    <v-btn class="navBtn" flat v-if="!loggedInUser">my-games</v-btn>
                 </router-link>
 
                 <v-btn class="navBtn" flat v-if="loggedInUser" @click="logoutClicked">Logout</v-btn>
@@ -99,7 +99,6 @@ export default {
   },
   computed: {
     loggedInUser() {
-      console.log(this.$store.state.UserModule.loggedinUser)
       return this.$store.state.UserModule.loggedinUser;
     }
   }
