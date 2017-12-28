@@ -5,8 +5,10 @@ import GameDetails from '../pages/GameDetails';
 import MyGamesPage from '../pages/MyGamesPage';
 import MyGamesDetails from '../pages/MyGameDetails';
 import PlayPage from '../pages/PlayPage';
+import PlayMulti from '../pages/PlayMulti';
 import EditGamePage from '../pages/EditGamePage';
 import LoginPage from '../pages/LoginPage'
+import SignupPage from '../pages/SignupPage'
 
 Vue.use(Router)
 
@@ -22,6 +24,16 @@ export default new Router({
       path: '/login-page',
       name : 'login-page',
       component: LoginPage
+    },
+    {
+      path: '/signup-page',
+      name : 'signup-page',
+      component: SignupPage
+    },
+    {
+      path: '/game/:gameId/play-multi',
+      name: 'play multi',
+      component: PlayMulti
     },
     {
       path: '/game/:gameId/play',

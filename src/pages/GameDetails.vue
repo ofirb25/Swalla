@@ -13,17 +13,21 @@
         </v-card-title>
         <v-card-actions class="game-stats">
           <div class="rank">
-            <div>
+            <div title="hige-score">
               <span>{{game.highscore}}</span>
               <span class="fa fa-trophy"></span>
             </div>
-            <div>
+            <div title="played">
               <span>{{game.playersCount}}</span>
               <span class="fa fa-users"></span>
             </div>
-            <div>
+            <div title="creatd at">
               <span>{{game.createdAt}}</span>
               <span class="fa fa-clock-o"></span>
+            </div>
+             <div title="questions">
+              <span>{{game.questions.length}}</span>
+              <span class="fa fa-question-circle"></span>
             </div>
           </div>
         </v-card-actions>
@@ -87,12 +91,21 @@
 
   .game-details-top {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .headline{
+      font-size: 30px !important;
+    }
   }
 
   .game-description {
     display: flex;
     justify-content: center;
     text-align: center;
+    width: 80%;
+    align-self: center;
+    font-size: 20px;
   }
 
   .sample-question-item {
@@ -105,7 +118,6 @@
       border-radius: 100px;
       display: flex;
       justify-content: space-between;
-      
       
 
       icon{
@@ -131,7 +143,7 @@
       padding: 15px;
 
       span {
-        padding: 5px;
+        padding: 2px;
       }
     }
   }

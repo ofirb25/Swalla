@@ -13,10 +13,8 @@
       :rules="emailRules"
       required
     ></v-text-field>
-     <router-link :to="'/'"><v-btn class="login-btn">Login</v-btn></router-link>
-    <h2>or</h2>
-    <img src="../assets/fblogin.png">
-    <router-link :to="'/signup-page'"><span>sign up</span></router-link>
+    <router-link :to="'/'"><v-btn class="login-btn">Signup</v-btn></router-link>
+    
   </v-form>
 
   
