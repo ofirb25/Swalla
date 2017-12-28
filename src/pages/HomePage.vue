@@ -2,10 +2,16 @@
     <section class="games-section">
         <div class="container">
             <h1>SWALLA</h1>
+
         <div class="input-container">
-        <input style="text" placeholder="⌕ Search game" @input="setFilter" v-model="filterBy"/>
-        <input style="text" placeholder="Enter your pin here"/>
+        <input class="SearchInput" style="text" placeholder="⌕ Search game" @input="setFilter" v-model="filterBy"/>
+      
+        <div class="pinInput">
+        <input v-model="pin" style="text" placeholder="Enter your pin here"/>
+        <v-btn @click="searchPin">play</v-btn>
         </div>
+        </div>
+
         <game-list></game-list>
         </div>
     </section>
@@ -17,7 +23,8 @@ import { SET_FILTER } from "../modules/GamesModule";
 export default {
   data() {
     return {
-      filterBy: ''
+      filterBy: '',
+      pin: ''
     }
   },
   components: {
@@ -26,6 +33,9 @@ export default {
   methods: {
     setFilter() {
       this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
+    },
+    searchPin(){
+      this.$router.push('/game/:gameId/play-multi/'+this.pin)
     }
   }
 };
@@ -49,14 +59,27 @@ export default {
     }
 
     .input-container {
-      width: 50%;
+      width: 70%;
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
-      input {
+      
+      .SearchInput {
         border: 2px solid rgba(0, 0, 0, 0.452);
         border-radius: 3px;
         width: 48%;
+      }
+
+      .pinInput{
+        width: 50%;
+        
+        input{
+        border: 2px solid rgba(0, 0, 0, 0.452);
+        border-radius: 3px;
+        height: 100%;
+        width: 60%;
+        }
+       
       }
     }
   }
