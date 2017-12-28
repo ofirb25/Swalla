@@ -14,7 +14,7 @@ function getGameById(id) {
         .get(`${gameUrl}/${id}`)
         .then(({ data }) => {
             console.log(id)
-            console.log('from gameservice',data)
+            console.log('from gameservice', data)
             return data
         })
         .catch(err => err)
@@ -65,13 +65,19 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
     }
 }
 
+const updateGame = (updatedGame) => {
+    console.log('ID FROM UPDATEDB: ', updatedGame._id);
+    if (updatedGame._id) return axios.put(`${gameUrl}/${updatedGame._id}`, updatedGame)
+    else return axios.post(gameUrl, updatedGame)
+}
+
 function deleteGame(gameId) {
     return axios.delete(`${gameUrl}/${gameId}`)
 }
 
 function searchGame(query) {
     var results = []
-        
+
 }
 
 function getShortUrl(pinCode){
@@ -89,5 +95,6 @@ export default {
     getGameById,
     deleteGame,
     getObjToEdit,
-    getShortUrl
+    getShortUrl,
+    updateGame
 }
