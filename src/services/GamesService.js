@@ -66,8 +66,9 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
 }
 
 const updateGame = (updatedGame) => {
-    console.log('ID FROM UPDATEDB: ', updatedGame._id);
-    if (updatedGame._id) return axios.put(`${gameUrl}/${updatedGame._id}`, updatedGame)
+    var newUpdatedGame = Object.assign({}, updatedGame)
+    delete newUpdatedGame._id
+    if (updatedGame._id) return axios.put(`${gameUrl}/${updatedGame._id}`, newUpdatedGame)
     else return axios.post(gameUrl, updatedGame)
 }
 
