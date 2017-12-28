@@ -1,33 +1,35 @@
 <template>
     <section v-if="gameQuestions">
-        <v-list two-line class="my-game-prev quest-container">
-            <v-list-tile v-for="(question, idx) in gameToEdit.questions" avatar :key="idx">
-                <img :src="question.img" class="my-game-img" />
-                <v-list-tile-content>
-                    <v-list-tile-title v-html="question.title"></v-list-tile-title>
-                </v-list-tile-content>
-                <div>
-                    <v-btn @click="showAnswer = !showAnswer" flat color="teal" value="edit">
-                        <span>Edit</span>
-                        <v-icon>edit</v-icon>
-                    </v-btn>
-                    <v-btn flat color="teal" value="delete">
-                        <span>Delete</span>
-                        <v-icon>delete</v-icon>
-                    </v-btn>
-                </div>
-                <div v-if="showAnswer" v-for="(answer, idx) in question.answers" :key="idx" class="quest-answers">
-                    <p>{{answer.text}}</p>
-                    <div v-if="!answer.isCorrect" class="notCorrect">
-                        <i class="fa fa-times" aria-hidden="true"></i>
+        <div v-for="(question, idx) in gameToEdit.questions" avatar :key="idx" class="question-container">
+            <v-list two-line class="my-game-prev">
+                <v-list-tile avatar :key="question._id">
+                    <img :src="question.img" class="my-game-img" />
+                    <v-text-field v-model="question.title" required></v-text-field>
+                    <div>
+                        <v-btn flat color="teal" value="edit" @click="showAnswer(question)">
+                            <span>Edit questions</span>
+                            <v-icon>edit</v-icon>
+                        </v-btn>
                     </div>
-                    <div v-if="answer.isCorrect" class="isCorrect">
-                        <i class="fa fa-check" aria-hidden="true"></i>
+                    <div>
+                        <v-btn flat color="teal" value="delete" @click="deleteQuestion(idx)">
+                            <span>Delete</span>
+                            <v-icon>delete</v-icon>
+                        </v-btn>
                     </div>
+                </v-list-tile>
+            </v-list>
+            <div v-if="question.showAnswer" v-for="answer in question.answers" :key="answer._id" class="quest-answers">
+                <v-text-field v-model="answer.text" required class="answer-text"></v-text-field>
+                <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(question, answer)">
+                    <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
-            </v-list-tile>
-        </v-list>
-        <v-btn>
+                <div v-if="answer.isCorrect" class="isCorrect" @click="changeCorrectAnswer(question, answer)">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+        <v-btn @click="addQuestion">
             <v-icon>add</v-icon>
         </v-btn>
         <v-btn @click="cancleClicked">Cancle</v-btn>
@@ -35,10 +37,12 @@
     </section>
 </template>
 <script>
+import Vue from "vue";
+import GameService from '../../services/GamesService'
+
 export default {
   data() {
     return {
-      showAnswer: false,
       gameToEdit: null
     };
   },
@@ -47,9 +51,24 @@ export default {
       this.$router.push("/my-games");
       this.$emit("cancleEdition");
     },
-
     saveClicked() {
       this.$emit("save", this.gameToEdit);
+    },
+    showAnswer(question) {
+      if (!question.showAnswer) {
+        Vue.set(question, "showAnswer", true);
+      } else question.showAnswer = !question.showAnswer;
+    },
+    deleteQuestion(questionIdx) {
+      this.gameToEdit.questions.splice(questionIdx, 1);
+    },
+    addQuestion() {
+        let question = GameService.getEmptyQuestion()
+        this.gameToEdit.questions.push(question)
+    },
+    changeCorrectAnswer(question, answer) {
+        question.answers.map(answer => answer.isCorrect = false)
+        answer.isCorrect = true
     }
   },
   created() {
@@ -60,8 +79,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.question-container {
+    margin: 1em 0;
+}
+
 .my-game-img {
-  width: 100px;
+  max-width: 200px;
+  max-height: 100px;
   margin-right: 1em;
 }
 .game-prev-control {
@@ -84,4 +108,29 @@ export default {
     color: rgb(41, 41, 41);
   }
 }
+
+.quest-answers {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-top: 1.2px solid rgb(238, 237, 237);
+  padding: 10px 16px;
+  div {
+    display: inline-block;
+    margin: 0px;
+    max-width: 80%;
+    max-height: 42px;
+  }
+  .notCorrect {
+    color: red;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  .isCorrect {
+    color: green;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+}
+
 </style>

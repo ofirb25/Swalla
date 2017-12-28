@@ -18,8 +18,8 @@ function getGameById(id) {
         .catch(err => err)
 }
 //checks an answer and if correct updates the score
-function checkAns(question,selectedAnswer,points){
-    
+function checkAns(question, selectedAnswer, points) {
+
 }
 
 const getObjToEdit = (id) => {
@@ -63,6 +63,32 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
     }
 }
 
+function getEmptyQuestion() {
+    return {
+        title: '',
+        img: '',
+        time: 10000,
+        answers: [
+            {
+                text: '',
+                isCorrect: false
+            },
+            {
+                text: '',
+                isCorrect: true
+            },
+            {
+                text: '',
+                isCorrect: false
+            },
+            {
+                text: '',
+                isCorrect: false
+            }
+        ]
+    }
+}
+
 const updateGame = (updatedGame) => {
     var newUpdatedGame = Object.assign({}, updatedGame)
     delete newUpdatedGame._id
@@ -79,13 +105,13 @@ function searchGame(query) {
 
 }
 
-function getShortUrl(pinCode){
+function getShortUrl(pinCode) {
     return axios.post(`https://www.googleapis.com/urlshortener/v1/url?key=${shourtApiKey}`,
-    {"longUrl": `${window.location.href}/${pinCode}`})
-    .then(({data})=>{
-        //gets an object where id is the shorten url
-        return data.id
-    })
+        { "longUrl": `${window.location.href}/${pinCode}` })
+        .then(({ data }) => {
+            //gets an object where id is the shorten url
+            return data.id
+        })
 }
 
 export default {
@@ -94,5 +120,6 @@ export default {
     deleteGame,
     getObjToEdit,
     getShortUrl,
-    updateGame
+    updateGame,
+    getEmptyQuestion
 }

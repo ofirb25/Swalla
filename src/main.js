@@ -7,7 +7,9 @@ import Vuex from 'vuex'
 import store from './store'
 import socketio from 'socket.io-client'
 import VueSocketio from 'vue-socket.io'
+import FBSignInButton from 'vue-facebook-signin-button'
 
+Vue.use(FBSignInButton)
 Vue.use(VueSocketio, socketio('http://localhost:3003'), store);
 Vue.use(Vuetify)
 Vue.config.productionTip = false
