@@ -22,11 +22,11 @@
                     <v-btn class="navBtn" flat v-if="loggedInUser">Create</v-btn>
                 </router-link>
 
-                <router-link tag="div" :to="'/my-games'">
-                    <v-btn class="navBtn" flat v-if="!loggedInUser">my-games</v-btn>
+                <router-link tag="div" :to="'/user-profile/'+loggedInUser._id" v-if="loggedInUser">
+                    <v-btn class="navBtn" flat >{{loggedInUser.name}}</v-btn>
                 </router-link>
 
-                <v-btn class="navBtn" flat v-if="loggedInUser" @click="logoutClicked">Logout</v-btn>
+                <v-btn class="navBtn" flat v-if="loggedInUser" @click="logout">Logout</v-btn>
             </v-toolbar-items>
         </v-toolbar>
 
@@ -74,7 +74,7 @@
                     </v-list-tile>
                 </router-link>
 
-                <v-list-tile v-if="loggedInUser" @click="logoutClicked" >
+                <v-list-tile v-if="loggedInUser" @click="logout" >
                     <v-list-tile-content>
                         <v-list-tile-title>Logout</v-list-tile-title>
                     </v-list-tile-content>
@@ -85,6 +85,8 @@
 </template>
 
 <script>
+import { SIGNOUT } from '../modules/UserModule.js';
+
 export default {
   data() {
     return {
@@ -93,8 +95,10 @@ export default {
     };
   },
   methods: {
-    logoutClicked() {
-      this.islogin = !this.islogin;
+    logout() {
+      this.$store.dispatch({ type: SIGNOUT }).then(() => {
+        this.$router.push("/");
+      });
     }
   },
   computed: {

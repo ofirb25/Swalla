@@ -2,9 +2,7 @@
     <v-form class="login-section" v-model="valid" @submit.prevent="login">
         <v-text-field label="E-mail" v-model="loginDetails.username" :rules="emailRules" :counter="10" required></v-text-field>
         <v-text-field label="Password" type="password" v-model="loginDetails.pass" required></v-text-field>
-        <router-link :to="'/'">
-            <v-btn class="login-btn">Login</v-btn>
-        </router-link>
+            <v-btn class="login-btn" @click="login">Login</v-btn>
         <h2>or</h2>
         <img src="../assets/fblogin.png">
         <router-link :to="'/signup-page'">
@@ -14,6 +12,8 @@
 </template>
 
 <script>
+import { SIGNUP, LOGIN } from '../modules/UserModule';
+
 export default {
   data() {
     return {
@@ -34,7 +34,7 @@ export default {
   methods: {
     login() {
       this.$store
-        .dispatch({ type: LOGIN, signinDetails: this.loginDetails })
+        .dispatch({ type: LOGIN, loginDetails: this.loginDetails })
         .then(_ => {
           this.$router.push("/");
         })
