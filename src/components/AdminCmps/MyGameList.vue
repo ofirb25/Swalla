@@ -22,6 +22,8 @@
         <v-btn fab dark color="indigo">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </v-btn>
+        
+        <v-btn>Show More...</v-btn><!-- not yet functional -->
     </section>
 </template>
 <script>
