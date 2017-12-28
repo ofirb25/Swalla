@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HomePage from '../pages/HomePage';
 import GameDetails from '../pages/GameDetails';
-import MyGamesPage from '../pages/MyGamesPage';
+import UserProfilePage from '../pages/UserProfilePage';
 import MyGamesDetails from '../pages/MyGameDetails';
 import PlayPage from '../pages/PlayPage';
 import PlayMulti from '../pages/PlayMulti';
@@ -46,9 +46,9 @@ export default new Router({
       component: GameDetails
     },
     {
-      path: '/my-games',
-      name: 'My-Games-Page',
-      component: MyGamesPage
+      path: '/user-profile/:id',
+      name: 'User-Profile-Page',
+      component: UserProfilePage
     },
     {
       path: '/my-game/:gameId',
