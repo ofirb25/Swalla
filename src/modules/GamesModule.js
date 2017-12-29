@@ -77,10 +77,10 @@ export default {
         },
 
         [GET_GAME_TO_EDIT]({ commit, rootState }, { gameId }) {
-            var loggedinUser = rootState.UserModule.loggedinUserId
+            var loggedinUser = rootState.UserModule.loggedinUser
             return GameService.getObjToEdit(gameId)
                 .then(gameToEdit => {
-                    vue.set(gameToEdit, 'ownerId', loggedinUserId)
+                    vue.set(gameToEdit, 'ownerId', loggedinUser._id)
                     // console.log('GAME FROM SERVICE IN MOUDLE : ', gameToEdit);
                     commit({ type: SET_GAME_TO_EDIT, gameToEdit })
                 })
