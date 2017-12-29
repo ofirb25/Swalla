@@ -23,10 +23,9 @@ function logout() {
 }
 
 const getUserById = (userId) => {
-    console.log('Tring To Get User By Id: ', userId);
     return axios.get(`${userUrl}/${userId}`)
         .then(({data}) => {
-            console.log('Inside getUser.then(), user : ', data);
+            // console.log('Inside getUser.then(), user : ', data);
             return data;
         }).catch(err => err);
 }

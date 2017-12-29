@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="games-container">
-            <router-link v-for="game in games" :to="'/my-game/'+game._id" :key="game._id">
+            <router-link v-for="game in games" :to="'/my-game/'+currUserId" :key="game._id">
                 <my-game-preview :game="game" :key="game._id"></my-game-preview>
             </router-link>
         </div>
