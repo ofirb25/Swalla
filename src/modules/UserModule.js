@@ -8,13 +8,16 @@ export const SIGNOUT = 'user/signout';
 var STORAGE_KEY = 'loggedinUser';
 
 export default {
-    state: {
+    state: {    
         loggedinUser: getUserFromStorage()
     },
     getters: {
         isUser(state) {
             return !!state.loggedinUser
         },
+        loggedinUserId(state) {
+            return state.loggedinUser._id
+        }
     },
     mutations: {
         [SET_USER](state, { user }) {

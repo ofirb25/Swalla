@@ -81,7 +81,7 @@ export default {
 }
 .quest-container {
   cursor: pointer;
-  margin: 1em;
+  margin: 1em, 0;
   &:hover {
     background-color: rgb(240, 240, 240);
   }

@@ -53,8 +53,24 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
                 img: '',
                 time: 15000,
                 answers: [
+                    {
+                        text: '',
+                        isCorrect: false
+                    },
+                    {
+                        text: '',
+                        isCorrect: true
+                    },
+                    {
+                        text: '',
+                        isCorrect: false
+                    },
+                    {
+                        text: '',
+                        isCorrect: false
+                    }
                 ]
-            }
+                    }
         ],
         topTen: [
             {
@@ -91,6 +107,7 @@ function getEmptyQuestion() {
 
 const updateGame = (updatedGame) => {
     var newUpdatedGame = Object.assign({}, updatedGame)
+    updatedGame.createdAt = Date.now()
     delete newUpdatedGame._id
     if (updatedGame._id) return axios.put(`${gameUrl}/${updatedGame._id}`, newUpdatedGame)
     else return axios.post(gameUrl, updatedGame)

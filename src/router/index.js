@@ -51,7 +51,7 @@ export default new Router({
       component: GameDetails
     },
     {
-      path: '/user-profile/:id',
+      path: '/user-profile/:userId',
       name: 'User-Profile-Page',
       component: UserProfilePage
     },

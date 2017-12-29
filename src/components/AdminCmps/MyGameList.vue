@@ -14,32 +14,30 @@
                 </v-btn>
             </div>
         </div>
-        <div class="games-container">
-            <router-link v-for="game in games" :to="'/my-game/'+game._id" :key="game._id">
-                <my-game-preview :game="game" :key="game._id"></my-game-preview>
+        <div>
+            <router-link v-for="game in games" :to="'/my-game/'+game._id" :key="game._id" >
+                <my-game-preview :game="game" :canEdit="canEdit" :key="game._id"  class="game-container"></my-game-preview>
             </router-link>
         </div>
         <v-btn fab dark color="indigo">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </v-btn>
+        
+        <v-btn>Show More...</v-btn><!-- not yet functional -->
     </section>
 </template>
 <script>
-import { LOAD_GAMES, SET_FILTER } from "../../modules/GamesModule";
 import MyGamePreview from "./MyGamePreview";
 export default {
   data() {
     return {
       e1: "recent",
-      filterBy: ""
+      filterBy: "",
     };
-  },
-  created() {
-    this.$store.dispatch({ type: LOAD_GAMES }).then(games => {});
   },
   computed: {
     games() {
-      return this.$store.getters.gamesToDisplay;
+      return this.$store.getters.userGamesToDisplay;
     }
   },
   components: {
@@ -49,6 +47,15 @@ export default {
     setFilter() {
       this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
     }
+  },
+  props: {
+    canEdit: Boolean,
+    userId: String
   }
 };
 </script>
+<style lang="scss" scoped>
+  .game-container {
+    margin: 1em 0px;
+  }
+</style>
