@@ -14,7 +14,7 @@ const SET_GAME_TO_EDIT = 'games/setGameToEdit';
 
 export default {
     state: {
-        filterBy: null,
+        filterBy: '',
         games: [],
         gameToEdit: null,
         filterQuery: '',
@@ -43,15 +43,15 @@ export default {
     getters: {
         gamesToDisplay(context) {
             var { games, filterBy } = context;
-            if (!filterBy) return games
             return games.filter(game => {
-                return game.name.toLowerCase().includes(filterBy.toLowerCase()) ||
-                    game.description.toLowerCase().includes(filterBy.toLowerCase())
+                return game.isPublic &&
+                    (game.name.toLowerCase().includes(filterBy.toLowerCase()) ||
+                    game.description.toLowerCase().includes(filterBy.toLowerCase()))
             })
             return games
         },
         userGamesToDisplay(context) {
-            var { games, tempUserId } = context;            
+            var { games, tempUserId } = context;
             return games.filter(game => {
                 return game.ownerId === tempUserId
             })

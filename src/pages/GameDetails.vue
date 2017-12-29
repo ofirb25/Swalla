@@ -29,7 +29,7 @@
                             <span class="fa fa-users"></span>
                         </div>
                         <div title="creatd at">
-                            <span>{{game.createdAt}}</span>
+                            <span>{{createdDate}}</span>
                             <span class="fa fa-clock-o"></span>
                         </div>
                         <div title="questions">
@@ -76,6 +76,8 @@
 import GameService from "../services/GamesService";
 import UserService from "../services/UserService";
 import StartgameModal from "../components/EditCmps/StartGameModal.vue";
+import moment from "moment";
+
 export default {
   data() {
     return {
@@ -95,6 +97,11 @@ export default {
   },
   components: {
     StartgameModal
+  },
+  computed: {
+    createdDate() {
+      return moment(this.game.createdAt).format("l");
+    }
   }
 };
 </script>

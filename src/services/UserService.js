@@ -16,6 +16,7 @@ function login(userCreds) {
         .then(({ data }) => {
             return data
         })
+        
 }
 
 function logout() {

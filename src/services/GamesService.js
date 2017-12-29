@@ -107,6 +107,7 @@ function getEmptyQuestion() {
 
 const updateGame = (updatedGame) => {
     var newUpdatedGame = Object.assign({}, updatedGame)
+    updatedGame.createdAt = Date.now()
     delete newUpdatedGame._id
     if (updatedGame._id) return axios.put(`${gameUrl}/${updatedGame._id}`, newUpdatedGame)
     else return axios.post(gameUrl, updatedGame)
