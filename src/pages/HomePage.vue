@@ -1,7 +1,12 @@
 <template>
     <section class="games-section">
         <div class="container">
+          <section class="wellcomSection">
             <h1>SWALLA</h1>
+            <h3>Most good looking, amazing, nice great, kahoot like website, in the
+              all entire world!
+            </h3>
+          </section>
 
         <div class="input-container">
         <input class="SearchInput" style="text" placeholder="⌕ Search game" @input="setFilter" v-model="filterBy"/>
@@ -42,6 +47,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wellcomSection{
+  height: auto;
+  padding: 20px;
+  width: 118%;
+  background: rgba(50, 6, 80, 0.589);
+  margin-bottom: 20px;
+
+  h1 {
+      font-size: 70px;
+      color: rgba(249, 246, 252, 0.699);
+    }
+
+    h3{
+      width: 50%;
+      font-size: 30px;
+      color: rgba(249, 246, 252, 0.699);
+    }
+}
+
 .games-section {
   display: flex;
   justify-content: center;
@@ -52,11 +76,7 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    h1 {
-      margin-bottom: 10px;
-      font-size: 70px;
-      color: rgba(176, 132, 226, 0.699);
-    }
+    
 
     .input-container {
       width: 70%;

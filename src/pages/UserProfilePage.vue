@@ -17,6 +17,6 @@ export default {
 </script>
 <style lang="scss" scoped>
     .list-componenet {
-        max-width: 50%
+        max-width: 50%;
     }
 </style>
