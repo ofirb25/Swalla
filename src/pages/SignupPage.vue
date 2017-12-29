@@ -3,7 +3,8 @@
         <v-text-field label="Name" v-model="signupDetails.name" :rules="nameRules" :counter="10" required></v-text-field>
         <v-text-field label="E-mail" v-model="signupDetails.username" :rules="emailRules" :counter="10" required></v-text-field>
         <v-text-field label="Password" type="password" v-model="signupDetails.pass" required></v-text-field>
-            <v-btn class="login-btn" @click="signup">Signup</v-btn>
+        <v-text-field label="Porfile picture" v-model="signupDetails.img"></v-text-field>
+        <v-btn class="login-btn" @click="signup">Signup</v-btn>
     </v-form>
 </template>
 
@@ -24,11 +25,12 @@ export default {
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "E-mail must be valid"
       ],
-      signupDetails: { name: "", username: "", pass: "" }
+      signupDetails: { name: "", username: "", pass: "", img: "" }
     };
   },
   methods: {
     signup() {
+      if (!this.signupDetails.img) this.signupDetails.img = 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3451338.jpg'
       this.$store
         .dispatch({ type: SIGNUP, signupDetails: this.signupDetails })
         .then(_ => {

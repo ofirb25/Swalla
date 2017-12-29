@@ -57,7 +57,8 @@ export default {
     saveUpdated(updatedGame) {
       GamesService.updateGame(updatedGame).then(game => {
         this.$store.commit(CLEAR_GAME_TO_EDIT);
-        this.$router.push('/my-game/' + game.data._id)
+        if (game._id) this.$router.push("/my-game/" + this.game._id);
+        else this.$router.push("/my-game/" + game.data._id);
       });
     }
   },
@@ -71,16 +72,14 @@ export default {
     this.gameId = this.$route.params.gameId;
     this.$store
       .dispatch({ type: GET_GAME_TO_EDIT, gameId: this.gameId })
-      .then(_ => {
-      });
+      .then(_ => {});
   }
 };
 </script>
 
 <style lang="scss">
-  .edit-game-container {
-    width: 40%;
-    margin: auto;
-  }
-
+.edit-game-container {
+  width: 40%;
+  margin: auto;
+}
 </style>
