@@ -167,17 +167,14 @@ export default {
 .game-owner {
   display: flex;
   justify-content: center;
-  cursor: pointer;
   align-items: center;
-  &:hover {
-    background-color: rgb(240, 240, 240);
-  }
   p,
   img {
     font-size: 1.4em;
     margin-bottom: 0px;
     padding: 0.5em;
     color: black;
+    cursor: pointer;
   }
 }
 </style>
