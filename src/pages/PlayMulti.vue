@@ -1,18 +1,17 @@
 <template>
     <section class="wrapper">
         <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
-        <div class="waiting-comps">
-     <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting"></invite-details>
-        <players-list v-if="match" :players="players"></players-list>
-           
+        <div v-if="isRoomReady && isNameSaved" class="waiting-comps">
+          <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting"></invite-details>
+          <players-list v-if="match" :players="players"></players-list>
         </div>
-           <v-btn @click="startGame" block v-if="isHosting && gameUrl"  color="white" value="Begin Game" class="start-game">
+        <v-btn @click="startGame" block v-if="isHosting && gameUrl && !isGameOn && !ready"  color="white" value="Begin Game" class="start-game">
             <span>Begin Game</span>
         </v-btn>
-        <!-- <loading-game @done="showPrev" v-if="!ready"></loading-game>
-        <question-prev v-if="questPrev" @prevDone="startGame"></question-prev>
-        <quest-comp :question="question" @playNext="playNext" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
-        <p v-if="!isGameOn">game over</p> -->
+        <loading-game @done="showPrev" v-if="ready"></loading-game>
+        <question-prev :question="question" v-if="questPrev"></question-prev>
+        <quest-comp :question="question" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
+        <score-board v-if="isScoreBoard" :players="players"></score-board>
     </section>
 </template>
 <script>
@@ -23,6 +22,7 @@ import QuestComp from "../components/GameComps/QuestComp";
 import PlayersList from "../components/GameComps/PlayersList";
 import InviteDetails from "../components/GameComps/InviteDetails";
 import SubmitName from "../components/GameComps/SubmitName";
+import ScoreBoard from "../components/GameComps/ScoreBoard";
 import {
   LOAD_GAME,
   PLAY_NEXT,
@@ -30,7 +30,8 @@ import {
   ADD_POINTS,
   RESET_STATE,
   SOCKET_CONNECT,
-  SET_MULTI_MATCH
+  SET_MULTI_MATCH,
+  INCREMENT_ANSWERS_COUNT
 } from "../modules/CurrMultiGameModule";
 
 export default {
@@ -38,11 +39,14 @@ export default {
     return {
       gameUrl: "",
       isJoining: false,
+      isRoomReady: true,
       isNameSaved: false,
-      ready: true,
+      ready: false,
       questPrev: false,
       isQuestionOn: false,
-      isGameOn: true,
+      isGameOn: false,
+      isGameOver: false,
+      isScoreBoard: false,
       playerName: ""
     };
   },
@@ -60,28 +64,27 @@ export default {
           playerName: playerName
         });
       }
-      this.ready = false;
       this.isNameSaved = true;
       console.log(playerName);
       // this.$store.dispatch({ type: ADD_PLAYER, playerName: this.playerName });
     },
     showPrev() {
-      this.ready = true;
-      this.questPrev = true;
+      this.$socket.emit("SHOW_PREV", { pin: this.pin });
     },
-    startGame() {
-      this.$socket.emit('GAME_STARTED',{pin: this.pin})
-    },
-    playNext() {
-      this.isQuestionOn = false;
-      this.$store.dispatch({ type: PLAY_NEXT }).then(_ => {
-        if (this.$store.getters.currQuestion) this.questPrev = true;
-        else this.isGameOn = false;
+    showQuestion() {
+      this.$socket.emit("QUESTION_STARTED", {
+        time: this.question.time,
+        pin: this.pin
       });
     },
+    startGame() {
+      this.$socket.emit("START_GAME", { pin: this.pin });
+    },
+    // playNext() {
+
+    // },
     checkAns(id, startTime) {
       var points = 0;
-      console.log(this.question, "questtionnnnnn");
       if (this.question.answers[id].isCorrect) {
         console.log("correct");
         let time = Date.now() - startTime;
@@ -89,7 +92,11 @@ export default {
           (this.question.time - time) / this.question.time * 100
         );
       }
-      this.$store.dispatch({ type: ADD_POINTS, points });
+      this.$socket.emit("PLAYER_ANSWERED", { points, pin: this.pin });
+      // this.$store.dispatch({ type: ADD_POINTS, points });
+    },
+    showScores() {
+      this.$socket.emit("SHOW_SCORES", { pin: this.pin });
     }
   },
   computed: {
@@ -100,7 +107,7 @@ export default {
       return this.$store.getters.currMultiQuestion;
     },
     players() {
-      return this.$store.getters.players;
+      return this.$store.getters.multiPlayers;
     },
     isHosting() {
       return this.$store.getters.isHosting;
@@ -140,12 +147,54 @@ export default {
         socketId: this.$socket.id
       });
     },
+    PREV_DONE(match){
+      this.showQuestion()
+    },
     PLAYER_JOINED(match) {
       console.log("joined!!", match);
       this.$store.dispatch({
         type: SET_MULTI_MATCH,
         match,
         socketId: this.$socket.id
+      });
+    },
+    START_GAME(match) {
+      console.log("match started", match);
+      this.$store.dispatch({
+        type: SET_MULTI_MATCH,
+        match,
+        socketId: this.$socket.id
+      });
+      this.ready = true;
+      this.isRoomReady = false;
+    },
+    SHOW_PREV() {
+      this.ready = false;
+      this.isGameOn = true;
+      this.questPrev = true;
+    },
+    QUESTION_STARTED() {
+      this.questPrev = false;
+      this.isQuestionOn = true;
+    },
+    TIME_UP() {
+      this.isQuestionOn = false;
+      this.isScoreBoard = true;
+      this.showScores()
+    },
+    PLAYER_ANSWERED({players, answersCount}) {
+      this.$store.dispatch({ type: ADD_POINTS, players, answersCount });
+    },
+    NEXT_QUESTION() {
+      this.isScoreBoard = false;
+      this.$store.dispatch({ type: PLAY_NEXT }).then(_ => {
+        if (this.$store.getters.currMultiQuestion) {
+          this.showPrev();
+          // this.questPrev = true;
+        } else {
+          this.isGameOn = false;
+          this.isQuestionOn = true;
+        }
       });
     }
   },
@@ -155,7 +204,8 @@ export default {
     QuestComp,
     PlayersList,
     InviteDetails,
-    SubmitName
+    SubmitName,
+    ScoreBoard
   }
 };
 </script>

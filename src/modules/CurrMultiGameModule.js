@@ -7,6 +7,7 @@ export const RESET_STATE = 'currMultiGame/resetState';
 export const SOCKET_CONNECT = 'currMultiGame/socketConnect';
 export const SET_MULTI_MATCH = 'currMultiGame/setMultiGame';
 export const SET_MATCH = 'currMultiGame/setMatch';
+export const INCREMENT_ANSWERS_COUNT = 'currMultiGame/incrementAnswers';
 
 const SET_GAME = 'currMultiGame/setGame';
 
@@ -16,8 +17,9 @@ export default {
         game: null,
         currPlayerId: null,
         match: null,
-        players: [],
+        // players: [],
         currQuestion: 0,
+        answersCount: 0
     },
     mutations: {
         [SET_GAME](state, { game }) {
@@ -26,33 +28,34 @@ export default {
         [PLAY_NEXT](state) {
             state.currQuestion++
         },
-        [ADD_POINTS](state, { points }) {
-            //console.log
-            var playerIdx = state.players.findIndex(player=>player.id===state.currPlayerId)
-            state.players[playerIdx].points+= points
+        [ADD_POINTS](state, { players }) {
+            state.match.players = players
         },
         [ADD_PLAYER](state, { player }) {
             state.players.push(player)
         },
+        [INCREMENT_ANSWERS_COUNT](state, { answersCount }) {
+            state.answersCount = answersCount
+        },
         [RESET_STATE](state) {
             state.match = null
             state.game = null
-            state.players=  []
-            state.currQuestion= 0
-            state.TotalPoints= 0
+            state.players = []
+            state.currQuestion = 0
+            state.TotalPoints = 0
         },
-        [SOCKET_CONNECT](state){
+        [SOCKET_CONNECT](state) {
             state.socketIsConnected = true;
         },
-        [SET_MULTI_MATCH](state,{match,socketId}) {
-            
+        [SET_MULTI_MATCH](state, { match, socketId }) {
+
             state.currPlayerId = socketId
             state.match = match
         }
     },
     getters: {
-        match(context){
-            return !!context.match
+        match(context) {
+            return context.match
         },
         currMultiGame(context) {
             return context.game
@@ -62,26 +65,28 @@ export default {
                 return context.game.questions[context.currQuestion] || null
             }
         },
-        currMultiGameScores(context){
-            if(context.players.length) {
-                return context.players
-            }
+        answersCount(context) {
+            return context.answersCount
         },
-        players(context) {
-            if(context.match) return context.match.players
+        // currMultiGameScores(context){
+        //     if(context.players.length) {
+        //         return context.players
+        //     }
+        // },
+        multiPlayers(context) {
+            if (context.match) return context.match.players
 
         },
         isHosting(context) {
-            if(context.match){
+            if (context.match) {
                 return context.currPlayerId === context.match.hostId
             }
         },
-        pin(context){
-            if(context.match){
+        pin(context) {
+            if (context.match) {
                 return context.match.pin
             }
         }
-
     },
     actions: {
         [LOAD_GAME]({ commit }, { gameId }) {
@@ -93,8 +98,9 @@ export default {
         [PLAY_NEXT]({ commit }) {
             commit({ type: PLAY_NEXT })
         },
-        [ADD_POINTS]({ commit }, { points,userId }) {
-            commit({ type: ADD_POINTS, points })
+        [ADD_POINTS]({ commit }, { players, answersCount }) {
+            commit({ type: ADD_POINTS, players })
+            commit({ type: INCREMENT_ANSWERS_COUNT, answersCount })
         },
         [ADD_PLAYER]({ commit }, { playerName }) {
             var player = {
@@ -105,14 +111,14 @@ export default {
             }
             commit({ type: ADD_PLAYER, player })
         },
-        [RESET_STATE]({commit}){
-            commit({type:RESET_STATE})
+        [RESET_STATE]({ commit }) {
+            commit({ type: RESET_STATE })
         },
-        [SOCKET_CONNECT]({commit}) {
-            commit({type: SOCKET_CONNECT})
+        [SOCKET_CONNECT]({ commit }) {
+            commit({ type: SOCKET_CONNECT })
         },
-        [SET_MULTI_MATCH]({commit},{match,socketId}) {
-            commit ({type:SET_MULTI_MATCH,match,socketId})
+        [SET_MULTI_MATCH]({ commit }, { match, socketId }) {
+            commit({ type: SET_MULTI_MATCH, match, socketId })
         }
     }
 }
