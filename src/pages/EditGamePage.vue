@@ -55,9 +55,9 @@ export default {
       // console.log("GAME AFTER CHANGE: ", this.game); //finish the details - update all the fields
     },
     saveUpdated(updatedGame) {
-      GamesService.updateGame(updatedGame).then(_ => {
+      GamesService.updateGame(updatedGame).then(game => {
         this.$store.commit(CLEAR_GAME_TO_EDIT);
-        this.$router.push('/my-game/' + this.game._id)
+        this.$router.push('/my-game/' + game.data._id)
       });
     }
   },

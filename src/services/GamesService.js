@@ -53,8 +53,24 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
                 img: '',
                 time: 15000,
                 answers: [
+                    {
+                        text: '',
+                        isCorrect: false
+                    },
+                    {
+                        text: '',
+                        isCorrect: true
+                    },
+                    {
+                        text: '',
+                        isCorrect: false
+                    },
+                    {
+                        text: '',
+                        isCorrect: false
+                    }
                 ]
-            }
+                    }
         ],
         topTen: [
             {

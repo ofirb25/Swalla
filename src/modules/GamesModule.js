@@ -36,8 +36,8 @@ export default {
         [SET_FILTER](state, { filterBy }) {
             state.filterBy = filterBy;
         },
-        [SET_TEMP_USER_ID](state, { userId }) {
-            state.tempUserId = userId;
+        [SET_TEMP_USER_ID](state, { ownerId }) {
+            state.tempUserId = ownerId;
         },
     },
     getters: {
@@ -51,12 +51,9 @@ export default {
             return games
         },
         userGamesToDisplay(context) {
-            var { games, filterBy, tempUserId } = context;
-            if (!filterBy) return games
+            var { games, tempUserId } = context;            
             return games.filter(game => {
-                return game.name.toLowerCase().includes(filterBy.toLowerCase()) ||
-                    game.description.toLowerCase().includes(filterBy.toLowerCase()) ||
-                    game.ownerId === tempUserId
+                return game.ownerId === tempUserId
             })
             return games
         },
