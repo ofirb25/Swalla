@@ -28,12 +28,15 @@ export default {
 <style lang="scss" scoped>
 .games-container {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   flex-wrap: wrap;
 
   .game-item {
     width: 250px;
-    // height: 100px;
+    height: 335px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 1em;
     border-radius: 5px;
     cursor: pointer;

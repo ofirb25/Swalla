@@ -1,36 +1,39 @@
 <template>
-    <section class="games-section">
-        <div class="container">
-          <section class="wellcomSection">
+    <div class="page-container">
+        <section class="wellcomSection">
             <h1>SWALLA</h1>
-            <h3>Most good looking, amazing, nice great, kahoot like website, in the
-              all entire world!
+            <h3>Most good looking, amazing, nice great, kahoot like website, in the all entire world!
             </h3>
-          </section>
+        </section>
+        <section class="games-section">
+            <div class="container">
 
-        <div class="input-container">
-        <input class="SearchInput" style="text" placeholder="⌕ Search game" @input="setFilter" v-model="filterBy"/>
-      
-        <div class="pinInput">
-        <input v-model="pin" style="text" placeholder="Enter your pin here"/>
-        <v-btn @click="searchPin">play</v-btn>
-        </div>
-        </div>
-
-        <game-list></game-list>
-        </div>
-    </section>
+                <div class="input-container">
+                  <div class="SearchInput">
+                    <v-icon>search</v-icon>
+                    <input type="text" placeholder="Search game" @input="setFilter" v-model="filterBy" />
+                  </div>
+                  <div class="SearchInput">
+                    <v-icon>fiber_pin</v-icon>
+                    <input v-model="pin" style="text" placeholder="Enter your pin here" />
+                  </div>
+                </div>
+                <v-btn @click="searchPin">play</v-btn>
+                <h1 class="start-playing">Strat playing now!</h1>
+                <game-list></game-list>
+            </div>
+        </section>
+    </div>
 </template>
-
 <script>
 import GameList from "../components/HomeComps/GameList";
 import { SET_FILTER } from "../modules/GamesModule";
 export default {
   data() {
     return {
-      filterBy: '',
-      pin: ''
-    }
+      filterBy: "",
+      pin: ""
+    };
   },
   components: {
     GameList
@@ -39,31 +42,74 @@ export default {
     setFilter() {
       this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
     },
-    searchPin(){
-      this.$router.push('/game/:gameId/play-multi/'+this.pin)
+    searchPin() {
+      this.$router.push("/game/:gameId/play-multi/" + this.pin);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.wellcomSection{
+
+.start-playing{
+  font-size: 3em;
+}
+.wellcomSection {
+  color: #fff;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
   height: auto;
   padding: 20px;
-  width: 118%;
-  background: rgba(50, 6, 80, 0.589);
+  width: 100%;
   margin-bottom: 20px;
-
   h1 {
-      font-size: 70px;
-      color: rgba(249, 246, 252, 0.699);
-    }
+    font-size: 60px;
+    color: rgba(255, 255, 255, 0.897);
+  }
 
-    h3{
-      width: 50%;
-      font-size: 30px;
-      color: rgba(249, 246, 252, 0.699);
-    }
+  h3 {
+    width: 50%;
+    font-size: 25px;
+    color: rgba(255, 255, 255, 0.897);
+  }
+
+  animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .games-section {
@@ -76,30 +122,32 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    
-
     .input-container {
       width: 70%;
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
-      
+
       .SearchInput {
-        border: 2px solid rgba(0, 0, 0, 0.452);
+        border: 1px solid rgb(192, 192, 192);
         border-radius: 3px;
         width: 48%;
-      }
+        height: 38px;
+        box-shadow: inset 0 0 4px #c2c2c2;
 
-      .pinInput{
-        width: 50%;
-        
-        input{
-        border: 2px solid rgba(0, 0, 0, 0.452);
-        border-radius: 3px;
-        height: 100%;
-        width: 60%;
+        i {
+          margin-left: 0.3em;
         }
-       
+      }
+      input {
+        height: 100%;
+        width: 88%;
+      }
+      input:focus {
+        outline: none;
+      }
+      input::placeholder {
+        color: rgb(153, 153, 153);
       }
     }
   }
