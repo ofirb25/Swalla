@@ -53,7 +53,9 @@ export default {
         userGamesToDisplay(context) {
             var { games, tempUserId } = context;
             return games.filter(game => {
-                return game.ownerId === tempUserId
+                return game.ownerId === tempUserId &&
+                (game.name.toLowerCase().includes(filterBy.toLowerCase()) ||
+                game.description.toLowerCase().includes(filterBy.toLowerCase()))
             })
             return games
         },
