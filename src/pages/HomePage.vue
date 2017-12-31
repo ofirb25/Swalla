@@ -7,19 +7,19 @@
         </section>
         <section class="games-section">
             <div class="container">
-
                 <div class="input-container">
-                  <div class="SearchInput">
-                    <v-icon>search</v-icon>
-                    <input type="text" placeholder="Search game" @input="setFilter" v-model="filterBy" />
-                  </div>
-                  <div class="SearchInput">
-                    <v-icon>fiber_pin</v-icon>
-                    <input v-model="pin" style="text" placeholder="Enter your pin here" />
-                  </div>
+                    <div class="SearchInput">
+                        <v-icon>search</v-icon>
+                        <input type="text" placeholder="Search game" @input="setFilter" v-model="filterBy" />
+                    </div>
+                    <div>
+                        <div class="SearchInput">
+                            <v-icon>fiber_pin</v-icon>
+                            <input v-model="pin" style="text" placeholder="Enter your pin here" />
+                        </div>
+                        <v-btn @click="searchPin">play</v-btn>
+                    </div>
                 </div>
-                <v-btn @click="searchPin">play</v-btn>
-                <h1 class="start-playing">Strat playing now!</h1>
                 <game-list></game-list>
             </div>
         </section>
@@ -50,8 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.start-playing{
+.start-playing {
   font-size: 3em;
 }
 .wellcomSection {
