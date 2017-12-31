@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="container">
-            <user-preview :userId="userId" :userToDisplay="userToDisplay"></user-preview>
+            <user-preview class="user-preview" :userId="userId" :userToDisplay="userToDisplay"></user-preview>
             <my-game-list class="list-componenet" :canEdit="canEdit" :userId="userId"></my-game-list>
         </div>
     </section>
@@ -67,11 +67,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+section {
+  height: 100%;
+}
 .list-componenet {
-  max-width: 50%;
+  width: 65%;
+  max-height: 65%;
 }
 .container {
+  max-width: 100%;
+  height: 100%;
+  background-color: transparent;
   display: flex;
   flex-direction: row;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  
+}
+.user-preview{
+  max-width: 35%;
+  min-width: 32%;
 }
 </style>
