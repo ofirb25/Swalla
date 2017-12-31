@@ -22,19 +22,19 @@
                     <div class="rank">
                         <div title="hige-score">
                             <span>{{game.highscore}}</span>
-                            <span class="fa fa-trophy"></span>
+                            <img src="../assets/cup.png"/>
                         </div>
                         <div title="played">
                             <span>{{game.playersCount}}</span>
-                            <span class="fa fa-users"></span>
+                            <img src="../assets/played.png"/>
                         </div>
                         <div title="creatd at">
                             <span>{{createdDate}}</span>
-                            <span class="fa fa-clock-o"></span>
+                            <img src="../assets/clock.png"/>
                         </div>
                         <div title="questions">
                             <span>{{game.questions.length}}</span>
-                            <span class="fa fa-question-circle"></span>
+                            <img src="../assets/question.png"/>
                         </div>
                     </div>
                 </v-card-actions>
@@ -156,6 +156,10 @@ export default {
 .game-stats {
   display: flex;
   justify-content: center;
+
+  img{
+      width: 15px;
+    }
 }
 
 .rank {
