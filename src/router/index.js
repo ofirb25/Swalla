@@ -7,8 +7,9 @@ import MyGamesDetails from '../pages/MyGameDetails';
 import PlayPage from '../pages/PlayPage';
 import PlayMulti from '../pages/PlayMulti';
 import EditGamePage from '../pages/EditGamePage';
-import LoginPage from '../pages/LoginPage'
-import SignupPage from '../pages/SignupPage'
+import LoginPage from '../pages/LoginPage';
+import SignupPage from '../pages/SignupPage';
+import ScoreBoard from '../components/GameComps/ScoreBoard';
 
 Vue.use(Router)
 
@@ -69,6 +70,11 @@ export default new Router({
       path: '/add-game',
       name: 'add-Game-Page',
       component: EditGamePage
+    },
+    {
+      path: '/score-board',
+      name: 'Edit-Game-Page',
+      component: ScoreBoard
     }
   ]
 })
