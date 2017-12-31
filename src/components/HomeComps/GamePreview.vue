@@ -1,32 +1,31 @@
 <template>
-   <v-card class="game-item" >
-        <v-card-media
-          class="white--text"
-          height="200px"
-          :src="game.img"
-        >
-          <v-container fill-height fluid>
-            <v-layout fill-height>
-              <v-flex xs12 align-end flexbox>
-                <span class="headline">{{game.name}}</span>
-              </v-flex>
-            </v-layout>
-          </v-container>
+    <v-card class="game-item">
+        <v-card-media class="white--text" height="200px" :src="game.img">
+            <v-container fill-height fluid>
+                <v-layout fill-height>
+                    <v-flex xs12 align-end flexbox>
+                        <span class="headline">{{game.name}}</span>
+                    </v-flex>
+                </v-layout>
+            </v-container>
         </v-card-media>
         <v-card-title>
-          <div>
-            <span class="grey--text">{{game.description | strLength}}</span><br>
-          </div>
+            <div>
+                <span class="grey--text">{{game.description | strLength}}</span>
+                <br>
+            </div>
         </v-card-title>
         <v-card-actions class="game-stats">
-          <div>
-            <span class="fa fa-trophy"></span><span>{{game.highscore}}</span>
-          </div>
-           <div>
-            <span>{{game.playersCount}}</span><span class="fa fa-users"></span>
-           </div>
+            <div>
+                <img src="../../assets/cup.png"/>
+                <span>{{game.highscore}}</span>
+            </div>
+            <div>
+                <span>{{game.playersCount}}</span>
+                <img src="../../assets/played.png"/>
+            </div>
         </v-card-actions>
-      </v-card>
+    </v-card>
 </template>
 
 <script>
@@ -55,6 +54,10 @@ export default {
       div *{
         padding-right:5px;
     } 
+
+    img{
+      width: 25px;
+    }
   }
   .headline {
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.719);

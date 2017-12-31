@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { LOGIN } from '../modules/UserModule';
+import { LOGIN } from "../modules/UserModule";
 
 export default {
   data() {
@@ -38,6 +38,9 @@ export default {
         .then(_ => {
           this.$router.push("/");
         })
+        .catch(err => {
+          console.log('cccc');
+        });
     }
   }
 };
