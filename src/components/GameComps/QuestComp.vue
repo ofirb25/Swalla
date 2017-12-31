@@ -16,7 +16,8 @@
 
           </div>
           <div v-if="!showCorrect" class="answers">
-              <v-btn v-for="(answer,idx) in question.answers" :class="isSelected(idx)" :key="idx" :color="answerColors[idx]" @click="checkAns($event,idx)"
+              <v-btn v-for="(answer,idx) in question.answers" :class="isSelected(idx)" :key="idx"
+               :color="answerColors[idx]" @click="checkAns($event,idx)"
                   :ref="'ans'+idx">
                   {{answer.text}}
               </v-btn>
@@ -55,9 +56,9 @@ export default {
   },
   methods: {
     checkAns($event, id) {
-      this.$emit('checkAns',id,this.startTime)
       if (this.isAnswer) return;
       else {
+      this.$emit('checkAns',id,this.startTime)
         this.isAnswer = true;
         this.isCover= true;
         this.selectedAnsId = id;
@@ -76,7 +77,7 @@ export default {
   },
   computed: {
     answerCount() {
-      return 2;
+      return this.$store.getters.answersCount
     }
   },
   mounted() {

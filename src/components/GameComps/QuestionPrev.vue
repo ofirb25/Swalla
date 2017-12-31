@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section v-if="question">
         <time-bar :timeLimit="2500" @done="prevDone"></time-bar>
         <div class="content">
              <h1 class="display-2">
@@ -26,10 +26,8 @@ export default {
   components: {
     TimeBar
   },
-  computed : {
-      question(){
-       return this.$store.getters.currQuestion
-      }
+  props : {
+    question : Object
   }
 };
 </script>

@@ -9,20 +9,18 @@
 </template>
 
 <script>
-
 import { LOAD_GAMES } from "../../modules/GamesModule";
-import GamePreview from './GamePreview'
+import GamePreview from "./GamePreview";
 export default {
   created() {
-    this.$store.dispatch({ type: LOAD_GAMES }).then(games => {
-    });
+    this.$store.dispatch({ type: LOAD_GAMES }).then(games => {});
   },
   computed: {
     games() {
       return this.$store.getters.gamesToDisplay;
     }
   },
-  components : {
+  components: {
     GamePreview
   }
 };
@@ -31,21 +29,24 @@ export default {
 .games-container {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;  
+  flex-wrap: wrap;
 
-    .game-item {
-      width:250px;
-      // height: 100px;
-      margin:1em;
-      border-radius: 5px;
-      cursor: pointer;
+  .game-item {
+    width: 250px;
+    // height: 100px;
+    margin: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+      transform: scale(1.03);
     }
+  }
 
-     @media (max-width:700px){
-         display: flex;
-         flex-direction: column;
-         align-items: center;
-      }
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
-
 </style>

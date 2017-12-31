@@ -1,19 +1,16 @@
 <template>
-    <div>
+    <div v-if="players">
     <h1 class="display-2">Score Board</h1>
-    <div class="userScore" v-for="player in players">
-    {{player.name}} -
-    {{player.points}}
+    <div class="userScore" v-for="player in players" :key="player.userId">
+    {{player.nickname}} -
+    {{player.score}}
     </div>
     </div>
 </template>
 <script>
 export default {
-  computed: {
-      scores() {
-        return this.$store.getters.currGameScores
-      },
-
-  }
+  props : {
+    players: Array
+  },
 };
 </script>

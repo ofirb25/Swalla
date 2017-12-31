@@ -3,7 +3,7 @@
         <v-list-tile avatar :key="game._id">
             <img :src="game.img" class="my-game-img"/>
             <v-list-tile-content>
-                <div>
+                <div v-if="canEdit">
                     <p @click.prevent="deleteGame(game._id)" class="game-prev-control">Delete</p>
                     <router-link :to="'/edit-game/'+game._id"><p class="game-prev-control">Edit</p></router-link>
                 </div>
@@ -34,7 +34,8 @@ import StartgameModal from "../EditCmps/StartGameModal.vue";
 
 export default {
   props: {
-    game: Object
+    game: Object,
+    canEdit: Boolean
   },
   methods: {
     deleteGame(gameId) {
@@ -53,7 +54,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .my-game-img {
-  width: 100px;
+  max-width: 200px;
+  max-height: 100px;
   margin-right: 1em;
 }
 .game-prev-control {
@@ -66,14 +68,17 @@ export default {
   font-size: 0.8em;
 }
 
-.my-game-prev:hover {
-  background-color: rgb(240, 240, 240);
+.my-game-prev {
   cursor: pointer;
-  .game-prev-control {
-    visibility: visible;
-    font-weight: bold;
-    text-decoration: none;
-    color: rgb(41, 41, 41);
+  margin: 1em, 0;
+  &:hover {
+    background-color: rgb(240, 240, 240);
+    .game-prev-control {
+      visibility: visible;
+      font-weight: bold;
+      text-decoration: none;
+      color: rgb(41, 41, 41);
+    }
   }
 }
 </style>

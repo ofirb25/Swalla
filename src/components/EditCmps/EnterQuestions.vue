@@ -2,12 +2,13 @@
     <section v-if="gameQuestions">
         <div v-for="(question, idx) in gameToEdit.questions" avatar :key="idx" class="question-container">
             <v-list two-line class="my-game-prev">
+              <div><v-text-field label="question" v-model="question.title" required></v-text-field></div>
                 <v-list-tile avatar :key="question._id">
-                    <img :src="question.img" class="my-game-img" />
-                    <v-text-field v-model="question.title" required></v-text-field>
+                    <img v-if="question.img" :src="question.img" class="my-game-img" />
+                    <v-text-field label="image" v-model="question.img" required></v-text-field>
                     <div>
                         <v-btn flat color="teal" value="edit" @click="showAnswer(question)">
-                            <span>Edit questions</span>
+                            <span>Edit answers</span>
                             <v-icon>edit</v-icon>
                         </v-btn>
                     </div>
