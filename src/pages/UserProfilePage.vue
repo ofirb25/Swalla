@@ -67,15 +67,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-<<<<<<< HEAD
-    .list-componenet {
-        max-width: 50%;
-    }
-    .container{
-        display: flex;
-        flex-direction: row;
-    }
-=======
 .list-componenet {
   max-width: 50%;
 }
@@ -83,5 +74,4 @@ export default {
   display: flex;
   flex-direction: row;
 }
->>>>>>> 7fec1c49c5db8c7e868dd4564268ce4111a050e7
 </style>
