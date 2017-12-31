@@ -193,9 +193,17 @@ export default {
           // this.questPrev = true;
         } else {
           this.isGameOn = false;
-          this.isQuestionOn = true;
+          // this.isQuestionOn = true;
+          this.isScoreBoard = true;
+          console.log('sending game over')
+          this.$socket.emit('GAME_OVER',{pin:this.pin})
         }
       });
+    },
+    GAME_OVER() {
+      console.log('game over from server')
+      this.isScoreBoard = true;
+      this.isGameOn = false;
     }
   },
   components: {
