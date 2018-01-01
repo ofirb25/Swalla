@@ -43,24 +43,17 @@ export default {
       this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
     },
     searchPin() {
-      if (this.pin === '8====>') {
-        this.$router.push('/avinoam');
+      if (this.pin === "8====>") {
+        this.$router.push("/avinoam");
         return;
       }
-      this.$router.push('/game/:gameId/play-multi/' + this.pin);
+      this.$router.push("/game/:gameId/play-multi/" + this.pin);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.actions-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-}
 .wellcomSection {
   color: #fff;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -129,6 +122,14 @@ export default {
     flex-direction: column;
     align-items: center;
 
+    .actions-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
     .input-container {
       width: 70%;
       display: flex;
@@ -140,6 +141,7 @@ export default {
         width: 48%;
         height: 38px;
         box-shadow: inset 0 0 4px #c2c2c2;
+        margin-bottom: 1em;
 
         i {
           margin-left: 0.3em;
@@ -147,7 +149,7 @@ export default {
       }
       input {
         height: 100%;
-        width: 88%;
+        width: 80%;
       }
       input:focus {
         outline: none;

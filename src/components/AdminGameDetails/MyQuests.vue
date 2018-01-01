@@ -18,6 +18,7 @@ export default {
 <style lang="scss" scoped>
   .my-quests-container {
     width: 85%;
+    margin-top: 1em;
   h1 {
     color: rgb(97, 97, 97)
   }

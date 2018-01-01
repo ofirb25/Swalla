@@ -36,24 +36,33 @@ export default {
   components: {
     MyGameCard,
     MyQuests
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
 .my-game-section {
   display: flex;
   height: 100%;
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
   div {
     height: 100% !important;
   }
   .game-card {
     width: 35%;
+    @media (max-width: 700px) {
+      width: 100%;
+    }
   }
   .game-quests {
     width: 65%;
     display: flex;
     align-items: center;
     flex-direction: column;
+    @media (max-width: 700px) {
+      width: 100%;
+    }
   }
 }
 </style>
