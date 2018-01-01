@@ -2,10 +2,10 @@
     <section v-if="gameQuestions">
         <div v-for="(question, idx) in gameToEdit.questions" avatar :key="idx" class="question-container">
             <v-list two-line class="my-game-prev">
-              <div><v-text-field label="question" v-model="question.title" required></v-text-field></div>
+              <div><v-text-field label="question" v-model="question.title" required @input="changeDetails"></v-text-field></div>
                 <v-list-tile avatar :key="question._id">
                     <img v-if="question.img" :src="question.img" class="my-game-img" />
-                    <v-text-field label="image" v-model="question.img" required></v-text-field>
+                    <v-text-field label="image" v-model="question.img" required @input="changeDetails"></v-text-field>
                     <div>
                         <v-btn flat color="teal" value="edit" @click="showAnswer(question)">
                             <span>Edit answers</span>
@@ -21,7 +21,7 @@
                 </v-list-tile>
             </v-list>
             <div v-if="question.showAnswer" v-for="answer in question.answers" :key="answer._id" class="quest-answers">
-                <v-text-field v-model="answer.text" required class="answer-text"></v-text-field>
+                <v-text-field v-model="answer.text" required class="answer-text" @input="changeDetails"></v-text-field>
                 <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(question, answer)">
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
@@ -39,7 +39,7 @@
 </template>
 <script>
 import Vue from "vue";
-import GameService from '../../services/GamesService'
+import GameService from "../../services/GamesService";
 
 export default {
   data() {
@@ -64,12 +64,15 @@ export default {
       this.gameToEdit.questions.splice(questionIdx, 1);
     },
     addQuestion() {
-        let question = GameService.getEmptyQuestion()
-        this.gameToEdit.questions.push(question)
+      let question = GameService.getEmptyQuestion();
+      this.gameToEdit.questions.push(question);
     },
     changeCorrectAnswer(question, answer) {
-        question.answers.map(answer => answer.isCorrect = false)
-        answer.isCorrect = true
+      question.answers.map(answer => (answer.isCorrect = false));
+      answer.isCorrect = true;
+    },
+    changeDetails() {
+      this.$emit("onDetailschange", this.gameToEdit);
     }
   },
   created() {
@@ -81,7 +84,7 @@ export default {
 
 <style lang="scss" scoped>
 .question-container {
-    margin: 1em 0;
+  margin: 1em 0;
 }
 
 .my-game-img {
@@ -133,5 +136,4 @@ export default {
     cursor: pointer;
   }
 }
-
 </style>
