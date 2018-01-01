@@ -33,6 +33,7 @@ export default {
   methods: {
     signup() {
       if (!this.signupDetails.img) this.signupDetails.img = 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3451338.jpg'
+      this.signupDetails.signInDate = Date.now()
       this.$store
         .dispatch({ type: SIGNUP, signupDetails: this.signupDetails })
         .then(_ => {

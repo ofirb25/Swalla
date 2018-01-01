@@ -46,7 +46,7 @@ export default {
       isQuestionOn: false,
       isGameOn: false,
       isGameOver: false,
-      isScoreBoard: false, 
+      isScoreBoard: false,
       playerName: ""
     };
   },
@@ -78,7 +78,7 @@ export default {
       });
     },
     startGame() {
-      console.log('startinggggg')
+      console.log("startinggggg");
       this.$socket.emit("START_GAME", { pin: this.pin });
     },
     // playNext() {
@@ -118,7 +118,7 @@ export default {
     },
     url() {
       return window.location.host;
-    },
+    }
   },
   created() {
     console.log(this.$socket);
@@ -148,8 +148,8 @@ export default {
         socketId: this.$socket.id
       });
     },
-    PREV_DONE(match){
-      this.showQuestion()
+    PREV_DONE(match) {
+      this.showQuestion();
     },
     PLAYER_JOINED(match) {
       console.log("joined!!", match);
@@ -181,9 +181,9 @@ export default {
     TIME_UP() {
       this.isQuestionOn = false;
       this.isScoreBoard = true;
-      this.showScores()
+      this.showScores();
     },
-    PLAYER_ANSWERED({players, answersCount}) {
+    PLAYER_ANSWERED({ players, answersCount }) {
       this.$store.dispatch({ type: ADD_POINTS, players, answersCount });
     },
     NEXT_QUESTION() {
@@ -217,19 +217,17 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-
-
 }
-  @media screen and (max-width:800px) {
-    .waiting-comps{
-      flex-direction: column;
-      * {
-        margin:10px 0;
+@media screen and (max-width: 800px) {
+  .waiting-comps {
+    flex-direction: column;
+    * {
+      margin: 10px 0;
 
-        flex:1;
-      }
-}
+      flex: 1;
+    }
   }
+}
 .wrapper {
   height: 100%;
   color: #fff;

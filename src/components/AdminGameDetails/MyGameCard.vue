@@ -5,7 +5,7 @@
         <v-card-title primary-title class="title-container">
             <div>
                 <h3 class="headline mb-0">{{game.name}}</h3>
-                <h5>TODO: Add category</h5>
+                <h5>{{game.audience}}</h5>
                 <div>
                     <v-card-actions class="card-actions">
                         <v-btn color="teal" value="play" dark @click.native.stop="dialog = true">
@@ -35,16 +35,16 @@
 
                 <div class="rank">
                     <div>
-                        <span class="fa fa-trophy"></span>
+                        <img src="../../assets/cup.png"/>
                         <span>{{game.highscore}}</span>
                     </div>
                     <div>
+                        <img src="../../assets/played.png"/>
                         <span>{{game.playersCount}}</span>
-                        <span class="fa fa-users"></span>
                     </div>
                     <div>
+                        <img src="../../assets/clock.png"/>
                         <span>{{createdDate}}</span>
-                        <span class="fa fa-clock-o"></span>
                     </div>
                 </div>
 
@@ -96,6 +96,7 @@ export default {
 .rank {
   position: absolute;
   bottom: 0px;
+  left: 0px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -105,6 +106,9 @@ export default {
     span {
       padding: 5px;
     }
+  }
+  @media (max-width: 700px) {
+    position: relative
   }
 }
 .user {

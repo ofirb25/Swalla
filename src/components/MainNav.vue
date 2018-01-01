@@ -58,7 +58,7 @@
                     </v-list-tile>
                 </router-link>
 
-                <router-link tag="div" :to="'/my-games'" v-if="loggedInUser">
+                <router-link tag="div" :to="'/user-profile/'+loggedInUser._id" v-if="loggedInUser">
                     <v-list-tile>
                         <v-list-tile-content>
                             <v-list-tile-title>{{loggedInUser.name}}</v-list-tile-title>
