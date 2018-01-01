@@ -1,8 +1,6 @@
 <template>
     <v-flex xs12 sm4 >
         <v-card v-if="gameImg">
-            <!-- <v-card-media :src="gameImg.img" height="200px">
-            </v-card-media> -->
             <v-card-title primary-title>
                 <div>
                     <h3 class="headline mb-0">Your Game Is Ready!</h3>
@@ -22,27 +20,13 @@
                 </div>
             </v-card-title>
             <v-card-actions>
-                <v-btn flat color="orange">Share</v-btn>
-                <v-btn flat color="orange">Explore</v-btn>
+                <v-btn dark color="purple"  @click="startGame" block value="Begin Game" class="start-game">PLAY</v-btn>
+                <!-- <v-btn dark color="blue">Cencel</v-btn> -->
             </v-card-actions>
         </v-card>
     </v-flex>
 </template>
 
-
-
-    <!-- <div v-if="gameUrl" class="invite-details">
-        <h2>Invite your friends to this match!</h2>
-        <div>
-            Send them this link :
-            <input type="text" readonly :value="gameUrl" @click="copyUrl('gameUrl')" ref="gameUrl">
-            <p>Or tell them to go to: {{url}} And insert this pin:
-                <input type="text" readonly :value="pin" @click="copyUrl('gamePin')" ref="gamePin">
-            </p>
-            <a :href="`whatsapp://send?text=${gameUrl}`" class="mobile">Share on whatsapp</a>
-            <span v-if="isCopied">Copied to clipboard!</span>
-        </div>
-    </div> -->
 <script>
 export default {
   props: {
@@ -62,6 +46,9 @@ export default {
       setTimeout(() => {
         this.isCopied = false;
       }, 1000);
+    },
+    startGame() {
+        this.$emit('startGame')
     }
   },
   computed: {
@@ -78,5 +65,9 @@ export default {
 .copied {
     
   height:2em
+}
+
+input{
+    font-weight: bold;
 }
 </style>

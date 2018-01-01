@@ -76,7 +76,7 @@ export default {
         multiPlayers(context) {
             if (context.match) {
                 return context.match.players.sort(function (a, b){
-                    return a.score - b.score;
+                    return b.score - a.score;
                 })
             }
 

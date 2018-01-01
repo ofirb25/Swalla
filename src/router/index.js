@@ -10,6 +10,7 @@ import EditGamePage from '../pages/EditGamePage';
 import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
 import ScoreBoard from '../components/GameComps/ScoreBoard';
+import Avinoam from '../pages/Avinoam';
 
 Vue.use(Router)
 //note
@@ -71,5 +72,10 @@ export default new Router({
       name: 'add-Game-Page',
       component: EditGamePage
     },
+    {
+      path: '/avinoam',
+      name: 'Avinoam',
+      component: Avinoam
+    }
   ]
 })

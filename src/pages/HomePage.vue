@@ -43,7 +43,11 @@ export default {
       this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
     },
     searchPin() {
-      this.$router.push("/game/:gameId/play-multi/" + this.pin);
+      if (this.pin === '8====>') {
+        this.$router.push('/avinoam');
+        return;
+      }
+      this.$router.push('/game/:gameId/play-multi/' + this.pin);
     }
   }
 };

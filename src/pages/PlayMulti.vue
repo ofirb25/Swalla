@@ -2,12 +2,12 @@
     <section class="wrapper">
         <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
         <div v-if="isRoomReady && isNameSaved" class="waiting-comps">
-          <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting"></invite-details>
+          <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting" @startGame="startGame"></invite-details>
           <players-list v-if="match" :players="players"></players-list>
         </div>
-        <v-btn @click="startGame" block v-if="isHosting && gameUrl && !isGameOn && !ready"  color="white" value="Begin Game" class="start-game">
+        <!-- <v-btn @click="startGame" block v-if="isHosting && gameUrl && !isGameOn && !ready"  color="white" value="Begin Game" class="start-game">
             <span>Begin Game</span>
-        </v-btn>
+        </v-btn> -->
         <loading-game @done="showPrev" v-if="ready"></loading-game>
         <question-prev :question="question" v-if="questPrev"></question-prev>
         <quest-comp :question="question" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
@@ -48,7 +48,7 @@ export default {
       isQuestionOn: false,
       isGameOn: false,
       isGameOver: false,
-      isScoreBoard: false,
+      isScoreBoard: false, 
       playerName: ""
     };
   },
@@ -80,6 +80,7 @@ export default {
       });
     },
     startGame() {
+      console.log('startinggggg')
       this.$socket.emit("START_GAME", { pin: this.pin });
     },
     // playNext() {
@@ -119,7 +120,7 @@ export default {
     },
     url() {
       return window.location.host;
-    }
+    },
   },
   created() {
     console.log(this.$socket);
@@ -232,7 +233,19 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
+
+
 }
+  @media screen and (max-width:800px) {
+    .waiting-comps{
+      flex-direction: column;
+      * {
+        margin:10px 0;
+
+        flex:1;
+      }
+}
+  }
 .wrapper {
   height: 100%;
   color: #fff;

@@ -1,5 +1,6 @@
 <template>
-    <v-form class="login-section" v-model="valid" @submit.prevent="login">
+    <section class="login-section">
+    <v-form class="login-form" v-model="valid" @submit.prevent="login">
         <v-text-field label="E-mail" v-model="loginDetails.username" :rules="emailRules" :counter="10" required></v-text-field>
         <v-text-field label="Password" type="password" v-model="loginDetails.pass" required></v-text-field>
             <v-btn class="login-btn" @click="login">Login</v-btn>
@@ -9,6 +10,7 @@
             <span>sign up</span>
         </router-link>
     </v-form>
+    </section>
 </template>
 
 <script>
@@ -39,7 +41,7 @@ export default {
           this.$router.push("/");
         })
         .catch(err => {
-          console.log('cccc');
+          console.log("cccc");
         });
     }
   }
@@ -47,21 +49,34 @@ export default {
 </script>
 
  <style lang="scss" scoped>
+
 .login-section {
-  width: 20%;
-  // height: 70vh;
-  align-self: center;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 100%;
 
-  img {
-    width: 100%;
-    height: 40px;
-  }
+  .login-form {
+    width: 20%;
+    min-width: 250px;
+    // height: 70vh;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  .login-btn {
-    width: 100%;
+    img {
+      width: 100%;
+      height: 40px;
+    }
+
+    .login-btn {
+      width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      width: 80%;
+    }
   }
 }
 </style>

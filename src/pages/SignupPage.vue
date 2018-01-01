@@ -1,11 +1,13 @@
 <template>
-    <v-form class="login-section" v-model="valid">
-        <v-text-field label="Name" v-model="signupDetails.name" :rules="nameRules" :counter="10" required></v-text-field>
-        <v-text-field label="E-mail" v-model="signupDetails.username" :rules="emailRules" :counter="10" required></v-text-field>
-        <v-text-field label="Password" type="password" v-model="signupDetails.pass" required></v-text-field>
-        <v-text-field label="Porfile picture" v-model="signupDetails.img"></v-text-field>
-        <v-btn class="login-btn" @click="signup">Signup</v-btn>
-    </v-form>
+    <section class="login-section">
+      <v-form class="login-form" v-model="valid">
+          <v-text-field label="Name" v-model="signupDetails.name" :rules="nameRules" :counter="10" required></v-text-field>
+          <v-text-field label="E-mail" v-model="signupDetails.username" :rules="emailRules" :counter="10" required></v-text-field>
+          <v-text-field label="Password" type="password" v-model="signupDetails.pass" required></v-text-field>
+          <v-text-field label="Porfile picture" v-model="signupDetails.img"></v-text-field>
+          <v-btn class="login-btn" @click="signup">Signup</v-btn>
+      </v-form>
+    </section>
 </template>
 
 <script>
@@ -43,21 +45,34 @@ export default {
 </script>
 
  <style lang="scss" scoped>
+
 .login-section {
-  width: 20%;
-  // height: 70vh;
-  align-self: center;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 100%;
 
-  img {
-    width: 100%;
-    height: 40px;
-  }
+  .login-form {
+    width: 20%;
+    min-width: 250px;
+    // height: 70vh;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  .login-btn {
-    width: 100%;
+    img {
+      width: 100%;
+      height: 40px;
+    }
+
+    .login-btn {
+      width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      width: 80%;
+    }
   }
 }
 </style>

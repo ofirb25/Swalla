@@ -67,9 +67,7 @@
                 <v-icon>play_circle_outline</v-icon>
             </v-btn>
         </div>
-
-        <startgame-modal :dialog="dialog" :game="game"></startgame-modal>
-
+        <startgame-modal @click="test" @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
     </section>
 </template>
 <script>
@@ -101,6 +99,11 @@ export default {
   computed: {
     createdDate() {
       return moment(this.game.createdAt).format("l");
+    }
+  },
+  methods: {
+    test() {
+      console.log('*****')
     }
   }
 };
@@ -135,7 +138,7 @@ export default {
 .sample-question-item {
   transition: all 0.3s;
   &:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: rgba(175, 175, 175, 0.404);
   }
 
   .playBtn {
