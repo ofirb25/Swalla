@@ -24,7 +24,7 @@
                     </v-btn>
                 </div>
        </v-list-tile>
-       <startgame-modal :dialog="dialog" :game="game"></startgame-modal>
+       <startgame-modal  @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
 
     </v-list>
 </template>

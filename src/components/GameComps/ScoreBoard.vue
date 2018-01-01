@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
     <div v-if="players" class="score-board">
       <div class="flexer">
     <h1 class="display-2 board-title">Score Board</h1>
@@ -13,13 +14,29 @@
     </div>
     </div>
     </div>
+=======
+    <section>
+        <div v-if="players" class="score-board">
+            <h1 class="display-2 board-title">Score Board</h1>
+            <div class="userScore" v-for="(player,idx) in players" :key="idx">
+                <div>
+                    {{idx+1}}. {{player.nickname}}:
+                </div>
+                <div>
+                    {{player.score}}
+                    <img src="../../assets/coins.png">
+                </div>
+            </div>
+        </div>
+    </section>
+>>>>>>> ae6959fedbc1ebc6d496c5990ae7ede7a7a052b2
 </template>
 
 <script>
 export default {
-  props : {
+  props: {
     players: Array
-  },
+  }
 };
 </script>
 
