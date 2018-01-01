@@ -4,18 +4,18 @@
             <v-text-field label="Search" @input="setFilter" v-model="filterBy">
             </v-text-field>
             <div :absolute="true" :value="true" :active.sync="e1" color="transparent">
-                <v-btn flat color="teal" value="recent">
+                <v-btn flat color="teal" value="recent" @click="setSort('time')">
                     <span>Recent</span>
                     <v-icon>history</v-icon>
                 </v-btn>
-                <v-btn flat color="teal" value="Popular">
+                <v-btn flat color="teal" value="Popular" @click="setSort('popular')">
                     <span>Popular</span>
                     <v-icon>favorite</v-icon>
                 </v-btn>
             </div>
         </div>
         <div>
-            <router-link v-for="game in games" :to="'/my-game/'+game._id" :key="game._id" >
+            <router-link v-for="game in games" :to="'/my-game/details/'+game._id" :key="game._id" >
                 <my-game-preview :game="game" :canEdit="canEdit" :key="game._id"  class="game-container"></my-game-preview>
             </router-link>
         </div>
@@ -28,11 +28,13 @@
 </template>
 <script>
 import MyGamePreview from "./MyGamePreview";
+import { SET_USER_FILTER, SET_SORT } from "../../modules/GamesModule";
+
 export default {
   data() {
     return {
       e1: "recent",
-      filterBy: "",
+      filterBy: ""
     };
   },
   computed: {
@@ -45,8 +47,11 @@ export default {
   },
   methods: {
     setFilter() {
-      this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
-    }
+      this.$store.commit({ type: SET_USER_FILTER, filterBy: this.filterBy });
+    },
+    setSort(sortBy) {
+      this.$store.commit({type: SET_SORT, sortBy})
+    },
   },
   props: {
     canEdit: Boolean,
@@ -55,7 +60,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-  .game-container {
-    margin: 1em 0px;
-  }
+.game-container {
+  margin: 1em 0px;
+}
 </style>
