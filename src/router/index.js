@@ -71,10 +71,5 @@ export default new Router({
       name: 'add-Game-Page',
       component: EditGamePage
     },
-    {
-      path: '/score-board',
-      name: 'Edit-Game-Page',
-      component: ScoreBoard
-    }
   ]
 })

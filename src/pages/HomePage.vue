@@ -7,18 +7,18 @@
         </section>
         <section class="games-section">
             <div class="container">
+              <div class="actions-container">
                 <div class="input-container">
-                    <div class="SearchInput">
-                        <v-icon>search</v-icon>
-                        <input type="text" placeholder="Search game" @input="setFilter" v-model="filterBy" />
-                    </div>
-                    <div>
-                        <div class="SearchInput">
-                            <v-icon>fiber_pin</v-icon>
-                            <input v-model="pin" style="text" placeholder="Enter your pin here" />
-                        </div>
-                        <v-btn @click="searchPin">play</v-btn>
-                    </div>
+                  <div class="SearchInput">
+                    <v-icon>search</v-icon>
+                    <input type="text" placeholder="Search game" @input="setFilter" v-model="filterBy" />
+                  </div>
+                  <div class="SearchInput">
+                    <v-icon>fiber_pin</v-icon>
+                    <input v-model="pin" style="text" placeholder="Enter your pin here" />
+                  </div>
+                </div>
+                <v-btn @click="searchPin">play</v-btn>
                 </div>
                 <game-list></game-list>
             </div>
@@ -50,8 +50,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.start-playing {
-  font-size: 3em;
+.actions-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .wellcomSection {
   color: #fff;
@@ -125,7 +129,6 @@ export default {
       width: 70%;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
 
       .SearchInput {
         border: 1px solid rgb(192, 192, 192);
