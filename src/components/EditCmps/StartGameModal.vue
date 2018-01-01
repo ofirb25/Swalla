@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500">
+  <v-dialog v-model="dialog2" max-width="500">
       <v-card>
           <v-card-title class="headline">Choose game style:</v-card-title>
           <v-card-text class="modal-content">
@@ -17,6 +17,9 @@
                   </div>
               </router-link>
           </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" flat @click.native.stop="closeDialog">Close</v-btn>
+          </v-card-actions>
       </v-card>
   </v-dialog>
 </template>
@@ -24,7 +27,27 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      dialog2: null
+    };
+  },
+  methods: {
+    closeDialog() {
+      this.$emit("closeDialog");
+    }
+  },
+  created() {
+    this.dialog2 = this.dialog;
+  },
+  watch: {
+    dialog: function(newDialog) {
+      this.dialog2 = this.dialog;
+    },
+    dialog2: function(x) {
+      if (!this.dialog2) {
+        this.$emit("closeDialog");
+      }
+    }
   },
   props: {
     dialog: Boolean,
@@ -34,17 +57,16 @@ export default {
 </script>
 
  <style lang="scss" scoped>
- .modal-content{
+.modal-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  div {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-
-    div{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
-
+}
 </style>
