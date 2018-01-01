@@ -11,7 +11,9 @@
         <loading-game @done="showPrev" v-if="ready"></loading-game>
         <question-prev :question="question" v-if="questPrev"></question-prev>
         <quest-comp :question="question" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
-        <score-board v-if="isScoreBoard" :players="players"></score-board>
+        <section  v-if="isScoreBoard">
+          <score-board :players="players"></score-board>
+        </section>
     </section>
 </template>
 <script>
@@ -147,8 +149,9 @@ export default {
         socketId: this.$socket.id
       });
     },
-    PREV_DONE(match){
-      this.showQuestion()
+    PREV_DONE(match) {
+      console.log(this.isScoreBoard);
+      this.showQuestion();
     },
     PLAYER_JOINED(match) {
       console.log("joined!!", match);
@@ -169,6 +172,8 @@ export default {
       this.isRoomReady = false;
     },
     SHOW_PREV() {
+      this.isScoreBoard = false;
+      console.log(this.isScoreBoard);
       this.ready = false;
       this.isGameOn = true;
       this.questPrev = true;
@@ -180,28 +185,31 @@ export default {
     TIME_UP() {
       this.isQuestionOn = false;
       this.isScoreBoard = true;
-      this.showScores()
+      this.showScores();
+      console.log(this.isScoreBoard);
     },
-    PLAYER_ANSWERED({players, answersCount}) {
+    PLAYER_ANSWERED({ players, answersCount }) {
       this.$store.dispatch({ type: ADD_POINTS, players, answersCount });
     },
     NEXT_QUESTION() {
       this.isScoreBoard = false;
       this.$store.dispatch({ type: PLAY_NEXT }).then(_ => {
-        if (this.$store.getters.currMultiQuestion) {
+        console.log(this.$store.getters.currMultiQuestion)
+        if (this.$store.getters.currMultiQuestion || this.$store.getters.currMultiQuestion === 0) {
           this.showPrev();
-          // this.questPrev = true;
+          this.questPrev = true
         } else {
           this.isGameOn = false;
           // this.isQuestionOn = true;
-          this.isScoreBoard = true;
-          console.log('sending game over')
-          this.$socket.emit('GAME_OVER',{pin:this.pin})
+          // this.isScoreBoard = tsrue;
+          console.log("sending game over");
+          this.$socket.emit("GAME_OVER", { pin: this.pin });
         }
       });
+      console.log(this.isScoreBoard);
     },
     GAME_OVER() {
-      console.log('game over from server')
+      console.log("game over from server");
       this.isScoreBoard = true;
       this.isGameOn = false;
     }

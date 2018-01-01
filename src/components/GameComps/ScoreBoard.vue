@@ -1,4 +1,5 @@
 <template>
+<section>
     <div v-if="players" class="score-board">
     <h1 class="display-2 board-title">Score Board</h1>
     <div class="userScore" v-for="(player,idx) in players" :key="idx">
@@ -11,6 +12,7 @@
      </div>
     </div>
     </div>
+</section>
 </template>
 
 <script>
