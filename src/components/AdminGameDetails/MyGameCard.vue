@@ -50,7 +50,7 @@
 
             </div>
         </v-card-title>
-        <startgame-modal :dialog="dialog" :game="game"></startgame-modal>
+        <startgame-modal @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
     </v-card>
 </template>
 <script>
