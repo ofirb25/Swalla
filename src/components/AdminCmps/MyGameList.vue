@@ -19,7 +19,7 @@
                 <my-game-preview :game="game" :canEdit="canEdit" :key="game._id"  class="game-container"></my-game-preview>
             </router-link>
         </div>
-        <v-btn fab dark color="indigo">
+        <v-btn  v-if="canEdit" fab dark color="indigo">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </v-btn>
         
