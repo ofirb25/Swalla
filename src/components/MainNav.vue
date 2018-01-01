@@ -1,6 +1,6 @@
 <template>
     <section>
-        <v-toolbar>
+        <v-toolbar class="nav">
             <router-link class="logo-router" tag="div" :to="'/'">
                 <v-toolbar-title>
                     <img class="logo" src="../assets/swalla2.png">
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { SIGNOUT } from '../modules/UserModule.js';
+import { SIGNOUT } from "../modules/UserModule.js";
 
 export default {
   data() {
@@ -113,6 +113,7 @@ export default {
 .logo {
   width: 90px;
   cursor: pointer;
+  /* padding: 5px; */
 }
 .navBtn {
   height: 100%;
@@ -120,5 +121,11 @@ export default {
 }
 .logo-router {
   background-color: rgba(255, 255, 255, 0);
+}
+
+@media (max-width: 700px) {
+  .nav {
+    padding: 12px;
+  }
 }
 </style>

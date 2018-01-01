@@ -135,7 +135,7 @@ export default {
 .sample-question-item {
   transition: all 0.3s;
   &:hover {
-    background-color: rgb(240, 240, 240);
+    background-color: rgba(175, 175, 175, 0.404);
   }
 
   .playBtn {

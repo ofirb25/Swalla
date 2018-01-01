@@ -46,7 +46,7 @@ export default {
       isQuestionOn: false,
       isGameOn: false,
       isGameOver: false,
-      isScoreBoard: false,
+      isScoreBoard: false, 
       playerName: ""
     };
   },
