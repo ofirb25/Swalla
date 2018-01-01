@@ -66,13 +66,13 @@ export default {
   }
 };
 </script>
+
 <style lang="scss" scoped>
 section {
   height: 100%;
 }
 .list-componenet {
-  width: 65%;
-  max-height: 65%;
+  width: 70%;
 }
 .container {
   max-width: 100%;
@@ -80,13 +80,28 @@ section {
   background-color: transparent;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   margin: 0;
   width: 100%;
   height: 100%;
-  
 }
-.user-preview{
-  max-width: 35%;
-  min-width: 32%;
+
+.user-preview {
+  max-width: 25%;
+}
+
+@media (max-width: 700px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .list-componenet {
+    width: 100%;
+  }
+
+  .user-preview {
+    max-width: 100%;
+  }
 }
 </style>

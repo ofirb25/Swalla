@@ -48,6 +48,7 @@ export default {
         return;
       }
       this.$router.push("/game/:gameId/play-multi/" + this.pin);
+      
     }
   }
 };

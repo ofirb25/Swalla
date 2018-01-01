@@ -15,6 +15,7 @@
 
 <script>
 import { LOGIN } from "../modules/UserModule";
+import swal from "sweetalert2";
 
 export default {
   data() {
@@ -38,10 +39,11 @@ export default {
       this.$store
         .dispatch({ type: LOGIN, loginDetails: this.loginDetails })
         .then(_ => {
+          console.log("@@", _);
           this.$router.push("/");
         })
         .catch(err => {
-          console.log("cccc");
+          swal("Can't Login", "uncorrect mail or password", "error");
         });
     }
   }
@@ -49,7 +51,6 @@ export default {
 </script>
 
  <style lang="scss" scoped>
-
 .login-section {
   display: flex;
   justify-content: center;
