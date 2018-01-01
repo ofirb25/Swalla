@@ -3,7 +3,7 @@
         <v-tabs fixed centered>
             <v-tabs-bar class="cyan" dark>
                 <v-tabs-slider class="yellow"></v-tabs-slider>
-                <v-tabs-item v-for="i in tabs" :key="i" :href="'#tab-' + i">
+                <v-tabs-item v-for="i in tabs" :key="i" :href="'#tab-' + i" @click="changeMode(i)">
                     {{ i }}
                 </v-tabs-item>
             </v-tabs-bar>
@@ -13,7 +13,7 @@
                         <game-details v-if="gameToEdit && isOnDetails " :gameDetails="gameToEdit"
                          @onDetailschange="changeDetails" @cancleEdition="cancleAndReroute"></game-details>
                         <enter-questions v-if="!isOnDetails" :gameQuestions="gameToEdit" @cancleEdition="cancleAndReroute"
-                         @save="saveUpdated"></enter-questions>
+                         @save="saveUpdated" @onDetailschange="changeDetails"></enter-questions>
                     </v-tabs-content>
                 </v-tabs-items>
             </div>
@@ -33,7 +33,7 @@ export default {
       tabs: ["Game Details", "Enter Questions"],
       gameId: null,
       isOnDetails: true,
-      game: null
+      game: null,
     };
   },
   components: {
@@ -60,6 +60,10 @@ export default {
         if (game._id) this.$router.push("/my-game/" + this.game._id);
         else this.$router.push("/my-game/" + game.data._id);
       });
+    },
+    changeMode(mode) {
+      if (mode === 'Game Details') console.log(11)
+      else console.log(33)
     }
   },
   computed: {

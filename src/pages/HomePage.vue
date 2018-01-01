@@ -7,7 +7,7 @@
         </section>
         <section class="games-section">
             <div class="container">
-
+              <div class="actions-container">
                 <div class="input-container">
                   <div class="SearchInput">
                     <v-icon>search</v-icon>
@@ -19,7 +19,7 @@
                   </div>
                 </div>
                 <v-btn @click="searchPin">play</v-btn>
-                <h1 class="start-playing">Strat playing now!</h1>
+                </div>
                 <game-list></game-list>
             </div>
         </section>
@@ -54,9 +54,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.start-playing{
-  font-size: 3em;
+.actions-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .wellcomSection {
   color: #fff;
@@ -130,7 +133,6 @@ export default {
       width: 70%;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
 
       .SearchInput {
         border: 1px solid rgb(192, 192, 192);

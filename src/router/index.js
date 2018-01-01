@@ -73,10 +73,6 @@ export default new Router({
       component: EditGamePage
     },
     {
-      path: '/score-board',
-      component: ScoreBoard
-    },
-    {
       path: '/avinoam',
       name: 'Avinoam',
       component: Avinoam
