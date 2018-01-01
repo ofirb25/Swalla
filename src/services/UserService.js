@@ -1,6 +1,9 @@
 import axios from 'axios'
-const URL = 'http://localhost:3003'
-const userUrl = 'http://localhost:3003/data/user'
+// const URL = 'http://localhost:3003'
+const URL = 'http://swalla.herokuapp.com';
+const userUrl = 'http://swalla.herokuapp.com/data/user';
+
+// const userUrl = 'http://localhost:3003/data/user'
 
 function signup(userDetails) {
     return axios.post(`${URL}/data/user`, userDetails)

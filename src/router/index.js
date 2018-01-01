@@ -12,7 +12,7 @@ import SignupPage from '../pages/SignupPage';
 import ScoreBoard from '../components/GameComps/ScoreBoard';
 
 Vue.use(Router)
-
+//note
 export default new Router({
   mode: 'history',
   routes: [
