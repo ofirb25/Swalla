@@ -1,5 +1,5 @@
 <template>
-    <section >
+    <section>
         <v-text-field label="Game Title" v-model="gameToEdit.name" :rules="titleRules" required @input="changeDetails"></v-text-field>
         <v-text-field label="Game Description" v-model="gameToEdit.description" :rules="descriptionRules" @input="changeDetails" required></v-text-field>
         <v-card-media :src="gameToEdit.img" height="200px">
@@ -58,3 +58,7 @@
         
     };
 </script>
+
+ <style lang="scss" scoped>
+
+</style>

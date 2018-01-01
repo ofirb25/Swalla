@@ -50,6 +50,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .game-item {
+      width: 95%;
+    }
   }
 }
 </style>

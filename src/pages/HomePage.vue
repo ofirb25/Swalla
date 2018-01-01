@@ -2,7 +2,7 @@
     <div class="page-container">
         <section class="wellcomSection">
             <h1>SWALLA</h1>
-            <h3>Most good looking, amazing, nice great, kahoot like website, in the all entire world!
+            <h3 class="intro">Most good looking, amazing, nice great, kahoot like website, in the all entire world!
             </h3>
         </section>
         <section class="games-section">
@@ -155,6 +155,42 @@ export default {
       input::placeholder {
         color: rgb(153, 153, 153);
       }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .wellcomSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1{
+     font-size: 35px !important; 
+    }
+  }
+
+  .intro{
+    font-size: 17px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .actions-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+
+    .SearchInput {
+      width: 100% !important;
+      margin-bottom: 7px;
     }
   }
 }

@@ -33,7 +33,7 @@ export default {
       tabs: ["Game Details", "Enter Questions"],
       gameId: null,
       isOnDetails: true,
-      game: null,
+      game: null
     };
   },
   components: {
@@ -62,8 +62,8 @@ export default {
       });
     },
     changeMode(mode) {
-      if (mode === 'Game Details') console.log(11)
-      else console.log(33)
+      if (mode === "Game Details") console.log(11);
+      else console.log(33);
     }
   },
   computed: {
@@ -85,5 +85,11 @@ export default {
 .edit-game-container {
   width: 40%;
   margin: auto;
+}
+
+@media (max-width: 700px) {
+  .edit-game-container {
+    width: 90%;
+  }
 }
 </style>
