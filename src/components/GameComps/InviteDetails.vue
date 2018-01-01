@@ -20,7 +20,7 @@
                 </div>
             </v-card-title>
             <v-card-actions>
-                <v-btn dark color="purple"  @click="startGame" block  color="primary" value="Begin Game" class="start-game">PLAY</v-btn>
+                <v-btn dark color="purple"  @click="startGame" block value="Begin Game" class="start-game">PLAY</v-btn>
                 <!-- <v-btn dark color="blue">Cencel</v-btn> -->
             </v-card-actions>
         </v-card>
