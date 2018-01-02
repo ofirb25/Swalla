@@ -70,7 +70,6 @@ export default {
       this.$store
         .dispatch({ type: LOGIN, loginDetails: this.loginDetails })
         .then(_ => {
-          console.log("@@", _);
           this.$router.push("/");
         })
         .catch(err => {
@@ -79,13 +78,26 @@ export default {
     },
     onSignInSuccess(response) {
       FB.api("/me?fields=id,name,picture,email", dude => {
-        var signupDetails = {name: dude.name, username: dude.email, pass: dude.id, img: dude.picture.data.url}
+        var loginDetails = {username: dude.email, pass: dude.id}
         this.$store
-          .dispatch({ type: SIGNUP, signupDetails})
+          .dispatch({ type: LOGIN, loginDetails })
           .then(_ => {
             this.$router.push("/");
           })
-          .catch(err => console.log(err));
+          .catch(err => {
+            var signupDetails = {
+              name: dude.name,
+              username: dude.email,
+              pass: dude.id,
+              img: dude.picture.data.url
+            };
+            this.$store
+              .dispatch({ type: SIGNUP, signupDetails })
+              .then(_ => {
+                this.$router.push("/");
+              })
+              .catch(err => console.log(err));
+          });
       });
     },
     onSignInError(error) {
