@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { LOGIN } from "../modules/UserModule";
+import { LOGIN, SIGNUP } from "../modules/UserModule";
 import swal from "sweetalert2";
 
 window.fbAsyncInit = function() {
