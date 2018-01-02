@@ -104,6 +104,11 @@ li.edit {
   .minus {
     padding: 0 0.3em;
   }
+  button{
+    &:active, &:focus {
+      outline: none
+    }
+  }
 }
 .quest-answers {
   display: flex;
@@ -123,7 +128,9 @@ li.edit {
     color: red;
     font-size: 1.2em;
     font-weight: bold;
+    label {
     cursor: pointer;
+    }
   }
   .isCorrect {
     color: green;
