@@ -21,10 +21,12 @@
             <p v-if="!onEditMode">{{answer.text}}</p>
             <v-text-field v-else v-model="answer.text" label="answer" class="answer-input"></v-text-field>
             <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(questToEdit, answer)">
-                <i class="fa fa-times" aria-hidden="true"></i>
+                <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
+                <label>X</label>
             </div>
             <div v-if="answer.isCorrect" class="isCorrect" @click="changeCorrectAnswer(quest, answer)">
-                <i class="fa fa-check" aria-hidden="true"></i>
+                <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
+                <i class="material-icons">check</i>
             </div>
         </div>
     </section>
@@ -120,6 +122,7 @@ li.edit {
   .notCorrect {
     color: red;
     font-size: 1.2em;
+    font-weight: bold;
     cursor: pointer;
   }
   .isCorrect {
