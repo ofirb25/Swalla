@@ -16,7 +16,6 @@ function getGameById(id) {
         .then(({ data }) => {
             return data
         })
-        .catch(err => err)
 }
 //checks an answer and if correct updates the score
 function checkAns(question, selectedAnswer, points) {

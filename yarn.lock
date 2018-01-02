@@ -27,6 +27,10 @@ acorn@^5.0.0, acorn@^5.1.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.2.1.tgz#317ac7821826c22c702d66189ab8359675f135d7"
 
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/add/-/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
@@ -2436,6 +2440,12 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+git@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/git/-/git-0.1.5.tgz#9ef62df93f851c27542143bf52d1c68b1017ca15"
+  dependencies:
+    mime "1.2.9"
+
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
@@ -3427,6 +3437,10 @@ mime-types@^2.1.12, mime-types@~2.1.15, mime-types@~2.1.16, mime-types@~2.1.17, 
   resolved "https://registry.yarnpkg.com/mime-types/-/mime-types-2.1.17.tgz#09d7a393f03e995a79f8af857b70a9e0ab16557a"
   dependencies:
     mime-db "~1.30.0"
+
+mime@1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-1.2.9.tgz#009cd40867bd35de521b3b966f04e2f8d4d13d09"
 
 mime@1.3.x:
   version "1.3.6"
@@ -5584,6 +5598,10 @@ vm-browserify@0.0.4:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
   dependencies:
     indexof "0.0.1"
+
+vue-facebook-signin-button@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-facebook-signin-button/-/vue-facebook-signin-button-1.0.1.tgz#c6aadb160821846f2d7767fb8e691e0b9e682028"
 
 vue-hot-reload-api@^2.2.0:
   version "2.2.4"

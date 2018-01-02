@@ -30,6 +30,9 @@ export default {
         var loggedinUserId = this.$store.getters.loggedinUserId;
         if (user._id === loggedinUserId) this.canEdit = true;
         else this.canEdit = false;
+      })
+      .catch(err=>{
+        console.log(err,'erorrr')
       });
     });
   },

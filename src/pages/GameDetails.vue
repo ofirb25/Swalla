@@ -86,12 +86,16 @@ export default {
   },
   created() {
     var gameId = this.$route.params.gameId;
-    GameService.getGameById(gameId).then(game => {
-      this.game = game;
-      UserService.getUserById(game.ownerId).then(user => {
-        this.gameOwner = user;
-      });
-    });
+    GameService.getGameById(gameId)
+      .then(game => {
+        this.game = game;
+        UserService.getUserById(game.ownerId).then(user => {
+          this.gameOwner = user;
+        })
+        .catch(err=>{
+          console.log(err)
+        });
+      })
   },
   components: {
     StartgameModal
@@ -103,7 +107,7 @@ export default {
   },
   methods: {
     test() {
-      console.log('*****')
+      console.log("*****");
     }
   }
 };
@@ -160,9 +164,9 @@ export default {
   display: flex;
   justify-content: center;
 
-  img{
-      width: 15px;
-    }
+  img {
+    width: 15px;
+  }
 }
 
 .rank {

@@ -48,7 +48,7 @@ export default {
       isQuestionOn: false,
       isGameOn: false,
       isGameOver: false,
-      isScoreBoard: false, 
+      isScoreBoard: false,
       playerName: ""
     };
   },
@@ -80,7 +80,7 @@ export default {
       });
     },
     startGame() {
-      console.log('startinggggg')
+      console.log("startinggggg");
       this.$socket.emit("START_GAME", { pin: this.pin });
     },
     // playNext() {
@@ -120,21 +120,22 @@ export default {
     },
     url() {
       return window.location.host;
-    },
+    }
   },
   created() {
-    console.log(this.$socket);
     if (this.$route.params.pinCode) {
       console.log(this.$route.params.pinCode);
       this.isJoining = true;
     }
-    this.$store.dispatch({ type: RESET_STATE }).then(_ => {
-      this.$store
-        .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
-        .then(_ => {
-          console.log(this.question, "from page");
-        });
-    });
+    this.$store
+      .dispatch({ type: RESET_STATE })
+      .then(_ => {
+        this.$store
+          .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
+          .then(_ => {
+            console.log(this.question, "from page");
+          })
+      })
   },
   sockets: {
     connect() {
@@ -195,14 +196,17 @@ export default {
     NEXT_QUESTION() {
       this.isScoreBoard = false;
       this.$store.dispatch({ type: PLAY_NEXT }).then(_ => {
-        console.log(this.$store.getters.currMultiQuestion)
-        if (this.$store.getters.currMultiQuestion || this.$store.getters.currMultiQuestion === 0) {
+        console.log(this.$store.getters.currMultiQuestion);
+        if (
+          this.$store.getters.currMultiQuestion ||
+          this.$store.getters.currMultiQuestion === 0
+        ) {
           this.showPrev();
-          this.questPrev = true
+          this.questPrev = true;
         } else {
           this.isGameOn = false;
           // this.isQuestionOn = true;
-          // this.isScoreBoard = tsrue;
+          this.isScoreBoard = true;
           console.log("sending game over");
           this.$socket.emit("GAME_OVER", { pin: this.pin });
         }
@@ -233,49 +237,23 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-
-
 }
-  @media screen and (max-width:800px) {
-    .waiting-comps{
-      flex-direction: column;
-      * {
-        margin:10px 0;
+@media screen and (max-width: 800px) {
+  .waiting-comps {
+    flex-direction: column;
+    * {
+      margin: 10px 0;
 
-        flex:1;
-      }
-}
+      flex: 1;
+    }
   }
+}
 .wrapper {
   height: 100%;
   color: #fff;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: Gradient 15s ease infinite;
-}
-
-@-webkit-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@-moz-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 @keyframes Gradient {

@@ -17,6 +17,9 @@ export default {
         },
         loggedinUserId(state) {
             if (state.loggedinUser) return state.loggedinUser._id
+        },
+        loggedinUserName(state) {
+            if (state.loggedinUser) return state.loggedinUser.name
         }
     },
     mutations: {
