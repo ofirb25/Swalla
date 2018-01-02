@@ -105,6 +105,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.fixing{
+  display: flex;
+  flex-direction: column;
+}
+
 .card-actions {
   margin: 20px 0px;
   padding: 0;
@@ -118,9 +123,9 @@ export default {
   }
 }
 .rank {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
+  // position: absolute;
+  // bottom: 0px;
+  // left: 0px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -133,6 +138,7 @@ export default {
   }
   @media (max-width: 700px) {
     position: relative;
+    font-size: 1.2em;
   }
 }
 .user {
@@ -153,4 +159,5 @@ export default {
 .fixing {
   width: 100%;
 }
+
 </style>
