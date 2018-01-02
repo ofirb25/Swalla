@@ -10,12 +10,13 @@
               <div class="actions-container">
                 <div class="input-container">
                     <div class="text-xs-center">
-                    <v-menu offset-y>
+                    <v-menu offset-y  class="AudienceBtn">
                       <v-btn color="pink darken-3" dark slot="activator">Audience</v-btn>
                       <v-list>
-                          <v-list-tile-title>femliy</v-list-tile-title>
-                          <v-list-tile-title>work</v-list-tile-title>
-                          <v-list-tile-title>school</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('all')">all</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('family')">famliy</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('work')">work</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('school')">school</v-list-tile-title>
                       </v-list>
                     </v-menu>
                   </div>
@@ -27,8 +28,8 @@
                     <v-icon>fiber_pin</v-icon>
                     <input v-model="pin" style="text" placeholder="Enter your pin here" @keyup.enter="searchPin"/>
                   </div>
-                </div>
                 <v-btn color="deep-purple darken-2" dark @click="searchPin">play</v-btn>
+                </div>
                 </div>
                 <game-list></game-list>
             </div>
@@ -37,7 +38,7 @@
 </template>
 <script>
 import GameList from "../components/HomeComps/GameList";
-import { SET_FILTER } from "../modules/GamesModule";
+import { SET_FILTER, SET_AUDIENCE } from "../modules/GamesModule";
 export default {
   data() {
     return {
@@ -59,6 +60,9 @@ export default {
       }
       this.$router.push("/game/:gameId/play-multi/" + this.pin);
       
+    },
+    setAudience(audience) {
+      this.$store.commit({ type: SET_AUDIENCE, audience });
     }
   }
 };
@@ -85,6 +89,16 @@ export default {
   }
 
   animation: Gradient 15s ease infinite;
+}
+
+.AudienceTab{
+  padding-bottom: 5px;
+  text-align: center;
+  cursor: pointer;
+
+  &:hover{
+    background: #f0efef;
+  }
 }
 
 @-webkit-keyframes Gradient {
@@ -142,7 +156,7 @@ export default {
     }
 
     .input-container {
-      width: 70%;
+      width: 80%;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -150,9 +164,10 @@ export default {
       .SearchInput {
         border: 1px solid rgb(192, 192, 192);
         border-radius: 3px;
-        width: 48%;
+        width: 33%;
         height: 38px;
         box-shadow: inset 0 0 4px #c2c2c2;
+        background: rgb(236, 236, 236);
 
         i {
           margin-left: 0.3em;
@@ -181,6 +196,7 @@ export default {
     h1 {
       font-size: 35px !important;
     }
+
   }
 
   .intro {
@@ -207,6 +223,10 @@ export default {
       margin-bottom: 1em;
     }
   }
+
+   .text-xs-center{
+      margin-bottom: 10px !important;
+    }
 }
 </style>
 

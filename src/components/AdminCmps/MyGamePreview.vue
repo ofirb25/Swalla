@@ -18,10 +18,24 @@
                     </v-btn>
                 </div>
                 <div>
+                  <router-link :to="'/user-profile/'+userId">
+                  <social-sharing :url="'https://swalla.herokuapp.com/my-game/details/' + game._id "
+                      title=""
+                      description=""
+                      quote=""
+                      hashtags="vuejs,javascript,framework"
+                      twitter-user="vuejs"
+                      inline-template>
+                  <div>
+                      <network network="facebook">
                     <v-btn flat color="teal" value="share">
                         <span>share</span>
                         <v-icon>share</v-icon>
                     </v-btn>
+                      </network>
+                    </div>
+                    </social-sharing>
+                    </router-link>
                 </div>
        </v-list-tile>
        <startgame-modal  @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
@@ -35,7 +49,8 @@ import StartgameModal from "../EditCmps/StartGameModal.vue";
 export default {
   props: {
     game: Object,
-    canEdit: Boolean
+    canEdit: Boolean,
+    userId: String
   },
   methods: {
     deleteGame(gameId) {
