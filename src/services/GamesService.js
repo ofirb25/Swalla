@@ -1,5 +1,6 @@
 import axios from 'axios'
-var gameUrl = 'http://localhost:3003/data/game'
+// var gameUrl = 'http://localhost:3003/data/game'
+var gameUrl = 'http://swalla.herokuapp.com/data/game'
 var shourtApiKey = 'AIzaSyCk11zMjOfcCn9LYnm1jpZx4aQp60k0AvE';
 function getGames() {
     return axios
@@ -15,7 +16,6 @@ function getGameById(id) {
         .then(({ data }) => {
             return data
         })
-        .catch(err => err)
 }
 //checks an answer and if correct updates the score
 function checkAns(question, selectedAnswer, points) {

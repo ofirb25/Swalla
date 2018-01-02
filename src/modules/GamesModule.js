@@ -5,6 +5,8 @@ export const DELETE_GAME = 'games/deleteGame';
 export const GET_GAME_TO_EDIT = 'games/getGameToEdit';
 export const CLEAR_GAME_TO_EDIT = 'games/clearGameToEdit';//mutation
 export const SET_FILTER = 'games/setFilter';
+export const SET_USER_FILTER = 'games/setUserFilter';
+export const SET_SORT = 'games/setSort';
 export const SET_TEMP_USER_ID = 'games/setTempUserId';
 
 
@@ -17,8 +19,9 @@ export default {
         filterBy: '',
         games: [],
         gameToEdit: null,
-        filterQuery: '',
-        tempUserId: ''
+        userFilterBy: '',
+        tempUserId: '',
+        sortBy: ''
     },
     mutations: {
         [SET_GAMES](state, { games }) {
@@ -36,9 +39,15 @@ export default {
         [SET_FILTER](state, { filterBy }) {
             state.filterBy = filterBy;
         },
+        [SET_USER_FILTER](state, { filterBy }) {
+            state.userFilterBy = filterBy;
+        },
         [SET_TEMP_USER_ID](state, { ownerId }) {
             state.tempUserId = ownerId;
         },
+        [SET_SORT](state, { sortBy }) {
+            state.sortBy = sortBy
+        }
     },
     getters: {
         gamesToDisplay(context) {
@@ -46,16 +55,23 @@ export default {
             return games.filter(game => {
                 return game.isPublic &&
                     (game.name.toLowerCase().includes(filterBy.toLowerCase()) ||
-                    game.description.toLowerCase().includes(filterBy.toLowerCase()))
+                        game.description.toLowerCase().includes(filterBy.toLowerCase()))
             })
             return games
         },
         userGamesToDisplay(context) {
-            var { games, tempUserId } = context;
-            return games.filter(game => {
-                return game.ownerId === tempUserId
+            var { games, tempUserId, userFilterBy, sortBy } = context;
+            var filteredGames = games.filter(game => {
+                return game.ownerId === tempUserId &&
+                    (game.name.toLowerCase().includes(userFilterBy.toLowerCase()) ||
+                        game.description.toLowerCase().includes(userFilterBy.toLowerCase()))
             })
-            return games
+            if (sortBy === 'time') {
+                return filteredGames.sort(function (a, b) { return b.createdAt - a.createdAt })
+            }
+            else {
+                return filteredGames.sort(function (a, b) { return b.playersCount - a.playersCount })
+            }
         },
         gameToEdit(context) {
             return context.gameToEdit;
@@ -81,7 +97,6 @@ export default {
             return GameService.getObjToEdit(gameId)
                 .then(gameToEdit => {
                     vue.set(gameToEdit, 'ownerId', loggedinUser._id)
-                    // console.log('GAME FROM SERVICE IN MOUDLE : ', gameToEdit);
                     commit({ type: SET_GAME_TO_EDIT, gameToEdit })
                 })
         }

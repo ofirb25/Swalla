@@ -1,5 +1,6 @@
 <template>
        <section class="container">
+         <h1>Page not found</h1>
     <v-avatar size="500px">
       <img src="../assets/avinoam.png" alt="John">
     </v-avatar> 

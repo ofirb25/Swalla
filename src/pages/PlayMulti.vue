@@ -11,7 +11,9 @@
         <loading-game @done="showPrev" v-if="ready"></loading-game>
         <question-prev :question="question" v-if="questPrev"></question-prev>
         <quest-comp :question="question" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
-        <score-board v-if="isScoreBoard" :players="players"></score-board>
+        <section  v-if="isScoreBoard">
+          <score-board :players="players"></score-board>
+        </section>
     </section>
 </template>
 <script>
@@ -121,18 +123,19 @@ export default {
     }
   },
   created() {
-    console.log(this.$socket);
     if (this.$route.params.pinCode) {
       console.log(this.$route.params.pinCode);
       this.isJoining = true;
     }
-    this.$store.dispatch({ type: RESET_STATE }).then(_ => {
-      this.$store
-        .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
-        .then(_ => {
-          console.log(this.question, "from page");
-        });
-    });
+    this.$store
+      .dispatch({ type: RESET_STATE })
+      .then(_ => {
+        this.$store
+          .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
+          .then(_ => {
+            console.log(this.question, "from page");
+          })
+      })
   },
   sockets: {
     connect() {
@@ -149,6 +152,7 @@ export default {
       });
     },
     PREV_DONE(match) {
+      console.log(this.isScoreBoard);
       this.showQuestion();
     },
     PLAYER_JOINED(match) {
@@ -170,6 +174,8 @@ export default {
       this.isRoomReady = false;
     },
     SHOW_PREV() {
+      this.isScoreBoard = false;
+      console.log(this.isScoreBoard);
       this.ready = false;
       this.isGameOn = true;
       this.questPrev = true;
@@ -189,14 +195,27 @@ export default {
     NEXT_QUESTION() {
       this.isScoreBoard = false;
       this.$store.dispatch({ type: PLAY_NEXT }).then(_ => {
-        if (this.$store.getters.currMultiQuestion) {
+        console.log(this.$store.getters.currMultiQuestion);
+        if (
+          this.$store.getters.currMultiQuestion ||
+          this.$store.getters.currMultiQuestion === 0
+        ) {
           this.showPrev();
-          // this.questPrev = true;
+          this.questPrev = true;
         } else {
           this.isGameOn = false;
-          this.isQuestionOn = true;
+          // this.isQuestionOn = true;
+          this.isScoreBoard = true;
+          console.log("sending game over");
+          this.$socket.emit("GAME_OVER", { pin: this.pin });
         }
       });
+      console.log(this.isScoreBoard);
+    },
+    GAME_OVER() {
+      console.log("game over from server");
+      this.isScoreBoard = true;
+      this.isGameOn = false;
     }
   },
   components: {
@@ -234,30 +253,6 @@ export default {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: Gradient 15s ease infinite;
-}
-
-@-webkit-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@-moz-keyframes Gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 @keyframes Gradient {

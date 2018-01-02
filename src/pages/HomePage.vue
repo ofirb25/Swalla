@@ -25,7 +25,7 @@
                   </div>
                   <div class="SearchInput">
                     <v-icon>fiber_pin</v-icon>
-                    <input v-model="pin" style="text" placeholder="Enter your pin here" />
+                    <input v-model="pin" style="text" placeholder="Enter your pin here" @keyup.enter="searchPin"/>
                   </div>
                 </div>
                 <v-btn color="deep-purple darken-2" dark @click="searchPin">play</v-btn>
@@ -145,6 +145,7 @@ export default {
       width: 70%;
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       .SearchInput {
         border: 1px solid rgb(192, 192, 192);
@@ -152,7 +153,6 @@ export default {
         width: 48%;
         height: 38px;
         box-shadow: inset 0 0 4px #c2c2c2;
-        margin-bottom: 1em;
 
         i {
           margin-left: 0.3em;
@@ -173,29 +173,29 @@ export default {
 }
 
 @media (max-width: 700px) {
-  .wellcomSection{
+  .wellcomSection {
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    h1{
-     font-size: 35px !important; 
+    h1 {
+      font-size: 35px !important;
     }
   }
 
-  .intro{
+  .intro {
     font-size: 17px !important;
     width: 100% !important;
     text-align: center !important;
   }
 
-  .actions-container{
+  .actions-container {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .input-container{
+  .input-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -204,6 +204,7 @@ export default {
     .SearchInput {
       width: 100% !important;
       margin-bottom: 7px;
+      margin-bottom: 1em;
     }
   }
 }

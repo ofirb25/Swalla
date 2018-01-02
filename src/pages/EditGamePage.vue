@@ -54,17 +54,15 @@ export default {
       this.game.audience = updatedDetailsGame.audience;
       // console.log("GAME AFTER CHANGE: ", this.game); //finish the details - update all the fields
     },
-    saveUpdated(updatedGame) {
+    saveUpdated(updatedGame) {      
+      updatedGame.ownerName = this.$store.getters.loggedinUserName
+      console.log(updatedGame)
       GamesService.updateGame(updatedGame).then(game => {
         this.$store.commit(CLEAR_GAME_TO_EDIT);
-        if (game._id) this.$router.push("/my-game/" + this.game._id);
-        else this.$router.push("/my-game/" + game.data._id);
+        if (game._id) this.$router.push("/my-game/details/" + this.game._id);
+        else this.$router.push("/my-game/details/" + game.data._id);
       });
     },
-    changeMode(mode) {
-      if (mode === "Game Details") console.log(11);
-      else console.log(33);
-    }
   },
   computed: {
     gameToEdit() {

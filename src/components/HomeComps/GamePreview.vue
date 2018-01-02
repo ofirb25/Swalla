@@ -21,7 +21,7 @@
                 <span>{{game.highscore}}</span>
             </div>
              <div>
-                <span style="font-weight:bold;" @click.prevent="GoToUserProfile(owner._id)">{{owner.name}}</span>
+                <span style="font-weight:bold;" @click.prevent="GoToUserProfile(game.ownerId)">{{game.ownerName}}</span>
             </div>
             <div>
                 <span>{{game.playersCount}}</span>
@@ -36,15 +36,6 @@ import { LOAD_GAMES } from "../../modules/GamesModule";
 import UserService from "../../services/UserService";
 
 export default {
-  data() {
-    return {
-      owner: ""
-    };
-  },
-  created() {
-    let userId = this.game.ownerId;
-    UserService.getUserById(userId).then(user => (this.owner = user));
-  },
   props: {
     game: Object
   },
