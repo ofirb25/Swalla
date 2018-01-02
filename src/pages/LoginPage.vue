@@ -4,14 +4,13 @@
         <v-text-field label="E-mail" v-model="loginDetails.username" :rules="emailRules" :counter="10" required></v-text-field>
         <v-text-field label="Password" type="password" v-model="loginDetails.pass" required></v-text-field>
             <v-btn class="login-btn" @click="login">Login</v-btn>
-        <h2>or</h2>
-        <img src="../assets/fblogin.png">
             <fb-signin-button
               :params="fbSignInParams"
               @success="onSignInSuccess"
               @error="onSignInError">
               Sign in with Facebook
             </fb-signin-button>
+        <h2>or</h2>
         <router-link :to="'/signup-page'">
             <span>sign up</span>
         </router-link>
@@ -71,7 +70,6 @@ export default {
       this.$store
         .dispatch({ type: LOGIN, loginDetails: this.loginDetails })
         .then(_ => {
-          console.log("@@", _);
           this.$router.push("/");
         })
         .catch(err => {
@@ -80,7 +78,26 @@ export default {
     },
     onSignInSuccess(response) {
       FB.api("/me?fields=id,name,picture,email", dude => {
-        console.log(`Good to see you, .`, dude);
+        var loginDetails = {username: dude.email, pass: dude.id}
+        this.$store
+          .dispatch({ type: LOGIN, loginDetails })
+          .then(_ => {
+            this.$router.push("/");
+          })
+          .catch(err => {
+            var signupDetails = {
+              name: dude.name,
+              username: dude.email,
+              pass: dude.id,
+              img: dude.picture.data.url
+            };
+            this.$store
+              .dispatch({ type: SIGNUP, signupDetails })
+              .then(_ => {
+                this.$router.push("/");
+              })
+              .catch(err => console.log(err));
+          });
       });
     },
     onSignInError(error) {
@@ -99,6 +116,8 @@ export default {
   border-radius: 3px;
   background-color: #4267b2;
   color: #fff;
+  margin: 1em;
+  cursor: pointer;
 }
 .login-section {
   display: flex;
@@ -114,11 +133,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    img {
-      width: 100%;
-      height: 40px;
-    }
 
     .login-btn {
       width: 100%;
