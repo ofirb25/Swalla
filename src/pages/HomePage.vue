@@ -13,9 +13,10 @@
                     <v-menu offset-y  class="AudienceBtn">
                       <v-btn color="pink darken-3" dark slot="activator">Audience</v-btn>
                       <v-list>
-                          <v-list-tile-title class="AudienceTab">femliy</v-list-tile-title>
-                          <v-list-tile-title class="AudienceTab">work</v-list-tile-title>
-                          <v-list-tile-title class="AudienceTab">school</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('all')">all</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('family')">famliy</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('work')">work</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('school')">school</v-list-tile-title>
                       </v-list>
                     </v-menu>
                   </div>
@@ -37,7 +38,7 @@
 </template>
 <script>
 import GameList from "../components/HomeComps/GameList";
-import { SET_FILTER } from "../modules/GamesModule";
+import { SET_FILTER, SET_AUDIENCE } from "../modules/GamesModule";
 export default {
   data() {
     return {
@@ -59,6 +60,9 @@ export default {
       }
       this.$router.push("/game/:gameId/play-multi/" + this.pin);
       
+    },
+    setAudience(audience) {
+      this.$store.commit({ type: SET_AUDIENCE, audience });
     }
   }
 };

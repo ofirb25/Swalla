@@ -16,7 +16,7 @@
         </div>
         <div>
             <router-link v-for="game in games" :to="'/my-game/details/'+game._id" :key="game._id" >
-                <my-game-preview :game="game" :canEdit="canEdit" :key="game._id"  class="game-container"></my-game-preview>
+                <my-game-preview :game="game" :canEdit="canEdit" :key="game._id"  class="game-container" :userId="userId"></my-game-preview>
             </router-link>
         </div>
         <v-btn  v-if="canEdit" fab dark color="indigo">

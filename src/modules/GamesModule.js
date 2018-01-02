@@ -8,7 +8,7 @@ export const SET_FILTER = 'games/setFilter';
 export const SET_USER_FILTER = 'games/setUserFilter';
 export const SET_SORT = 'games/setSort';
 export const SET_TEMP_USER_ID = 'games/setTempUserId';
-
+export const SET_AUDIENCE = 'games/setAudience'
 
 const SET_GAMES = 'games/setGames';
 const SET_GAME_TO_EDIT = 'games/setGameToEdit';
@@ -21,7 +21,8 @@ export default {
         gameToEdit: null,
         userFilterBy: '',
         tempUserId: '',
-        sortBy: ''
+        sortBy: '',
+        audience: 'all'
     },
     mutations: {
         [SET_GAMES](state, { games }) {
@@ -47,15 +48,19 @@ export default {
         },
         [SET_SORT](state, { sortBy }) {
             state.sortBy = sortBy
+        },
+        [SET_AUDIENCE](state, {audience}) {
+            state.audience = audience
         }
     },
     getters: {
         gamesToDisplay(context) {
-            var { games, filterBy } = context;
+            var { games, filterBy, audience } = context;
             return games.filter(game => {
                 return game.isPublic &&
                     (game.name.toLowerCase().includes(filterBy.toLowerCase()) ||
-                        game.description.toLowerCase().includes(filterBy.toLowerCase()))
+                        game.description.toLowerCase().includes(filterBy.toLowerCase()) 
+                    ) && (game.audience === audience || audience === 'all')
             })
             return games
         },
