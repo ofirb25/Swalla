@@ -1,24 +1,30 @@
 <template>
+
     <section v-if="gameQuestions">
         <div v-for="(question, idx) in gameToEdit.questions" avatar :key="idx" class="question-container">
             <v-list two-line class="my-game-prev">
               <div><v-text-field label="question" v-model="question.title" required @input="changeDetails"></v-text-field></div>
-                <v-list-tile avatar :key="question._id">
+                
+                <v-form :key="question._id">
+                
                     <img v-if="question.img" :src="question.img" class="my-game-img" />
                     <v-text-field label="image" v-model="question.img" required @input="changeDetails"></v-text-field>
-                    <div>
+                  
+                    
                         <v-btn flat color="teal" value="edit" @click="showAnswer(question)">
                             <span>Edit answers</span>
                             <v-icon>edit</v-icon>
                         </v-btn>
-                    </div>
-                    <div>
+                    
+                    
                         <v-btn flat color="teal" value="delete" @click="deleteQuestion(idx)">
                             <span>Delete</span>
                             <v-icon>delete</v-icon>
                         </v-btn>
-                    </div>
-                </v-list-tile>
+                    
+                </v-form>
+
+                
             </v-list>
             <div v-if="question.showAnswer" v-for="answer in question.answers" :key="answer._id" class="quest-answers">
                 <v-text-field v-model="answer.text" required class="answer-text" @input="changeDetails"></v-text-field>
@@ -30,11 +36,15 @@
                 </div>
             </div>
         </div>
-        <v-btn @click="addQuestion">
-            <v-icon>add</v-icon>
-        </v-btn>
-        <v-btn @click="cancleClicked">Cancle</v-btn>
-        <v-btn @click="saveClicked">Save</v-btn>
+
+        <div class="edit-bottom">
+          <v-btn @click="addQuestion">
+              <v-icon>add</v-icon>
+          </v-btn>
+          <v-btn @click="cancleClicked">Cancle</v-btn>
+          <v-btn @click="saveClicked">Save</v-btn>
+        </div>
+        
     </section>
 </template>
 <script>
@@ -134,6 +144,26 @@ export default {
     color: green;
     font-size: 1.2em;
     cursor: pointer;
+  }
+}
+
+.gay {
+  background: red !important;
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .gay {
+    display: flex !important;
+    flex-direction: column !important;
+    background: red !important;
+    height: 400px !important;
+  }
+
+  .edit-bottom{
+     display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>

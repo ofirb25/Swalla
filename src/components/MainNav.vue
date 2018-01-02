@@ -18,7 +18,7 @@
                     <v-btn class="navBtn" flat v-if="!loggedInUser">Login/Signup</v-btn>
                 </router-link>
 
-                <router-link tag="div" :to="'/add-game'">
+                <router-link tag="div" :to="'/my-game/add'">
                     <v-btn class="navBtn" flat v-if="loggedInUser">Create</v-btn>
                 </router-link>
 
@@ -50,7 +50,7 @@
                     </v-list-tile>
                 </router-link>
 
-                <router-link tag="div" :to="'/add-game'" v-if="loggedInUser">
+                <router-link tag="div" :to="'/my-game/add'" v-if="loggedInUser">
                     <v-list-tile>
                         <v-list-tile-content>
                             <v-list-tile-title>Create</v-list-tile-title>
@@ -58,7 +58,7 @@
                     </v-list-tile>
                 </router-link>
 
-                <router-link tag="div" :to="'/my-games'" v-if="loggedInUser">
+                <router-link tag="div" :to="'/user-profile/'+loggedInUser._id" v-if="loggedInUser">
                     <v-list-tile>
                         <v-list-tile-content>
                             <v-list-tile-title>{{loggedInUser.name}}</v-list-tile-title>

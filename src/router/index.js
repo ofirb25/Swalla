@@ -58,24 +58,19 @@ export default new Router({
       component: UserProfilePage
     },
     {
-      path: '/my-game/:gameId',
-      name: 'My-Game-details',
-      component: MyGamesDetails
-    },
-    {
-      path: '/edit-game/:gameId',
-      name: 'Edit-Game-Page',
-      component: EditGamePage
-    },
-    {
-      path: '/add-game',
-      name: 'add-Game-Page',
-      component: EditGamePage
-    },
-    {
       path: '/avinoam',
       name: 'Avinoam',
       component: Avinoam
-    }
+    },
+    {
+      path: '/my-game/:action/:gameId',
+      name: 'Edit-Game-Page',
+      component: MyGamesDetails
+    },
+    {
+      path: '/my-game/:action/',
+      name: 'add-Game-Page',
+      component: MyGamesDetails
+    },
   ]
 })

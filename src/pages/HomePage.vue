@@ -2,7 +2,7 @@
     <div class="page-container">
         <section class="wellcomSection">
             <h1>SWALLA</h1>
-            <h3>Most good looking, amazing, nice great, kahoot like website, in the all entire world!
+            <h3 class="intro">Most good looking, amazing, nice great, kahoot like website, in the all entire world!
             </h3>
         </section>
         <section class="games-section">
@@ -15,7 +15,7 @@
                   </div>
                   <div class="SearchInput">
                     <v-icon>fiber_pin</v-icon>
-                    <input v-model="pin" style="text" placeholder="Enter your pin here" />
+                    <input v-model="pin" style="text" placeholder="Enter your pin here" @keyup.enter="searchPin"/>
                   </div>
                 </div>
                 <v-btn @click="searchPin">play</v-btn>
@@ -43,24 +43,17 @@ export default {
       this.$store.commit({ type: SET_FILTER, filterBy: this.filterBy });
     },
     searchPin() {
-      if (this.pin === '8====>') {
-        this.$router.push('/avinoam');
+      if (this.pin === "8====>") {
+        this.$router.push("/avinoam");
         return;
       }
-      this.$router.push('/game/:gameId/play-multi/' + this.pin);
+      this.$router.push("/game/:gameId/play-multi/" + this.pin);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.actions-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-}
 .wellcomSection {
   color: #fff;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
@@ -129,10 +122,19 @@ export default {
     flex-direction: column;
     align-items: center;
 
+    .actions-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
     .input-container {
       width: 70%;
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       .SearchInput {
         border: 1px solid rgb(192, 192, 192);
@@ -147,7 +149,7 @@ export default {
       }
       input {
         height: 100%;
-        width: 88%;
+        width: 80%;
       }
       input:focus {
         outline: none;
@@ -155,6 +157,43 @@ export default {
       input::placeholder {
         color: rgb(153, 153, 153);
       }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .wellcomSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      font-size: 35px !important;
+    }
+  }
+
+  .intro {
+    font-size: 17px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .actions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+
+    .SearchInput {
+      width: 100% !important;
+      margin-bottom: 7px;
+      margin-bottom: 1em;
     }
   }
 }

@@ -188,7 +188,6 @@ export default {
       this.isQuestionOn = false;
       this.isScoreBoard = true;
       this.showScores();
-      console.log(this.isScoreBoard);
     },
     PLAYER_ANSWERED({ players, answersCount }) {
       this.$store.dispatch({ type: ADD_POINTS, players, answersCount });

@@ -33,7 +33,7 @@ export default {
       tabs: ["Game Details", "Enter Questions"],
       gameId: null,
       isOnDetails: true,
-      game: null,
+      game: null
     };
   },
   components: {
@@ -59,14 +59,10 @@ export default {
       console.log(updatedGame)
       GamesService.updateGame(updatedGame).then(game => {
         this.$store.commit(CLEAR_GAME_TO_EDIT);
-        if (game._id) this.$router.push("/my-game/" + this.game._id);
-        else this.$router.push("/my-game/" + game.data._id);
+        if (game._id) this.$router.push("/my-game/details/" + this.game._id);
+        else this.$router.push("/my-game/details/" + game.data._id);
       });
     },
-    changeMode(mode) {
-      if (mode === 'Game Details') console.log(11)
-      else console.log(33)
-    }
   },
   computed: {
     gameToEdit() {
@@ -87,5 +83,11 @@ export default {
 .edit-game-container {
   width: 40%;
   margin: auto;
+}
+
+@media (max-width: 700px) {
+  .edit-game-container {
+    width: 90%;
+  }
 }
 </style>

@@ -3,16 +3,24 @@
         <v-card-media :src="game.img" height="300px">
         </v-card-media>
         <v-card-title primary-title class="title-container">
-            <div>
+            <div class="fixing">
+              <div v-if="!onEditMode">
                 <h3 class="headline mb-0">{{game.name}}</h3>
-                <h5>TODO: Add category</h5>
+                <h5>{{game.audience}}</h5>
+              </div>
+              <div v-else>
+                <v-text-field v-model="gameToEdit.name" label="Name" @input="updateDetails"></v-text-field>
+                <v-select v-model="gameToEdit.audience" v-bind:items="items" label="audience"  @input="updateDetails"></v-select>
+                <v-text-field label="description" textarea v-model="gameToEdit.description" @input="updateDetails"></v-text-field>
+                <v-text-field v-model="gameToEdit.img" label="image" @input="updateDetails"></v-text-field>
+              </div>
                 <div>
-                    <v-card-actions class="card-actions">
+                    <v-card-actions class="card-actions" v-if="!onEditMode">
                         <v-btn color="teal" value="play" dark @click.native.stop="dialog = true">
                             <span>play</span>
                             <v-icon>play_circle_outline</v-icon>
                         </v-btn>
-                        <router-link :to="'/edit-game/'+game._id">
+                        <router-link :to="'/my-game/edit/'+game._id">
                         <v-btn v-if="canEdit" color="teal" value="Edit" dark>
                             <span>Edit</span>
                             <v-icon>edit</v-icon>
@@ -20,10 +28,9 @@
                         </router-link>
                     </v-card-actions>
                 </div>
-
-                <div>{{game.description}}</div>
+                <div v-if="!onEditMode">{{game.description}}</div>
                 <br>
-                <router-link :to="'/user-profile/' + user._id">
+                <router-link  v-if="!onEditMode" :to="'/user-profile/' + user._id">
                 <div class="user">
                     <v-avatar size="50px">
                         <img :src="user.img" :alt="'Photo of '+user.name">
@@ -31,20 +38,20 @@
                     <p>{{user.name}}</p>
                 </div>
                 </router-link>
-                <div>Craeted {{timeAgo}}</div>
+                <div v-if="!onEditMode">Craeted {{timeAgo}}</div>
 
-                <div class="rank">
+                <div  v-if="!onEditMode" class="rank">
                     <div>
-                        <span class="fa fa-trophy"></span>
+                        <img src="../../assets/cup.png"/>
                         <span>{{game.highscore}}</span>
                     </div>
                     <div>
+                        <img src="../../assets/played.png"/>
                         <span>{{game.playersCount}}</span>
-                        <span class="fa fa-users"></span>
                     </div>
                     <div>
+                        <img src="../../assets/clock.png"/>
                         <span>{{createdDate}}</span>
-                        <span class="fa fa-clock-o"></span>
                     </div>
                 </div>
 
@@ -60,11 +67,15 @@ export default {
   props: {
     game: Object,
     user: Object,
-    canEdit: Boolean
+    canEdit: Boolean,
+    onEditMode: Boolean,
+    editableGame: Object
   },
   data() {
     return {
-      dialog: false
+      dialog: false,
+      items: ["dicks", "cocks", "pineses", "shmoks"],
+      gameToEdit: null
     };
   },
   components: {
@@ -76,6 +87,19 @@ export default {
     },
     createdDate() {
       return moment(this.game.createdAt).format("l");
+    }
+  },
+  watch: {
+    game: function(_) {
+      this.gameToEdit = JSON.parse(JSON.stringify(this.game));
+    },
+  },
+  created() {
+    this.gameToEdit = JSON.parse(JSON.stringify(this.game));
+  },
+  methods: {
+    updateDetails() {
+      this.$emit("updateDetails", this.gameToEdit);
     }
   }
 };
@@ -96,6 +120,7 @@ export default {
 .rank {
   position: absolute;
   bottom: 0px;
+  left: 0px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -105,6 +130,9 @@ export default {
     span {
       padding: 5px;
     }
+  }
+  @media (max-width: 700px) {
+    position: relative;
   }
 }
 .user {
@@ -121,5 +149,8 @@ export default {
   &:hover {
     background-color: rgb(240, 240, 240);
   }
+}
+.fixing {
+  width: 100%;
 }
 </style>

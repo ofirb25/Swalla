@@ -5,7 +5,7 @@
             <v-list-tile-content>
                 <div v-if="canEdit">
                     <p @click.prevent="deleteGame(game._id)" class="game-prev-control">Delete</p>
-                    <router-link :to="'/edit-game/'+game._id"><p class="game-prev-control">Edit</p></router-link>
+                    <router-link :to="'/my-game/edit/'+game._id"><p class="game-prev-control">Edit</p></router-link>
                 </div>
                 <v-list-tile-title v-html="game.name"></v-list-tile-title>
                 <v-list-tile-sub-title v-html="'temp: '+game.createdAt"></v-list-tile-sub-title>
