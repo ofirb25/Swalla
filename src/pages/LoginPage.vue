@@ -20,6 +20,8 @@
 
 <script>
 import { LOGIN } from "../modules/UserModule";
+import swal from "sweetalert2";
+
 window.fbAsyncInit = function() {
   FB.init({
     appId: 1750395041640447,
@@ -68,10 +70,11 @@ export default {
       this.$store
         .dispatch({ type: LOGIN, loginDetails: this.loginDetails })
         .then(_ => {
+          console.log("@@", _);
           this.$router.push("/");
         })
         .catch(err => {
-          console.log("cccc");
+          swal("Can't Login", "uncorrect mail or password", "error");
         });
     },
     onSignInSuccess(response) {

@@ -9,6 +9,16 @@
             <div class="container">
               <div class="actions-container">
                 <div class="input-container">
+                    <div class="text-xs-center">
+                    <v-menu offset-y>
+                      <v-btn color="pink darken-3" dark slot="activator">Audience</v-btn>
+                      <v-list>
+                          <v-list-tile-title>femliy</v-list-tile-title>
+                          <v-list-tile-title>work</v-list-tile-title>
+                          <v-list-tile-title>school</v-list-tile-title>
+                      </v-list>
+                    </v-menu>
+                  </div>
                   <div class="SearchInput">
                     <v-icon>search</v-icon>
                     <input type="text" placeholder="Search game" @input="setFilter" v-model="filterBy" />
@@ -18,7 +28,7 @@
                     <input v-model="pin" style="text" placeholder="Enter your pin here" @keyup.enter="searchPin"/>
                   </div>
                 </div>
-                <v-btn @click="searchPin">play</v-btn>
+                <v-btn color="deep-purple darken-2" dark @click="searchPin">play</v-btn>
                 </div>
                 <game-list></game-list>
             </div>
@@ -48,6 +58,7 @@ export default {
         return;
       }
       this.$router.push("/game/:gameId/play-multi/" + this.pin);
+      
     }
   }
 };

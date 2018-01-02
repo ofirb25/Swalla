@@ -17,6 +17,7 @@
     "git": "^0.1.5",
     "moment": "^2.20.1",
     "socket.io-client": "^2.0.4",
+    "sweetalert2": "^7.3.0",
     "vee-validate": "^2.0.0-rc.27",
     "vue": "^2.5.2",
     "vue-facebook-signin-button": "^1.0.1",

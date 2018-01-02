@@ -45,9 +45,10 @@ export default {
                 });
         },
         [LOGIN]({ commit }, { loginDetails }) {
-            UserService
+            return UserService
                 .login(loginDetails)
                 .then(res => {
+                    console.log('@@@')
                     commit({ type: SET_USER, user: res.user });
                     saveToLocalStorage(res.user)
                 })
