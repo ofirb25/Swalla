@@ -35,6 +35,8 @@ import {
   SET_MULTI_MATCH,
   INCREMENT_ANSWERS_COUNT
 } from "../modules/CurrMultiGameModule";
+import answerAudio from "../assets/answer.mp3";
+import gameOverAudio from "../assets/gameOver.mp3";
 
 export default {
   data() {
@@ -127,15 +129,13 @@ export default {
       console.log(this.$route.params.pinCode);
       this.isJoining = true;
     }
-    this.$store
-      .dispatch({ type: RESET_STATE })
-      .then(_ => {
-        this.$store
-          .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
-          .then(_ => {
-            console.log(this.question, "from page");
-          })
-      })
+    this.$store.dispatch({ type: RESET_STATE }).then(_ => {
+      this.$store
+        .dispatch({ type: LOAD_GAME, gameId: this.$route.params.gameId })
+        .then(_ => {
+          console.log(this.question, "from page");
+        });
+    });
   },
   sockets: {
     connect() {
@@ -190,6 +190,8 @@ export default {
       this.showScores();
     },
     PLAYER_ANSWERED({ players, answersCount }) {
+      let sound = new Audio(answerAudio);
+      sound.play();
       this.$store.dispatch({ type: ADD_POINTS, players, answersCount });
     },
     NEXT_QUESTION() {
@@ -208,6 +210,8 @@ export default {
           this.isScoreBoard = true;
           console.log("sending game over");
           this.$socket.emit("GAME_OVER", { pin: this.pin });
+          let gameOverSound = new Audio(gameOverAudio);
+          gameOverSound.play();
         }
       });
       console.log(this.isScoreBoard);
