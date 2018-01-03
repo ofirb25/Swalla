@@ -1,6 +1,6 @@
 <template>
     <v-card v-if="game && user">
-        <v-card-media :src="game.img" height="300px">
+        <v-card-media :src="gameToEdit.img" height="300px">
         </v-card-media>
         <v-card-title primary-title class="title-container">
             <div class="fixing">
@@ -8,7 +8,7 @@
                 <h3 class="headline mb-0">{{game.name}}</h3>
                 <h5>{{game.audience}}</h5>
               </div>
-              <div v-else>
+              <div v-else-if="gameToEdit">
                 <v-text-field v-model="gameToEdit.img" label="image" @input="updateDetails"></v-text-field>
                 <v-text-field v-model="gameToEdit.name" label="Name" @input="updateDetails"></v-text-field>
                 <v-select v-model="gameToEdit.audience" v-bind:items="items" label="audience"  @input="updateDetails"></v-select>
@@ -17,11 +17,11 @@
                 <div>
                     <v-card-actions class="card-actions" v-if="!onEditMode">
                         <v-btn color="teal" value="play" dark @click.native.stop="dialog = true">
-                            <span>play</span>
+                            <span>Play</span>
                             <v-icon>play_circle_outline</v-icon>
                         </v-btn>
                         <router-link :to="'/my-game/edit/'+game._id">
-                        <v-btn v-if="canEdit" color="teal" value="Edit" dark>
+                        <v-btn v-if="isAdmin" color="teal" value="Edit" dark>
                             <span>Edit</span>
                             <v-icon>edit</v-icon>
                         </v-btn>
@@ -67,14 +67,15 @@ export default {
   props: {
     game: Object,
     user: Object,
-    canEdit: Boolean,
+    isAdmin: Boolean,
     onEditMode: Boolean,
-    editableGame: Object
+    editableGame: Object,
+    fixer: Boolean
   },
   data() {
     return {
       dialog: false,
-      items: ["famliy", "work", "school"],
+      items: ["family", "work", "school"],
       gameToEdit: null
     };
   },
@@ -90,12 +91,9 @@ export default {
     }
   },
   watch: {
-    game: function(_) {
-      this.gameToEdit = JSON.parse(JSON.stringify(this.game));
-    },
-  },
-  created() {
-    this.gameToEdit = JSON.parse(JSON.stringify(this.game));
+    fixer: function(_) {
+      this.gameToEdit = JSON.parse(JSON.stringify(this.editableGame));
+    }
   },
   methods: {
     updateDetails() {

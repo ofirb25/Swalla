@@ -13,7 +13,7 @@
             </v-list-tile-content>
                 <div>
                     <v-btn flat color="teal" value="play" @click.native.stop.prevent="dialog = true">
-                        <span>play</span>
+                        <span>Play</span>
                         <v-icon>play_circle_outline</v-icon>
                     </v-btn>
                 </div>
@@ -29,7 +29,7 @@
                   <div>
                       <network network="facebook">
                     <v-btn flat color="teal" value="share">
-                        <span>share</span>
+                        <span>Share</span>
                         <v-icon>share</v-icon>
                     </v-btn>
                       </network>

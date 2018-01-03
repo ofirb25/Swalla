@@ -19,11 +19,9 @@
                 <my-game-preview :game="game" :canEdit="canEdit" :key="game._id"  class="game-container" :userId="userId"></my-game-preview>
             </router-link>
         </div>
-        <v-btn  v-if="canEdit" @click="routeToCreate" fab dark color="indigo">
+        <v-btn  v-if="canEdit" @click="routeToCreate" fab dark color="teal">
             <i class="fa fa-plus" aria-hidden="true"></i>
-        </v-btn>
-        
-        
+        </v-btn>      
     </section>
 </template>
 <script>

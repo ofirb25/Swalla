@@ -10,9 +10,9 @@
               @error="onSignInError">
               Sign in with Facebook
             </fb-signin-button>
-        <h2>or</h2>
+        <h2>Or</h2>
         <router-link :to="'/signup-page'">
-            <span>sign up</span>
+            <span>Sign up</span>
         </router-link>
     </v-form>
     </section>
