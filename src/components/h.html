@@ -1,17 +1,44 @@
 <template>
     <section>
         <div v-if="players" class="score-board">
-            <h1 class="display-2 board-title">Score Board</h1>
-            <div class="userScore" v-for="(player,idx) in players" :key="idx">
-                <div>
-                    {{idx+1}}. {{player.nickname}}:
-                </div>
-                <div>
-                    {{player.score}}
-                    <img src="../../assets/coins.png">
+            <div class="flexer">
+                <h1 class="display-1 align-center board-title">Score Board</h1>
+                <div class="userScore">
+                    <table>
+                        <thead>
+                            <th>
+                                Nickname
+                            </th>
+                            <th>
+                                Score
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(player,idx) in players" :key="idx">
+                                <td>
+                                    {{idx+1}}.{{player.nickname}}
+                                </td>
+                                <td>
+                                    {{player.score}}
+                                </td>
+                                <td>
+                                    <social-sharing :url="'https://swalla.herokuapp.com/my-game/details/' " title="" description="" quote="" hashtags="vuejs,javascript,framework"
+                                        twitter-user="vuejs" inline-template>
+                                        <div>
+                                            <network network="facebook">
+                                                <v-btn flat color="teal" value="share">
+                                                    <span>Share</span>
+                                                    <v-icon>share</v-icon>
+                                                </v-btn>
+                                            </network>
+                                        </div>
+                                    </social-sharing>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-
     </section>
 </template>
