@@ -1,20 +1,20 @@
 <template>
   <section class="my-game-section">
     <div class="game-card">
-      <my-game-card :game="game" :user="user" :canEdit="canEdit" :onEditMode="onEditMode" 
-      :editableGame="editableGame" @updateDetails="updateDetails"></my-game-card>
+      <my-game-card :game="game" :user="user" :isAdmin="isAdmin" :onEditMode="onEditMode" 
+      :editableGame="editableGame" @updateDetails="updateDetails" :fixer="fixer"></my-game-card>
     </div>
     <div class="game-quests">
       <my-quests :game="game" :onEditMode="onEditMode" :editableGame="editableGame"
-      @updateDetails="updateDetails" @saveGame="saveGame" @cancelEdit="cancelEdit"></my-quests>
+      @updateDetails="updateDetails" @saveGame="saveGame" @cancelEdit="cancelEdit" :fixer="fixer"></my-quests>
     </div>
   </section>
 </template>
 <script>
 import GameService from "../services/GamesService";
 import UserService from "../services/UserService";
-import MyGameCard from "../components/AdminGameDetails/MyGameCard";
-import MyQuests from "../components/AdminGameDetails/MyQuests";
+import MyGameCard from "../components/UserGameDetails/MyGameCard";
+import MyQuests from "../components/UserGameDetails/MyQuests";
 import { GET_GAME_TO_EDIT } from "../modules/GamesModule";
 import { CLEAR_GAME_TO_EDIT } from "../modules/GamesModule";
 
@@ -23,28 +23,24 @@ export default {
     return {
       game: null,
       user: null,
-      canEdit: false,
-      onEditMode: false,
-      onAddMode: false,
-      editableGame: null
+      isAdmin: false,
+      editableGame: null,
+      fixer: true,
+      gameId: null
     };
   },
   created() {
     var gameId = this.$route.params.gameId;
+    this.gameId = gameId;
+    this.setGameToEdit();
     GameService.getGameById(gameId).then(game => {
       this.game = game;
-      this.editableGame = JSON.parse(JSON.stringify(game));
       UserService.getUserById(game.ownerId).then(user => {
         this.user = user;
         var loggedinUserId = this.$store.getters.loggedinUserId;
-        if (user._id === loggedinUserId) this.canEdit = true;
-        else this.canEdit = false;
-        if (this.action) {
-          this.switchMethod();
-          this.$store.dispatch({ type: GET_GAME_TO_EDIT, gameId }).then(_ => {
-            this.game = this.$store.getters.gameToEdit;
-          });
-        }
+        if (user._id === loggedinUserId) this.isAdmin = true;
+        else this.isAdmin = false;
+
       });
     });
   },
@@ -53,30 +49,22 @@ export default {
     MyQuests
   },
   computed: {
-    action() {
-      return this.$route.params.action;
-    }
-  },
-  watch: {
-    action: function(_) {
-      this.switchMethod();
-    }
+    onEditMode() {
+      return (
+        this.$route.params.action === "add" ||
+        this.$route.params.action === "edit"
+      );
+    },
   },
   methods: {
-    switchMethod() {
-      var gameId = this.$route.params.gameId;
-      if (this.action === "edit" || this.action === "add")
-        this.onEditMode = true;
-      else this.onEditMode = false;
-      this.$store.dispatch({ type: GET_GAME_TO_EDIT, gameId }).then(_ => {
-        this.game = this.$store.getters.gameToEdit;
-      });
-    },
     updateDetails(updatedGame) {
       this.editableGame = updatedGame;
+      this.fixer = !this.fixer;
     },
     saveGame() {
+      this.editableGame.ownerName = this.$store.getters.loggedinUserName;
       GameService.updateGame(this.editableGame).then(game => {
+        this.game = game.data;
         this.$store.commit(CLEAR_GAME_TO_EDIT);
         if (this.editableGame._id)
           this.$router.push("/my-game/details/" + this.editableGame._id);
@@ -86,9 +74,22 @@ export default {
     cancelEdit() {
       this.$store.commit({ type: CLEAR_GAME_TO_EDIT });
       if (this.editableGame._id) {
-        this.$router.push("/my-game/details/" + this.editableGame._id)
-      }
-      else this.$router.push('/')
+        this.$router.push("/my-game/details/" + this.editableGame._id);
+      } else this.$router.push("/");
+    },
+    setGameToEdit() {
+      if (this.$route.params.action === "add") this.gameId = null
+      this.$store
+        .dispatch({ type: GET_GAME_TO_EDIT, gameId: this.gameId })
+        .then(_ => {
+          this.editableGame = this.$store.getters.gameToEdit;
+          this.fixer = !this.fixer;
+        });
+    }
+  },
+  watch: {
+    onEditMode: function(_) {
+      this.setGameToEdit();
     }
   }
 };

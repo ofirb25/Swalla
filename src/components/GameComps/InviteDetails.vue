@@ -9,7 +9,7 @@
                         Send them this link : <br/>
                         <input type="text" readonly :value="gameUrl" ref="gameUrl">
                         <v-btn @click="copyUrl('gameUrl')" color="teal">Copy</v-btn>
-                        <p><strong>Or</strong> tell them to go to: <br/>{{url}} And insert this pin:
+                        <p><strong>Or</strong> tell them to go to: <br/>{{url}}, And insert this pin:
                             <input type="text" readonly :value="pin" @click="copyUrl('gamePin')" ref="gamePin">
                         </p>
                         <div class="copied">

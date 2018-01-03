@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import MyGameList from "../components/AdminCmps/MyGameList";
+import MyGameList from "../components/UserCmps/MyGameList";
 import UserPreview from "../components/UserCmps/UserPreview";
 import UserService from "../services/UserService";
 import GamesService from "../services/GamesService";

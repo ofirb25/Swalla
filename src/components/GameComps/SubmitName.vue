@@ -3,7 +3,7 @@
         <v-form @submit.prevent="saveName">
             <v-text-field label="Your Nickname??" v-model="playerName" :counter="10">
             </v-text-field>
-            <v-btn @click="saveName">Start Playing!</v-btn>
+            <v-btn @click="saveName">Start playing!</v-btn>
         </v-form>
     </div>
 </template>
