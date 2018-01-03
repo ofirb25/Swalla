@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       dialog: false,
-      items: ["dicks", "cocks", "pineses", "shmoks"],
+      items: ["famliy", "work", "school"],
       gameToEdit: null
     };
   },

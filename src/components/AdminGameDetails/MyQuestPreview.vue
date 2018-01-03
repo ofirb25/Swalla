@@ -59,6 +59,7 @@ export default {
     updateDetails() {
       this.$emit("updateDetails", this.idx, this.questToEdit);
     },
+    
 
   },
   watch: {
