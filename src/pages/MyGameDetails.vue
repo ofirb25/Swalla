@@ -1,4 +1,5 @@
 <template>
+
   <section class="my-game-section">
     <div class="game-card">
       <my-game-card :game="game" :user="user" :isAdmin="isAdmin" :onEditMode="onEditMode" 
@@ -9,6 +10,8 @@
       @updateDetails="updateDetails" @saveGame="saveGame" @cancelEdit="cancelEdit" :fixer="fixer"></my-quests>
     </div>
   </section>
+
+
 </template>
 <script>
 import GameService from "../services/GamesService";
