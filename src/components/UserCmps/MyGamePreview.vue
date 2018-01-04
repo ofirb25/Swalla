@@ -8,7 +8,7 @@
                     <router-link :to="'/my-game/edit/'+game._id"><p class="game-prev-control">Edit</p></router-link>
                 </div>
                 <v-list-tile-title v-html="game.name"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="'temp: '+game.createdAt"></v-list-tile-sub-title>
+                <v-list-tile-sub-title v-html="'created '+date"></v-list-tile-sub-title>
                 <v-list-tile-sub-title v-html="'questions:' + game.questions.length"></v-list-tile-sub-title>
             </v-list-tile-content>
                 <div>
@@ -44,7 +44,8 @@
 </template>
 <script>
 import { LOAD_GAMES, DELETE_GAME } from "../../modules/GamesModule";
-import StartgameModal from "../EditCmps/StartGameModal.vue";
+import StartgameModal from "../StartGameModal.vue";
+import moment from "moment";
 
 export default {
   props: {
@@ -64,6 +65,11 @@ export default {
   },
   components: {
     StartgameModal
+  },
+  computed: {
+    date() {
+      return moment(this.game.createdAt).fromNow();
+    }
   }
 };
 </script>
@@ -92,7 +98,7 @@ export default {
       visibility: visible;
       font-weight: bold;
       text-decoration: none;
-      color: rgb(41, 41, 41);
+      color: teal;
     }
   }
 }

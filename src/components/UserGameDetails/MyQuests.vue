@@ -1,5 +1,5 @@
 <template>
-    <section v-if="editableGame && game" class="my-quests-container">
+    <section v-if="readyToAdd || game " class="my-quests-container">
         <h1 v-if="!onEditMode">Questions ({{game.questions.length}})</h1>
         <v-btn v-if="onEditMode" dark color="teal" value="save" @click="saveGame">
             <span>Save</span>
@@ -61,6 +61,11 @@ export default {
     deleteQuestion(questionIdx) {
       this.gameToEdit.questions.splice(questionIdx, 1);
       this.$emit("updateDetails", this.gameToEdit);
+    }
+  },
+  computed: {
+    readyToAdd() {
+      return this.gameToEdit && this.$route.params.action === "add";
     }
   }
 };

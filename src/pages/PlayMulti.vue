@@ -1,7 +1,7 @@
 <template>
     <section class="wrapper">
         <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
-        <div v-if="isRoomReady && isNameSaved" class="waiting-comps">
+        <div v-if="isRoomReady && isNameSaved &&isMultiGame" class="waiting-comps">
           <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting" @startGame="startGame"></invite-details>
           <players-list v-if="match" :players="players"></players-list>
         </div>
@@ -12,7 +12,7 @@
         <question-prev :question="question" v-if="questPrev"></question-prev>
         <quest-comp :question="question" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
         <section  v-if="isScoreBoard">
-          <score-board :players="players"></score-board>
+          <score-board :players="players" :isGameOn="isGameOn" :playerName="playerName"></score-board>
         </section>
     </section>
 </template>
@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     saveName(playerName) {
+      this.playerName = playerName;
       // {gameId:this.$route.params.gameId,playerName:this.playerName}
       if (!this.isJoining) {
         this.$socket.emit("SET_MULTI_GAME", {
@@ -69,7 +70,7 @@ export default {
         });
       }
       this.isNameSaved = true;
-      console.log(playerName);
+      // console.log(playerName);
       // this.$store.dispatch({ type: ADD_PLAYER, playerName: this.playerName });
     },
     showPrev() {
@@ -82,7 +83,7 @@ export default {
       });
     },
     startGame() {
-      console.log("startinggggg");
+      // console.log("startinggggg");
       this.$socket.emit("START_GAME", { pin: this.pin });
     },
     // playNext() {
@@ -91,7 +92,6 @@ export default {
     checkAns(id, startTime) {
       var points = 0;
       if (this.question.answers[id].isCorrect) {
-        console.log("correct");
         let time = Date.now() - startTime;
         points = parseInt(
           (this.question.time - time) / this.question.time * 100
@@ -122,11 +122,14 @@ export default {
     },
     url() {
       return window.location.host;
+    },
+    isMultiGame() {
+      return this.$route.params.gameType === "play-multi";
     }
   },
   created() {
     if (this.$route.params.pinCode) {
-      console.log(this.$route.params.pinCode);
+      // console.log(this.$route.params.pinCode);
       this.isJoining = true;
     }
     this.$store.dispatch({ type: RESET_STATE }).then(_ => {
@@ -150,6 +153,9 @@ export default {
         match,
         socketId: this.$socket.id
       });
+      if (!this.isMultiGame) {
+        this.startGame();
+      }
     },
     PREV_DONE(match) {
       console.log(this.isScoreBoard);

@@ -33,13 +33,18 @@ export default new Router({
       component: SignupPage
     },
     {
-      path: '/game/:gameId/play-multi/:pinCode',
+      path: '/game/:gameId/:gameType/:pinCode',
       name: 'join multi',
       component: PlayMulti
     },
     {
-      path: '/game/:gameId/play-multi',
+      path: '/game/:gameId/:gameType',
       name: 'play multi',
+      component: PlayMulti
+    },
+    {
+      path: '/game/:gameId/:gameType',
+      name: 'play single',
       component: PlayMulti
     },
     {
@@ -68,7 +73,7 @@ export default new Router({
       component: MyGamesDetails
     },
     {
-      path: '/my-game/:action/',
+      path: '/my-game/:action',
       name: 'add-Game-Page',
       component: MyGamesDetails
     },
