@@ -211,7 +211,7 @@ export default {
     align-items: center;
 
     h1 {
-      font-size: 30px !important;
+      font-size: 30 px !important;
     }
   }
 
