@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
     <main-nav></main-nav>
-    <router-view/>
+    <router-view class="router"/>
     </v-app>
   </div>
 </template>
@@ -19,5 +19,10 @@ export default {
 </script>
 
 <style lang="scss">
-  @import './style/style'
+  @import './style/style';
+
+.router {
+padding-top: 50px;
+}
+  
 </style>

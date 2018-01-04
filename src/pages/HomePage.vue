@@ -1,8 +1,9 @@
 <template>
     <div class="page-container">
-        <section class="wellcomSection">
-            <h1>SWALLA</h1>
-            <h3 class="intro">Most good looking, amazing, nice great, kahoot like website, in the all entire world!
+        <section class="welcomeSection">
+            <h1>WELCOME TO SWALLA</h1>
+            <h3 class="intro">
+            The Place Where A Simple Question Turns Into An Exciting Game
             </h3>
         </section>
         <section class="games-section">
@@ -74,7 +75,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wellcomSection {
+
+.page-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.welcomeSection {
   color: #fff;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
@@ -83,12 +90,13 @@ export default {
   width: 100%;
   margin-bottom: 20px;
   h1 {
+    width: 70%;
     font-size: 60px;
     color: rgba(255, 255, 255, 0.897);
   }
 
   h3 {
-    width: 50%;
+    width: 70%;
     font-size: 25px;
     color: rgba(255, 255, 255, 0.897);
   }
@@ -145,12 +153,16 @@ export default {
 .games-section {
   display: flex;
   justify-content: center;
+  width: 100%;
 
   .container {
     align-self: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
 
     .actions-container {
       width: 100%;
@@ -193,13 +205,13 @@ export default {
 }
 
 @media (max-width: 700px) {
-  .wellcomSection {
+  .welcomeSection {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     h1 {
-      font-size: 35px !important;
+      font-size: 30 px !important;
     }
   }
 

@@ -4,13 +4,13 @@
         <v-text-field label="E-mail" v-model="loginDetails.username" :rules="emailRules" :counter="10" required></v-text-field>
         <v-text-field label="Password" type="password" v-model="loginDetails.pass" required></v-text-field>
             <v-btn class="login-btn" @click="login">Login</v-btn>
+        <h2>Or</h2>
             <fb-signin-button
               :params="fbSignInParams"
               @success="onSignInSuccess"
               @error="onSignInError">
               Sign in with Facebook
             </fb-signin-button>
-        <h2>Or</h2>
         <router-link :to="'/signup-page'">
             <span>Sign up</span>
         </router-link>
@@ -116,8 +116,12 @@ export default {
   border-radius: 3px;
   background-color: #4267b2;
   color: #fff;
-  margin: 1em;
+  // margin: 7px;
   cursor: pointer;
+  width: 250px;
+  height: 35px;
+  text-align: center;
+  font-size: 17px;
 }
 .login-section {
   display: flex;
