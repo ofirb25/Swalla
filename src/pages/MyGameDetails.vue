@@ -68,6 +68,9 @@ export default {
     saveGame() {
       this.editableGame.ownerName = this.$store.getters.loggedinUserName;
       GameService.updateGame(this.editableGame).then(game => {
+        UserService.getUserById(game.data.ownerId).then(user => {
+          this.user = user;
+        });
         this.game = game.data;
         this.$store.commit(CLEAR_GAME_TO_EDIT);
         if (this.editableGame._id)
