@@ -26,8 +26,8 @@
                                      :quote="'Wow! My score is ' + player.score +'!'" inline-template>
                                         <div>
                                             <network network="facebook">
-                                                <v-btn flat dark value="share">
-                                                    <span>Share your score!</span>
+                                                <v-btn dark color="indigo" value="share">
+                                                    <span>Share on facebook!</span>
                                                     <i class="fa fa-facebook"></i> 
                                                 </v-btn>
                                             </network>

@@ -20,7 +20,7 @@
             </router-link>
         </div>
         <v-btn  v-if="canEdit" @click="routeToCreate" fab dark color="teal">
-            <i class="fa fa-plus" aria-hidden="true"></i>
+          <v-icon>add</v-icon>
         </v-btn>      
     </section>
 </template>
@@ -48,11 +48,11 @@ export default {
       this.$store.commit({ type: SET_USER_FILTER, filterBy: this.filterBy });
     },
     setSort(sortBy) {
-      this.$store.commit({type: SET_SORT, sortBy})
-    }, 
-    routeToCreate(){
-      this.$router.push('/my-game/add');
-    }
+      this.$store.commit({ type: SET_SORT, sortBy });
+    },
+    routeToCreate() {
+      this.$router.push("/my-game/add");
+    },
   },
   props: {
     canEdit: Boolean,

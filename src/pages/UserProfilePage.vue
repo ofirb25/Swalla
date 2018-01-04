@@ -16,7 +16,8 @@ import GamesService from "../services/GamesService";
 import {
   LOAD_GAMES,
   SET_FILTER,
-  SET_TEMP_USER_ID
+  SET_TEMP_USER_ID,
+  SET_USER_FILTER
 } from "../modules/GamesModule";
 
 export default {
@@ -33,6 +34,7 @@ export default {
   created() {
     this.setUser();
     this.setGames();
+    this.$store.commit({ type: SET_USER_FILTER, filterBy: "" });
   },
   computed: {
     userId() {

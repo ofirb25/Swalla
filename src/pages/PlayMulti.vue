@@ -1,7 +1,7 @@
 <template>
     <section class="wrapper">
         <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
-        <div v-if="isRoomReady && isNameSaved" class="waiting-comps">
+        <div v-if="isRoomReady && isNameSaved &&isMultiGame" class="waiting-comps">
           <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting" @startGame="startGame"></invite-details>
           <players-list v-if="match" :players="players"></players-list>
         </div>
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     saveName(playerName) {
-      this.playerName = playerName
+      this.playerName = playerName;
       // {gameId:this.$route.params.gameId,playerName:this.playerName}
       if (!this.isJoining) {
         this.$socket.emit("SET_MULTI_GAME", {
@@ -122,6 +122,9 @@ export default {
     },
     url() {
       return window.location.host;
+    },
+    isMultiGame() {
+      return this.$route.params.gameType === "play-multi";
     }
   },
   created() {
@@ -150,6 +153,9 @@ export default {
         match,
         socketId: this.$socket.id
       });
+      if (!this.isMultiGame) {
+        this.startGame();
+      }
     },
     PREV_DONE(match) {
       console.log(this.isScoreBoard);

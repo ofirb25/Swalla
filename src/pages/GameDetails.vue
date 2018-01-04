@@ -73,7 +73,7 @@
 <script>
 import GameService from "../services/GamesService";
 import UserService from "../services/UserService";
-import StartgameModal from "../components/EditCmps/StartGameModal.vue";
+import StartgameModal from "../components/StartGameModal.vue";
 import moment from "moment";
 
 export default {

@@ -3,16 +3,16 @@
       <v-card>
           <v-card-title class="headline">Choose game style:</v-card-title>
           <v-card-text class="modal-content">
-              <router-link tag="div" :to="'/game/'+ game._id+'/play'">
+              <router-link tag="div" :to="'/game/'+ game._id+'/play-single'">
                   <div>
-                      <img src="../../assets/single-player.png">
+                      <img src="../assets/single-player.png">
                       <h4>Single player</h4>
                   </div>
               </router-link>
               <h1>or</h1>
               <router-link tag="div" :to="'/game/'+ game._id+'/play-multi'">
                   <div>
-                      <img src="../../assets/multiple-users.png">
+                      <img src="../assets/multiple-users.png">
                       <h4>Invite players</h4>
                   </div>
               </router-link>

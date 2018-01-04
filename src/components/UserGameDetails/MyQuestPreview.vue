@@ -38,7 +38,7 @@
         </v-list>
         <div @click="showAnswer = true" v-if="showAnswer" v-for="(answer, idx) in questToEdit.answers" :key="idx" class="quest-answers">
             <p v-if="!onEditMode">{{answer.text}}</p>
-            <v-text-field v-else v-model="answer.text" label="answer" class="answer-input"></v-text-field>
+            <v-text-field v-else v-model="questToEdit.answers[idx].text" label="answer" class="answer-input" @input="updateDetails"></v-text-field>
             <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(questToEdit, answer)">
                 <label>X</label>
             </div>

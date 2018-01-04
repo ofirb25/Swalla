@@ -1,5 +1,5 @@
 <template>
-    <v-card v-if="game && user">
+    <v-card v-if="(game && user) || readyToAdd">
         <v-card-media :src="gameToEdit.img" height="300px">
         </v-card-media>
         <v-card-title primary-title class="title-container">
@@ -57,11 +57,11 @@
 
             </div>
         </v-card-title>
-        <startgame-modal @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
+        <startgame-modal v-if="game" @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
     </v-card>
 </template>
 <script>
-import StartgameModal from "../EditCmps/StartGameModal.vue";
+import StartgameModal from "../StartGameModal.vue";
 import moment from "moment";
 export default {
   props: {
@@ -88,6 +88,9 @@ export default {
     },
     createdDate() {
       return moment(this.game.createdAt).format("l");
+    },
+    readyToAdd() {
+      return (this.gameToEdit && this.$route.params.action === 'add')
     }
   },
   watch: {
