@@ -10,8 +10,9 @@
                       <v-btn  v-if="onEditMode" @click="deleteQuestion" flat icon small color="teal">
                           <v-icon dark>delete</v-icon>
                       </v-btn>
-                      <div class="inline-block" v-if="onEditMode">
-                      <v-btn @click="showAnswer = !showAnswer" flat icon small color="teal">
+                      <div class="inline-block show-answers" @click="showAnswer = !showAnswer" v-if="onEditMode">
+                        answers
+                      <v-btn flat icon small color="teal">
                         <v-icon dark>expand_more</v-icon>
                       </v-btn>
                       </div>
@@ -20,8 +21,9 @@
                         {{quest.time / 1000}} Sec
                         <button @click="changeTime('-')" class="minus inline-block">-</button>
                       </div>
-                      <div class="inline-block show-answers-non-edit" v-if="!onEditMode">
-                      <v-btn @click="showAnswer = !showAnswer" flat icon small color="teal">
+                      <div class="inline-block show-answers-non-edit" v-if="!onEditMode"  @click="showAnswer = !showAnswer" >
+                        answers
+                      <v-btn flat icon small color="teal">
                         <v-icon dark>expand_more</v-icon>
                       </v-btn>
                       </div>
@@ -31,12 +33,12 @@
 
                     </div>
                 </v-list-tile-content>
-                    <img :src="questToEdit.img" class="my-quest-img" />
+                    <img v-if="questToEdit.img" :src="questToEdit.img" class="my-quest-img" />
             </v-list-tile>
         </v-list>
         <div @click="showAnswer = true" v-if="showAnswer" v-for="(answer, idx) in questToEdit.answers" :key="idx" class="quest-answers">
             <p v-if="!onEditMode">{{answer.text}}</p>
-            <v-text-field v-else v-model="answer.text" label="answer" class="answer-input"></v-text-field>
+            <v-text-field v-else v-model="questToEdit.answers[idx].text" label="answer" class="answer-input" @input="updateDetails"></v-text-field>
             <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(questToEdit, answer)">
                 <label>X</label>
             </div>
@@ -108,7 +110,7 @@ li.edit {
   color: #009688;
   border-radius: 5px;
   padding: 0 0.3em;
-  margin: 6px 16px;
+  margin: 6px 0.3em;
   button {
     padding: 0 0.3em;
     &:active,
@@ -121,19 +123,38 @@ li.edit {
   }
 }
 
+.show-answers {
+  border: 1px solid #009688;
+  background-color: rgba(255, 255, 255, 0.664);
+  color: #009688;
+  border-radius: 5px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5em;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+
+  margin: 6px 0.3em;
+  button {
+    margin: 0;
+  }
+}
+
 .show-answers-non-edit {
   border: 1px solid #009688;
   background-color: rgba(255, 255, 255, 0.664);
   color: #009688;
   border-radius: 5px;
-  margin: 6px 16px;
   position: absolute;
   height: 26px;
   display: flex;
   align-items: center;
+  padding-left: 0.5em;
   right: 70px;
   bottom: -5px;
-  margin: 0;
+  margin: 0 0.5em;
   button {
     margin: 0;
   }
@@ -149,6 +170,7 @@ li.edit {
   display: inline-block;
   right: 10px;
   bottom: -5px;
+  padding: 0 0.3em;
 }
 .quest-answers {
   display: flex;

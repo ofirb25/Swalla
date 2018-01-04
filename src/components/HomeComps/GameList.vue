@@ -47,7 +47,7 @@ export default {
           )
         return;
       }else{
-        this.$router.push('/my-game/add/')
+        this.$router.push('/my-game/add')
       }
     }
   }

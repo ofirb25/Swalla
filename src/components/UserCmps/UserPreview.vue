@@ -6,7 +6,7 @@
     <div class="user-details">
       <label class="nick">Nick :  {{userToDisplay.name}}</label>
       <label class="date">Joined {{date}}</label>
-      <label class="username">Email :  {{userToDisplay.username}}</label>
+      <label v-if="isLoggedInId === userToDisplay.id" class="username">Email :  {{userToDisplay.username}}</label>
     </div>
   </section>
 </template>
@@ -20,6 +20,9 @@ export default {
   computed: {
     date() {
       return moment(+this.userToDisplay.signInDate).fromNow();
+    },
+    isLoggedInId(){
+      return this.$store.getters.loggedinUserId
     }
   },
   created() {

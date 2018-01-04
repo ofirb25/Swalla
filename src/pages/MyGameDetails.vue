@@ -36,16 +36,17 @@ export default {
     var gameId = this.$route.params.gameId;
     this.gameId = gameId;
     this.setGameToEdit();
-    GameService.getGameById(gameId).then(game => {
-      this.game = game;
-      UserService.getUserById(game.ownerId).then(user => {
-        this.user = user;
-        var loggedinUserId = this.$store.getters.loggedinUserId;
-        if (user._id === loggedinUserId) this.isAdmin = true;
-        else this.isAdmin = false;
-
+    if (!(this.$route.params.action === "add")) {
+      GameService.getGameById(gameId).then(game => {
+        this.game = game;
+        UserService.getUserById(game.ownerId).then(user => {
+          this.user = user;
+          var loggedinUserId = this.$store.getters.loggedinUserId;
+          if (user._id === loggedinUserId) this.isAdmin = true;
+          else this.isAdmin = false;
+        });
       });
-    });
+    }
   },
   components: {
     MyGameCard,
@@ -57,7 +58,7 @@ export default {
         this.$route.params.action === "add" ||
         this.$route.params.action === "edit"
       );
-    },
+    }
   },
   methods: {
     updateDetails(updatedGame) {
@@ -67,6 +68,9 @@ export default {
     saveGame() {
       this.editableGame.ownerName = this.$store.getters.loggedinUserName;
       GameService.updateGame(this.editableGame).then(game => {
+        UserService.getUserById(game.data.ownerId).then(user => {
+          this.user = user;
+        });
         this.game = game.data;
         this.$store.commit(CLEAR_GAME_TO_EDIT);
         if (this.editableGame._id)
@@ -81,7 +85,7 @@ export default {
       } else this.$router.push("/");
     },
     setGameToEdit() {
-      if (this.$route.params.action === "add") this.gameId = null
+      if (this.$route.params.action === "add") this.gameId = null;
       this.$store
         .dispatch({ type: GET_GAME_TO_EDIT, gameId: this.gameId })
         .then(_ => {
