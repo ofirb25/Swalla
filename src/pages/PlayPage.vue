@@ -7,7 +7,7 @@
       v-model="playerName"
       :counter="10">
       </v-text-field>
-        <v-btn @click="saveName" color="green">Start Playing!</v-btn>
+        <v-btn @click="saveName" color="green">Start playing!</v-btn>
       </v-form>
     </div>
   

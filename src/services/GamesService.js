@@ -1,6 +1,6 @@
 import axios from 'axios'
-var gameUrl = 'http://localhost:3003/data/game'
-// var gameUrl = 'http://swalla.herokuapp.com/data/game'
+// var gameUrl = 'http://localhost:3003/data/game'
+var gameUrl = 'http://swalla.herokuapp.com/data/game'
 var shourtApiKey = 'AIzaSyCk11zMjOfcCn9LYnm1jpZx4aQp60k0AvE';
 function getGames() {
     return axios
@@ -107,7 +107,8 @@ function getEmptyQuestion() {
 
 const updateGame = (updatedGame) => {
     var newUpdatedGame = Object.assign({}, updatedGame)
-    updatedGame.createdAt = Date.now()
+    newUpdatedGame.createdAt = Date.now()
+    
     delete newUpdatedGame._id
     if (updatedGame._id) return axios.put(`${gameUrl}/${updatedGame._id}`, newUpdatedGame)
     else return axios.post(gameUrl, updatedGame)

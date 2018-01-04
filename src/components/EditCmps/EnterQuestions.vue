@@ -29,10 +29,12 @@
             <div v-if="question.showAnswer" v-for="answer in question.answers" :key="answer._id" class="quest-answers">
                 <v-text-field v-model="answer.text" required class="answer-text" @input="changeDetails"></v-text-field>
                 <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(question, answer)">
-                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <!-- <i class="fa fa-times" aria-hidden="true"></i> -->
+                    <label>X</label>
                 </div>
                 <div v-if="answer.isCorrect" class="isCorrect" @click="changeCorrectAnswer(question, answer)">
-                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <!-- <i class="fa fa-check" aria-hidden="true"></i> -->
+                    <i class="material-icons">check</i>
                 </div>
             </div>
         </div>
@@ -138,6 +140,7 @@ export default {
   .notCorrect {
     color: red;
     font-size: 1.2em;
+    font-weight: bold;
     cursor: pointer;
   }
   .isCorrect {

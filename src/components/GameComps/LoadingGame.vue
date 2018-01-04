@@ -17,8 +17,8 @@ export default {
     };
   },
   created() {
-    // var sound = new Audio(readyAudio)
-    // sound.play();
+    var sound = new Audio(readyAudio)
+    sound.play();
     var interval = setInterval(() => {
       this.phraseToShow++;
       if (this.phraseToShow >= 5) {

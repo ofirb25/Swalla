@@ -52,7 +52,6 @@ export default {
       this.game.img = updatedDetailsGame.img;
       this.game.isPublic = updatedDetailsGame.isPublic;
       this.game.audience = updatedDetailsGame.audience;
-      // console.log("GAME AFTER CHANGE: ", this.game); //finish the details - update all the fields
     },
     saveUpdated(updatedGame) {      
       updatedGame.ownerName = this.$store.getters.loggedinUserName

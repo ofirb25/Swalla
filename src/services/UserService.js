@@ -1,12 +1,13 @@
 import axios from 'axios'
 
-const URL = 'http://localhost:3003'
-const userUrl = 'http://localhost:3003/data/user'
-// const URL = 'http://swalla.herokuapp.com';
-// const userUrl = 'http://swalla.herokuapp.com/data/user';
+// const URL = 'http://localhost:3003'
+// const userUrl = 'http://localhost:3003/data/user'
+const URL = 'http://swalla.herokuapp.com';
+const userUrl = 'http://swalla.herokuapp.com/data/user';
 
 
 function signup(userDetails) {
+    userDetails.signInDate = Date.now()
     return axios.post(`${URL}/data/user`, userDetails)
         .then(_ => {
             console.log('userDetails', userDetails);
@@ -20,7 +21,7 @@ function login(userCreds) {
         .then(({ data }) => {
             return data
         })
-        
+
 }
 
 function logout() {
@@ -29,7 +30,7 @@ function logout() {
 
 const getUserById = (userId) => {
     return axios.get(`${userUrl}/${userId}`)
-        .then(({data}) => {
+        .then(({ data }) => {
             // console.log('Inside getUser.then(), user : ', data);
             return data;
         }).catch(err => err);

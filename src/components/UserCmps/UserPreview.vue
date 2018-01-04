@@ -5,8 +5,8 @@
     </v-avatar>
     <div class="user-details">
       <label class="nick">Nick :  {{userToDisplay.name}}</label>
-      <label class="date">Joined At : {{date}}</label>
-      <label class="username">UserName :  {{userToDisplay.username}}</label>
+      <label class="date">Joined {{date}}</label>
+      <label class="username">Email :  {{userToDisplay.username}}</label>
     </div>
   </section>
 </template>

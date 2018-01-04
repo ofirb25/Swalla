@@ -11,11 +11,14 @@
                 <div class="input-container">
                     <div class="text-xs-center">
                     <v-menu offset-y  class="AudienceBtn">
-                      <v-btn color="pink darken-3" dark slot="activator">Audience</v-btn>
+                      <v-btn color="pink darken-3" dark slot="activator">Audience
+                        <v-icon style="padding-left:10px;">expand_more</v-icon>
+                      </v-btn>
                       <v-list>
-                          <v-list-tile-title class="AudienceTab">femliy</v-list-tile-title>
-                          <v-list-tile-title class="AudienceTab">work</v-list-tile-title>
-                          <v-list-tile-title class="AudienceTab">school</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('all')">All</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('family')">Famliy</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('work')">Work</v-list-tile-title>
+                          <v-list-tile-title class="AudienceTab" @click="setAudience('school')">School</v-list-tile-title>
                       </v-list>
                     </v-menu>
                   </div>
@@ -27,7 +30,7 @@
                     <v-icon>fiber_pin</v-icon>
                     <input v-model="pin" style="text" placeholder="Enter your pin here" @keyup.enter="searchPin"/>
                   </div>
-                <v-btn color="deep-purple darken-2" dark @click="searchPin">play</v-btn>
+                <v-btn color="deep-purple darken-2" dark @click="searchPin">Play</v-btn>
                 </div>
                 </div>
                 <game-list></game-list>
@@ -37,7 +40,7 @@
 </template>
 <script>
 import GameList from "../components/HomeComps/GameList";
-import { SET_FILTER } from "../modules/GamesModule";
+import { SET_FILTER, SET_AUDIENCE } from "../modules/GamesModule";
 export default {
   data() {
     return {
@@ -58,8 +61,14 @@ export default {
         return;
       }
       this.$router.push("/game/:gameId/play-multi/" + this.pin);
-      
+    },
+    setAudience(audience) {
+      this.$store.commit({ type: SET_AUDIENCE, audience });
     }
+  },
+  created() {
+    this.$store.commit({ type: SET_FILTER, filterBy: "" });
+    this.$store.commit({ type: SET_AUDIENCE, audience: 'all' });
   }
 };
 </script>
@@ -70,7 +79,7 @@ export default {
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   height: auto;
-  padding: 20px;
+  padding: 20px 40px;
   width: 100%;
   margin-bottom: 20px;
   h1 {
@@ -87,12 +96,12 @@ export default {
   animation: Gradient 15s ease infinite;
 }
 
-.AudienceTab{
+.AudienceTab {
   padding-bottom: 5px;
   text-align: center;
   cursor: pointer;
 
-  &:hover{
+  &:hover {
     background: #f0efef;
   }
 }
@@ -192,7 +201,6 @@ export default {
     h1 {
       font-size: 35px !important;
     }
-
   }
 
   .intro {
@@ -220,9 +228,9 @@ export default {
     }
   }
 
-   .text-xs-center{
-      margin-bottom: 10px !important;
-    }
+  .text-xs-center {
+    margin-bottom: 10px !important;
+  }
 }
 </style>
 

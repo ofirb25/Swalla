@@ -67,7 +67,7 @@
                 <v-icon>play_circle_outline</v-icon>
             </v-btn>
         </div>
-        <startgame-modal @click="test" @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
+        <startgame-modal @closeDialog="dialog=false" :dialog="dialog" :game="game"></startgame-modal>
     </section>
 </template>
 <script>
@@ -105,11 +105,6 @@ export default {
       return moment(this.game.createdAt).format("l");
     }
   },
-  methods: {
-    test() {
-      console.log("*****");
-    }
-  }
 };
 </script>
 
