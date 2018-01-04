@@ -10,9 +10,9 @@
                       <v-btn  v-if="onEditMode" @click="deleteQuestion" flat icon small color="teal">
                           <v-icon dark>delete</v-icon>
                       </v-btn>
-                      <div class="inline-block show-answers" v-if="onEditMode">
+                      <div class="inline-block show-answers" @click="showAnswer = !showAnswer" v-if="onEditMode">
                         answers
-                      <v-btn @click="showAnswer = !showAnswer" flat icon small color="teal">
+                      <v-btn flat icon small color="teal">
                         <v-icon dark>expand_more</v-icon>
                       </v-btn>
                       </div>
