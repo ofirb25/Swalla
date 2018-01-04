@@ -110,6 +110,10 @@ export default {
 </script>
 
 <style>
+.nav{
+    position: fixed;
+}
+
 .logo {
   width: 90px;
   cursor: pointer;
