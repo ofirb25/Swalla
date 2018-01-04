@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     signup() {
-      if (!this.signupDetails.img) this.signupDetails.img = 'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX3451338.jpg'
+      if (!this.signupDetails.img) this.signupDetails.img = 'http://www.cdn.innesvienna.net//Content/user-default.png'
       this.$store
         .dispatch({ type: SIGNUP, signupDetails: this.signupDetails })
         .then(_ => {
