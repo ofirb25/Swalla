@@ -21,6 +21,7 @@
     "sweetalert2": "^7.3.1",
     "vee-validate": "^2.0.0-rc.27",
     "vue": "^2.5.2",
+    "vue-chartjs": "^3.0.2",
     "vue-facebook-signin-button": "^1.0.1",
     "vue-router": "^3.0.1",
     "vue-social-sharing": "^2.3.3",
