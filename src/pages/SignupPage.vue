@@ -27,12 +27,25 @@ export default {
           /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
           "E-mail must be valid"
       ],
-      signupDetails: { name: "", username: "", pass: "", img: "" }
+      signupDetails: {
+        name: "",
+        username: "",
+        pass: "",
+        img: "",
+        stats: {
+          singleGames: 0,
+          multiGames: 0,
+          correctAns: 0,
+          wrongAns: 0
+        }
+      }
     };
   },
   methods: {
     signup() {
-      if (!this.signupDetails.img) this.signupDetails.img = 'http://www.cdn.innesvienna.net//Content/user-default.png'
+      if (!this.signupDetails.img)
+        this.signupDetails.img =
+          "http://www.cdn.innesvienna.net//Content/user-default.png";
       this.$store
         .dispatch({ type: SIGNUP, signupDetails: this.signupDetails })
         .then(_ => {
@@ -45,7 +58,6 @@ export default {
 </script>
 
  <style lang="scss" scoped>
-
 .login-section {
   display: flex;
   justify-content: center;
