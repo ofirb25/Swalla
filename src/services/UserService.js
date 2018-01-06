@@ -36,10 +36,47 @@ const getUserById = (userId) => {
         }).catch(err => err);
 }
 
+const updateUser = (user, isMultiGame) => {
+
+    return axios
+        .get(`${userUrl}/${user._id}`)
+        .then(({ data }) => {
+            data.stats.multiGames = parseInt(data.stats.multiGames) + isMultiGame
+            data.stats.singleGames = parseInt(data.stats.singleGames) + !isMultiGame
+            var updateduUser = Object.assign({}, data)
+            delete updateduUser._id
+            return axios.put(`${userUrl}/${user._id}`, updateduUser)
+                .then(({ data }) => {
+                    return data
+                })
+        })
+}
+
+const updateUserAnsCount = (user, isCorrect) => {
+    console.log(isCorrect)
+    return axios
+        .get(`${userUrl}/${user._id}`)
+        .then(({ data }) => {
+            data.stats.correctAns = parseInt(data.stats.correctAns) + isCorrect
+            data.stats.wrongAns = parseInt(data.stats.wrongAns) + !isCorrect
+            var updateduUser = Object.assign({}, data)
+            delete updateduUser._id
+            return axios.put(`${userUrl}/${user._id}`, updateduUser)
+                .then(({ data }) => {
+                    console.log(data)
+                    
+                    return data
+                })
+        })
+}
+
+
 
 export default {
     signup,
     login,
     logout,
-    getUserById
+    getUserById,
+    updateUser,
+    updateUserAnsCount
 } 

@@ -1,43 +1,51 @@
 <template>
-    <section>
-        <div v-if="players" class="score-board">
-            <div class="flexer">
-                <h1 class="display-1 align-center board-title">Score Board</h1>
-                <div class="userScore">
-                    <table>
-                        <thead>
-                            <th>
-                                Nickname
-                            </th>
-                            <th>
-                                Score
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(player,idx) in players" :key="idx">
-                                <td>
-                                    {{idx+1}}.{{player.nickname}}
-                                </td>
-                                <td>
-                                    {{player.score}}
-                                </td>
-                                <td>
-                                    <social-sharing :url="'https://swalla.herokuapp.com/my-game/details/' " title="" description="" quote="" hashtags="vuejs,javascript,framework"
-                                        twitter-user="vuejs" inline-template>
-                                        <div>
-                                            <network network="facebook">
-                                                <v-btn flat color="teal" value="share">
-                                                    <span>Share</span>
-                                                    <v-icon>share</v-icon>
-                                                </v-btn>
-                                            </network>
-                                        </div>
-                                    </social-sharing>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <section v-if="quest && questToEdit">
+        <v-list two-line class="quest-container">
+            <v-list-tile :key="quest._id" :class="onEditMode ? 'edit' : ''">
+                <v-list-tile-content>
+                    <v-list-tile-title v-html="quest.title" v-if="!onEditMode"></v-list-tile-title>
+                    <v-text-field v-if="onEditMode" @input="updateDetails" v-model="questToEdit.title" label="Name"></v-text-field>
+                    <v-text-field v-if="onEditMode" @input="updateDetails" v-model="questToEdit.img" label="image"></v-text-field>
+                    <div>
+                        <v-btn v-if="onEditMode" @click="deleteQuestion" flat icon small color="teal">
+                            <v-icon dark>delete</v-icon>
+                        </v-btn>
+                        <div class="inline-block show-answers" @click="showAnswer = !showAnswer" v-if="onEditMode">
+                            answers
+                            <v-btn flat icon small color="teal">
+                                <v-icon dark>expand_more</v-icon>
+                            </v-btn>
+                        </div>
+                        <div class="ques-time inline-block" v-if="onEditMode">
+                            <button @click="changeTime('+')" class="inline-block">+</button>
+                            {{quest.time / 1000}} Sec
+                            <button @click="changeTime('-')" class="minus inline-block">-</button>
+                        </div>
+                        <div class="inline-block ques-time">
+                            <v-checkbox label="Do you agree?" v-model="checkbox"></v-checkbox>
+                        </div>
+                        <div class="inline-block show-answers-non-edit" v-if="!onEditMode" @click="showAnswer = !showAnswer">
+                            answers
+                            <v-btn flat icon small color="teal">
+                                <v-icon dark>expand_more</v-icon>
+                            </v-btn>
+                        </div>
+                        <div class="ques-time-non-edit" v-if="!onEditMode">
+                            {{quest.time / 1000}} Sec
+                        </div>
+                    </div>
+                </v-list-tile-content>
+                <img v-if="questToEdit.img" :src="questToEdit.img" class="my-quest-img" />
+            </v-list-tile>
+        </v-list>
+        <div @click="showAnswer = true" v-if="showAnswer" v-for="(answer, idx) in questToEdit.answers" :key="idx" class="quest-answers">
+            <p v-if="!onEditMode">{{answer.text}}</p>
+            <v-text-field v-else v-model="questToEdit.answers[idx].text" label="answer" class="answer-input" @input="updateDetails"></v-text-field>
+            <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(questToEdit, answer)">
+                <label>X</label>
+            </div>
+            <div v-if="answer.isCorrect" class="isCorrect" @click="changeCorrectAnswer(quest, answer)">
+                <i class="material-icons">check</i>
             </div>
         </div>
     </section>

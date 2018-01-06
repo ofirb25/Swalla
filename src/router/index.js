@@ -77,5 +77,6 @@ export default new Router({
       name: 'add-Game-Page',
       component: MyGamesDetails
     },
+
   ]
 })

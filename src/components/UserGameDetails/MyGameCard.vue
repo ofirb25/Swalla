@@ -9,10 +9,11 @@
                 <h5>{{game.audience}}</h5>
               </div>
               <div v-else-if="gameToEdit">
-                <v-text-field v-model="gameToEdit.img" label="image" @input="updateDetails"></v-text-field>
+                <v-text-field v-model="gameToEdit.img" label="Image" @input="updateDetails"></v-text-field>
                 <v-text-field v-model="gameToEdit.name" label="Name" @input="updateDetails"></v-text-field>
-                <v-select v-model="gameToEdit.audience" v-bind:items="items" label="audience"  @input="updateDetails"></v-select>
+                <v-select v-model="gameToEdit.audience" v-bind:items="items" label="Audience"  @input="updateDetails"></v-select>
                 <v-text-field label="description" textarea v-model="gameToEdit.description" @input="updateDetails"></v-text-field>
+                <v-checkbox label="Public?" v-model="gameToEdit.isPublic" @change="updateDetails"></v-checkbox>
               </div>
                 <div>
                     <v-card-actions class="card-actions" v-if="!onEditMode">
@@ -75,7 +76,7 @@ export default {
   data() {
     return {
       dialog: false,
-      items: ["family", "work", "school"],
+      items: ["Family", "Work", "School"],
       gameToEdit: null
     };
   },

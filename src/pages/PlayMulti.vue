@@ -1,13 +1,13 @@
 <template>
     <section class="wrapper">
         <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
+          <div class="waiting-wraper" v-if="isRoomReady && isNameSaved &&isMultiGame">
+          <h1>Join at <span> swalla.herokuapp.com </span> with Game PIN: <span>{{pin}}</span></h1>
         <div v-if="isRoomReady && isNameSaved &&isMultiGame" class="waiting-comps">
           <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting" @startGame="startGame"></invite-details>
           <players-list v-if="match" :players="players"></players-list>
         </div>
-        <!-- <v-btn @click="startGame" block v-if="isHosting && gameUrl && !isGameOn && !ready"  color="white" value="Begin Game" class="start-game">
-            <span>Begin Game</span>
-        </v-btn> -->
+        </div>
         <loading-game @done="showPrev" v-if="ready"></loading-game>
         <question-prev :question="question" v-if="questPrev"></question-prev>
         <quest-comp :question="question" v-if="isQuestionOn" @checkAns="checkAns"></quest-comp>
@@ -35,6 +35,7 @@ import {
   SET_MULTI_MATCH,
   INCREMENT_ANSWERS_COUNT
 } from "../modules/CurrMultiGameModule";
+import { UPDATE_USER, UPDATE_USER_ANS_COUNT } from "../modules/UserModule";
 import answerAudio from "../assets/answer.mp3";
 import gameOverAudio from "../assets/gameOver.mp3";
 
@@ -70,8 +71,6 @@ export default {
         });
       }
       this.isNameSaved = true;
-      // console.log(playerName);
-      // this.$store.dispatch({ type: ADD_PLAYER, playerName: this.playerName });
     },
     showPrev() {
       this.$socket.emit("SHOW_PREV", { pin: this.pin });
@@ -83,12 +82,8 @@ export default {
       });
     },
     startGame() {
-      // console.log("startinggggg");
       this.$socket.emit("START_GAME", { pin: this.pin });
     },
-    // playNext() {
-
-    // },
     checkAns(id, startTime) {
       var points = 0;
       if (this.question.answers[id].isCorrect) {
@@ -96,12 +91,21 @@ export default {
         points = parseInt(
           (this.question.time - time) / this.question.time * 100
         );
+        this.$store.dispatch({ type: UPDATE_USER_ANS_COUNT, isCorrect: true });
+      } else {
+        this.$store.dispatch({ type: UPDATE_USER_ANS_COUNT, isCorrect: false });
       }
+
       this.$socket.emit("PLAYER_ANSWERED", { points, pin: this.pin });
-      // this.$store.dispatch({ type: ADD_POINTS, points });
     },
     showScores() {
       this.$socket.emit("SHOW_SCORES", { pin: this.pin });
+    },
+    updeteUser() {
+      this.$store.dispatch({
+        type: UPDATE_USER,
+        isMultiGame: this.isMultiGame
+      });
     }
   },
   computed: {
@@ -129,7 +133,6 @@ export default {
   },
   created() {
     if (this.$route.params.pinCode) {
-      // console.log(this.$route.params.pinCode);
       this.isJoining = true;
     }
     this.$store.dispatch({ type: RESET_STATE }).then(_ => {
@@ -139,6 +142,7 @@ export default {
           console.log(this.question, "from page");
         });
     });
+    this.updeteUser();
   },
   sockets: {
     connect() {
@@ -241,8 +245,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.waiting-wraper {
+  display: flex;
+  flex-direction: column;
+  h1 {
+    font-size: 3em;
+    font-weight: normal;
+    align-self: center;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.836);
+    span {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: rgb(255, 255, 255);
+    }
+  }
+}
 .waiting-comps {
-  height: 85vh;
+  height: 75vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -260,6 +280,7 @@ export default {
 .wrapper {
   height: 100%;
   color: #fff;
+  margin-top: 10px;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   animation: Gradient 15s ease infinite;

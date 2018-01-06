@@ -5,13 +5,13 @@
                 <v-list-tile-content>
                     <v-list-tile-title v-html="quest.title" v-if="!onEditMode"></v-list-tile-title>
                     <v-text-field v-if="onEditMode" @input="updateDetails" v-model="questToEdit.title" label="Name"></v-text-field>
-                    <v-text-field v-if="onEditMode" @input="updateDetails" v-model="questToEdit.img" label="image"></v-text-field>
+                    <v-text-field v-if="onEditMode" @input="updateDetails" v-model="questToEdit.img" label="Image"></v-text-field>
                     <div>
                       <v-btn  v-if="onEditMode" @click="deleteQuestion" flat icon small color="teal">
                           <v-icon dark>delete</v-icon>
                       </v-btn>
                       <div class="inline-block show-answers" @click="showAnswer = !showAnswer" v-if="onEditMode">
-                        answers
+                        Answers
                       <v-btn flat icon small color="teal">
                         <v-icon dark>expand_more</v-icon>
                       </v-btn>
@@ -22,7 +22,7 @@
                         <button @click="changeTime('-')" class="minus inline-block">-</button>
                       </div>
                       <div class="inline-block show-answers-non-edit" v-if="!onEditMode"  @click="showAnswer = !showAnswer" >
-                        answers
+                        Answers
                       <v-btn flat icon small color="teal">
                         <v-icon dark>expand_more</v-icon>
                       </v-btn>
@@ -38,7 +38,7 @@
         </v-list>
         <div @click="showAnswer = true" v-if="showAnswer" v-for="(answer, idx) in questToEdit.answers" :key="idx" class="quest-answers">
             <p v-if="!onEditMode">{{answer.text}}</p>
-            <v-text-field v-else v-model="questToEdit.answers[idx].text" label="answer" class="answer-input" @input="updateDetails"></v-text-field>
+            <v-text-field v-else v-model="questToEdit.answers[idx].text" label="Answer" class="answer-input" @input="updateDetails"></v-text-field>
             <div v-if="!answer.isCorrect" class="notCorrect" @click="changeCorrectAnswer(questToEdit, answer)">
                 <label>X</label>
             </div>

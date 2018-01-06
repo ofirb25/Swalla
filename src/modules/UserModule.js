@@ -4,11 +4,12 @@ export const SIGNUP = 'user/signup';
 export const LOGIN = 'user/login';
 export const SET_USER = 'user/setUser';
 export const SIGNOUT = 'user/signout';
-
+export const UPDATE_USER = 'user/updateUser';
+export const UPDATE_USER_ANS_COUNT = 'user/updateUserAns'
 var STORAGE_KEY = 'loggedinUser';
 
 export default {
-    state: {    
+    state: {
         loggedinUser: getUserFromStorage()
     },
     getters: {
@@ -66,6 +67,25 @@ export default {
 
                 })
         },
+        [UPDATE_USER]({ commit, state }, { isMultiGame }) {
+            UserService
+                .updateUser(state.loggedinUser, isMultiGame)
+                .then(user => {
+                    user._id = state.loggedinUser._id
+                    commit({ type: SET_USER, user })
+                    saveToLocalStorage(user)
+                })
+        },
+        [UPDATE_USER_ANS_COUNT]({ commit, state }, { isCorrect }) {
+            UserService
+                .updateUserAnsCount(state.loggedinUser, isCorrect)
+                .then(user => {
+                    user._id = state.loggedinUser._id
+                    commit({ type: SET_USER, user })
+                    saveToLocalStorage(user)
+                })
+        }
+
     }
 }
 

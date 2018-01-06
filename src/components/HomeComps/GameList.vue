@@ -82,8 +82,9 @@ export default {
     align-items: center;
 
     .game-item {
-      min-width: 95%;
-      max-width: 95%;
+    margin: 20px auto;
+    width: 90vw;
+
     }
   }
 

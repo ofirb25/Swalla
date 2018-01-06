@@ -89,6 +89,11 @@ export default {
   padding: 20px 40px;
   width: 100%;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   h1 {
     width: 70%;
     font-size: 60px;
@@ -211,7 +216,9 @@ export default {
     align-items: center;
 
     h1 {
-      font-size: 30 px !important;
+      width: 90%;
+      padding-top: 20px;
+      font-size: 50px !important;
     }
   }
 

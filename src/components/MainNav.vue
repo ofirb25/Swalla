@@ -112,12 +112,21 @@ export default {
 <style>
 .nav{
     position: fixed;
+    z-index: 2000;
 }
 
 .logo {
   width: 90px;
   cursor: pointer;
   /* padding: 5px; */
+}
+.toolbar__title {
+        display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toolbar__side-icon{
+    margin-right: 50px;
 }
 .navBtn {
   height: 100%;
