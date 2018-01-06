@@ -10,8 +10,8 @@ import VueSocketio from 'vue-socket.io'
 import FBSignInButton from 'vue-facebook-signin-button'
 import SocialSharing from 'vue-social-sharing'
 
-Vue.use(VueSocketio, socketio('http://swalla.herokuapp.com/'), store);
-// Vue.use(VueSocketio, socketio('http://localhost:3003'), store);
+// Vue.use(VueSocketio, socketio('http://swalla.herokuapp.com/'), store);
+Vue.use(VueSocketio, socketio('http://localhost:3003'), store);
 Vue.use(Vuetify)
 Vue.use(FBSignInButton)
 Vue.use(SocialSharing);
