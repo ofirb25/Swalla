@@ -1,6 +1,6 @@
 import axios from 'axios'
-var gameUrl = 'http://localhost:3003/data/game'
-// var gameUrl = 'http://swalla.herokuapp.com/data/game'
+// var gameUrl = 'http://localhost:3003/data/game'
+var gameUrl = 'http://swalla.herokuapp.com/data/game'
 var shourtApiKey = 'AIzaSyCk11zMjOfcCn9LYnm1jpZx4aQp60k0AvE';
 function getGames() {
     return axios
