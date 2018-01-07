@@ -6,7 +6,7 @@
     <div class="user-details">
       <label class="nick">Nick :  {{userToDisplay.name}}</label>
       <label class="date">Joined {{date}}</label>
-      <label v-if="isLoggedInId === userToDisplay.id" class="username">Email :  {{userToDisplay.username}}</label>
+      <label v-if="isLoggedInId === userToDisplay._id" class="username">Email :  {{userToDisplay.username}}</label>
  <doughnut-chart v-if="displayChart"
   :data="datacollection"
   :options="{responsive: true, maintainAspectRatio: true}"
@@ -72,7 +72,7 @@ export default {
           }
         ]
       };
-    }, 300);
+    }, 700);
   },
   components: {
     DoughnutChart

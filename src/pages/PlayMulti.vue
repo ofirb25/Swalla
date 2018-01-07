@@ -1,12 +1,12 @@
 <template>
     <section class="wrapper">
         <submit-name @saveName="saveName" v-if="!isNameSaved"></submit-name>
-          <div class="waiting-wraper" v-if="isRoomReady && isNameSaved &&isMultiGame">
-          <h1>Join at <span> swalla.herokuapp.com </span> with Game PIN: <span>{{pin}}</span></h1>
+          <!-- <div class="waiting-wraper" v-if="isRoomReady && isNameSaved &&isMultiGame"> -->
+          <!-- <h1>Join at <span> swalla.herokuapp.com </span> with Game PIN: <span>{{pin}}</span></h1> -->
         <div v-if="isRoomReady && isNameSaved &&isMultiGame" class="waiting-comps">
           <invite-details :pin="pin" :gameUrl="gameUrl" :url="url" v-if="match && isHosting" @startGame="startGame"></invite-details>
           <players-list v-if="match" :players="players"></players-list>
-        </div>
+        <!-- </div> -->
         </div>
         <loading-game @done="showPrev" v-if="ready"></loading-game>
         <question-prev :question="question" v-if="questPrev"></question-prev>
