@@ -37,10 +37,11 @@ const getUserById = (userId) => {
 }
 
 const updateUser = (user, isMultiGame) => {
-
+    if (!user) return
     return axios
         .get(`${userUrl}/${user._id}`)
         .then(({ data }) => {
+            if (!data.stats) return
             data.stats.multiGames = parseInt(data.stats.multiGames) + isMultiGame
             data.stats.singleGames = parseInt(data.stats.singleGames) + !isMultiGame
             var updateduUser = Object.assign({}, data)
@@ -53,11 +54,11 @@ const updateUser = (user, isMultiGame) => {
 }
 
 const updateUserAnsCount = (user, isCorrect) => {
-    console.log(isCorrect)
+    if (!user) return
     return axios
         .get(`${userUrl}/${user._id}`)
         .then(({ data }) => {
-            console.log(data)
+            if (!data.stats) return
             data.stats.correctAns = parseInt(data.stats.correctAns) + isCorrect
             data.stats.wrongAns = parseInt(data.stats.wrongAns) + !isCorrect
             var updateduUser = Object.assign({}, data)
