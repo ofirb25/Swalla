@@ -51,8 +51,8 @@ export default {
   },
   methods: {
     isUser(nickname) {
-      console.log('1', this.playerName, '2',nickname)
-      return this.playerName === nickname
+      console.log("1", this.playerName, "2", nickname);
+      return this.playerName === nickname;
     }
   }
 };
@@ -83,11 +83,16 @@ table {
   .rank {
     font-size: 0.8em;
   }
-  .share-facebook{
+  .share-facebook {
     max-width: 0px;
   }
 }
 
 @media (max-width: 700px) {
+  .share-facebook {
+    position: absolute;
+    bottom: 30px;
+    right: 200px;
+  }
 }
 </style>

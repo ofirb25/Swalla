@@ -41,6 +41,7 @@
 </template>
 <script>
 import GameList from "../components/HomeComps/GameList";
+import swal from "sweetalert2";
 import { SET_FILTER, SET_AUDIENCE } from "../modules/GamesModule";
 export default {
   data() {
@@ -60,8 +61,11 @@ export default {
       if (this.pin === "8====>") {
         this.$router.push("/avinoam");
         return;
+      } else if (this.pin) {
+        this.$router.push("/game/:gameId/play-multi/" + this.pin);
+      } else {
+        swal("Can't get you that", "something is wrong", "error");
       }
-      this.$router.push("/game/:gameId/play-multi/" + this.pin);
     },
     setAudience(audience) {
       this.$store.commit({ type: SET_AUDIENCE, audience });
@@ -69,14 +73,13 @@ export default {
   },
   created() {
     this.$store.commit({ type: SET_FILTER, filterBy: "" });
-    this.$store.commit({ type: SET_AUDIENCE, audience: 'all' });
+    this.$store.commit({ type: SET_AUDIENCE, audience: "all" });
   }
 };
 </script>
 
 <style lang="scss" scoped>
-
-.page-container{
+.page-container {
   display: flex;
   flex-direction: column;
 }

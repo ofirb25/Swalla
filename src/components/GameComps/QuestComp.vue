@@ -17,7 +17,7 @@
           </div>
           <div v-if="!showCorrect" class="answers">
               <v-btn v-for="(answer,idx) in question.answers" :class="isSelected(idx)" :key="idx"
-               :color="answerColors[idx]" @click="checkAns($event,idx)"
+               :color="answerColors[idx]" @touchstart="checkAns(idx)" @click="checkAns(idx)"
                   :ref="'ans'+idx">
                   {{answer.text}}
               </v-btn>
@@ -55,7 +55,7 @@ export default {
     };
   },
   methods: {
-    checkAns($event, id) {
+    checkAns(id) {
       if (this.isAnswer) return;
       else {
       this.$emit('checkAns',id,this.startTime)

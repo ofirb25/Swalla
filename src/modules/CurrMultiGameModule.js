@@ -27,6 +27,7 @@ export default {
         },
         [PLAY_NEXT](state) {
             state.currQuestion++
+            state.answersCount = 0
         },
         [ADD_POINTS](state, { players }) {
             state.match.players = players
@@ -68,11 +69,6 @@ export default {
         answersCount(context) {
             return context.answersCount
         },
-        // currMultiGameScores(context){
-        //     if(context.players.length) {
-        //         return context.players
-        //     }
-        // },
         multiPlayers(context) {
             if (context.match) {
                 return context.match.players.sort(function (a, b){

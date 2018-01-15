@@ -95,7 +95,6 @@ export default {
       } else {
         this.$store.dispatch({ type: UPDATE_USER_ANS_COUNT, isCorrect: false });
       }
-
       this.$socket.emit("PLAYER_ANSWERED", { points, pin: this.pin });
     },
     showScores() {
@@ -132,6 +131,9 @@ export default {
     }
   },
   created() {
+    window.onbeforeunload = function() {
+      return "Dude, are you sure you want to leave? Think of the kittens!";
+    };
     if (this.$route.params.pinCode) {
       this.isJoining = true;
     }
@@ -143,6 +145,9 @@ export default {
         });
     });
     this.updeteUser();
+  },
+  destroyed() {
+    window.onbeforeunload = null;
   },
   sockets: {
     connect() {

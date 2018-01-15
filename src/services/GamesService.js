@@ -21,6 +21,9 @@ function getGameById(id) {
 function checkAns(question, selectedAnswer, points) {
 
 }
+function getGameByPin(pin){
+    //todo    
+}
 
 const getObjToEdit = (id) => {
     return new Promise((resolve, reject) => {
@@ -41,7 +44,7 @@ const _getEmptyGame = () => { //doens't get the Owner Id from thr DB yet!!!
         ownerId: 0,
         name: '',
         description: '',
-        img: '',
+        img: 'http://nowiknow.com/quizzes/wp-content/uploads/2016/07/question-mark-background-vector.jpg',
         highscore: 0,
         audience: '',
         isPublic: true,

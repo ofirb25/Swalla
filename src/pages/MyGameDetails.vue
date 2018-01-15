@@ -66,7 +66,7 @@ export default {
       this.fixer = !this.fixer;
     },
     saveGame() {
-      if (this.editableGame.img === '') this.editableGame.img = 'http://nowiknow.com/quizzes/wp-content/uploads/2016/07/question-mark-background-vector.jpg'
+      // if (this.editableGame.img === '') this.editableGame.img = 'http://nowiknow.com/quizzes/wp-content/uploads/2016/07/question-mark-background-vector.jpg'
       this.editableGame.ownerName = this.$store.getters.loggedinUserName;
       GameService.updateGame(this.editableGame).then(game => {
         UserService.getUserById(game.data.ownerId).then(user => {

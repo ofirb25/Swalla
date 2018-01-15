@@ -30,15 +30,7 @@
             </v-toolbar-items>
         </v-toolbar>
 
-        <v-navigation-drawer temporary v-model="drawer" light absolute>
-            <v-list class="pa-1">
-                <v-list-tile avatar>
-                    <v-list-tile-avatar>
-                        <img src="../assets/swalla2.png" />
-                    </v-list-tile-avatar>
-                </v-list-tile>
-            </v-list>
-
+        <v-navigation-drawer class="aside" temporary v-model="drawer" light absolute>
             <v-list class="pt-0" dense>
                 <v-divider></v-divider>
 
@@ -135,7 +127,6 @@ export default {
 .logo-router {
   background-color: rgba(255, 255, 255, 0);
 }
-
 @media (max-width: 700px) {
   .nav {
     padding: 12px;
