@@ -57,6 +57,7 @@ const updateUserAnsCount = (user, isCorrect) => {
     return axios
         .get(`${userUrl}/${user._id}`)
         .then(({ data }) => {
+            console.log(data)
             data.stats.correctAns = parseInt(data.stats.correctAns) + isCorrect
             data.stats.wrongAns = parseInt(data.stats.wrongAns) + !isCorrect
             var updateduUser = Object.assign({}, data)
